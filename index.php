@@ -78,8 +78,8 @@ require_once "header.php";
       $sql = "SELECT * FROM `teams` ORDER BY name ASC LIMIT 7;";
 
       $result = mysqli_query($conn, $sql);
-      while ($row = mysqli_fetch_array($result)) {
 
+      while ($row = mysqli_fetch_array($result)) {
     ?>
         <div class="card h-48 w-52 bg-base-100 shadow-xl">
           <figure><img src="<?php echo $row['logo'] ?>" alt="<?php echo $row['name'] ?>" /></figure>
@@ -88,7 +88,6 @@ require_once "header.php";
           </div>
         </div>
       <?php
-
       }
     else :
 

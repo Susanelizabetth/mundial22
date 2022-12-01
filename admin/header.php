@@ -23,19 +23,19 @@
           <ul class="flex items-center gap-6 text-sm">
             <li>
               <a class="text-gray-500 transition hover:text-gray-500/75 <?= ($activePage == 'teams') ? 'font-bold text-black' : ''; ?>" href="teams.php">
-                Teams
+                Equipos
               </a>
             </li>
 
             <li>
               <a class="text-gray-500 transition hover:text-gray-500/75  <?= ($activePage == 'players') ? 'font-bold text-black' : ''; ?>" href="players.php">
-                Players
+                Jugadores
               </a>
             </li>
 
             <li>
               <a class="text-gray-500 transition hover:text-gray-500/75 <?= ($activePage == 'groups') ? 'font-bold text-black' : ''; ?>" href=" groups.php">
-                Groups
+                Grupos
               </a>
             </li>
 
@@ -47,15 +47,11 @@
 
             <li>
               <a class="text-gray-500 transition hover:text-gray-500/75" href="/">
-                Projects
+                Usuarios
               </a>
             </li>
 
-            <li>
-              <a class="text-gray-500 transition hover:text-gray-500/75" href="/">
-                Blog
-              </a>
-            </li>
+
           </ul>
         </nav>
 

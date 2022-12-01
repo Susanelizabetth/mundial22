@@ -2,6 +2,7 @@
     session_start();
     require_once "../connection.php";
     $show_invalid = 0;
+
     if (isset($_POST['but_submit'])) {
 
       $uname = mysqli_real_escape_string($conn, $_POST['username']);

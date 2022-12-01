@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-11-2022 a las 06:00:36
+-- Tiempo de generación: 01-12-2022 a las 11:16:50
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `mundial2022`
 --
+CREATE DATABASE IF NOT EXISTS `mundial2022` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `mundial2022`;
 
 -- --------------------------------------------------------
 
@@ -27,11 +29,116 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `favorite`
 --
 
-CREATE TABLE `favorite` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `favorite`;
+CREATE TABLE IF NOT EXISTS `favorite` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_team` int(11) DEFAULT NULL,
-  `id_user` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_user` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `favorite_team` (`id_team`),
+  KEY `favorite_user` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Truncar tablas antes de insertar `favorite`
+--
+
+TRUNCATE TABLE `favorite`;
+--
+-- Volcado de datos para la tabla `favorite`
+--
+
+INSERT INTO `favorite` (`id`, `id_team`, `id_user`) VALUES
+(1, 2, 1),
+(2, 4, 3),
+(5, 17, 1),
+(7, 16, 1),
+(9, 3, 1),
+(10, 4, 1),
+(11, 3, 4),
+(12, 5, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `games`
+--
+
+DROP TABLE IF EXISTS `games`;
+CREATE TABLE IF NOT EXISTS `games` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `datetime` datetime NOT NULL,
+  `id_team_a` int(11) NOT NULL,
+  `id_team_b` int(11) NOT NULL,
+  `gol_team_a` int(11) NOT NULL,
+  `gol_team_b` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `game_team_a` (`id_team_a`),
+  KEY `game_team_b` (`id_team_b`)
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Truncar tablas antes de insertar `games`
+--
+
+TRUNCATE TABLE `games`;
+--
+-- Volcado de datos para la tabla `games`
+--
+
+INSERT INTO `games` (`id`, `datetime`, `id_team_a`, `id_team_b`, `gol_team_a`, `gol_team_b`) VALUES
+(1, '2022-11-20 11:00:00', 9, 13, 0, 2),
+(2, '2022-11-21 11:00:00', 28, 24, 0, 2),
+(3, '2022-11-21 08:00:00', 19, 20, 6, 2),
+(4, '2022-11-21 14:00:00', 15, 17, 1, 1),
+(5, '2022-11-22 05:00:00', 3, 2, 1, 2),
+(6, '2022-11-22 08:00:00', 12, 31, 0, 0),
+(7, '2022-11-22 14:00:00', 16, 4, 4, 1),
+(8, '2022-11-22 11:00:00', 23, 25, 0, 0),
+(9, '2022-11-23 08:00:00', 1, 21, 1, 2),
+(10, '2022-11-23 11:00:00', 14, 10, 7, 0),
+(11, '2022-11-23 05:00:00', 22, 11, 0, 0),
+(12, '2022-11-23 14:00:00', 5, 8, 1, 0),
+(13, '2022-11-24 05:00:00', 30, 7, 1, 0),
+(14, '2022-11-24 14:00:00', 6, 29, 2, 0),
+(15, '2022-11-24 08:00:00', 32, 27, 0, 0),
+(16, '2022-11-24 11:00:00', 26, 18, 3, 2),
+(17, '2022-11-25 08:00:00', 9, 28, 1, 3),
+(18, '2022-11-25 11:00:00', 24, 13, 1, 1),
+(19, '2022-11-25 05:00:00', 17, 20, 0, 2),
+(20, '2022-11-25 14:00:00', 19, 15, 0, 0),
+(21, '2022-11-26 08:00:00', 25, 2, 2, 0),
+(22, '2022-11-26 14:00:00', 3, 23, 2, 0),
+(23, '2022-11-26 05:00:00', 31, 4, 0, 1),
+(24, '2022-11-26 11:00:00', 16, 12, 2, 1),
+(25, '2022-11-27 05:00:00', 21, 10, 0, 1),
+(26, '2022-11-27 02:00:00', 14, 1, 1, 1),
+(27, '2022-11-27 08:00:00', 5, 22, 0, 2),
+(28, '2022-11-27 11:00:00', 11, 8, 4, 1),
+(29, '2022-11-28 05:00:00', 7, 29, 3, 3),
+(30, '2022-11-28 11:00:00', 6, 30, 1, 0),
+(31, '2022-11-28 08:00:00', 27, 18, 2, 3),
+(32, '2022-11-28 14:00:00', 26, 32, 2, 0),
+(33, '2022-11-29 10:00:00', 24, 9, 2, 0),
+(34, '2022-11-29 10:00:00', 13, 28, 1, 2),
+(35, '2022-11-29 14:00:00', 17, 19, 0, 3),
+(36, '2022-11-29 14:00:00', 20, 15, 0, 1),
+(37, '2022-11-30 14:00:00', 25, 3, 0, 2),
+(38, '2022-11-30 14:00:00', 2, 23, 1, 2),
+(39, '2022-11-30 10:00:00', 31, 16, 1, 0),
+(40, '2022-11-30 10:00:00', 4, 12, 1, 0),
+(41, '2022-12-01 14:00:00', 10, 1, 0, 0),
+(42, '2022-12-01 14:00:00', 21, 14, 0, 0),
+(43, '2022-12-01 10:00:00', 11, 5, 0, 0),
+(44, '2022-12-01 10:00:00', 8, 22, 0, 0),
+(45, '2022-12-02 14:00:00', 7, 6, 0, 0),
+(46, '2022-12-02 14:00:00', 29, 30, 0, 0),
+(47, '2022-12-02 10:00:00', 27, 26, 0, 0),
+(48, '2022-12-02 10:00:00', 18, 32, 0, 0),
+(49, '2022-12-03 10:00:00', 24, 15, 0, 0),
+(50, '2022-12-03 14:00:00', 3, 4, 0, 0),
+(51, '2022-12-04 10:00:00', 16, 25, 0, 0),
+(52, '2022-12-04 14:00:00', 19, 28, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -39,10 +146,31 @@ CREATE TABLE `favorite` (
 -- Estructura de tabla para la tabla `groups`
 --
 
-CREATE TABLE `groups` (
-  `id` int(11) NOT NULL,
-  `name` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `groups`;
+CREATE TABLE IF NOT EXISTS `groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Truncar tablas antes de insertar `groups`
+--
+
+TRUNCATE TABLE `groups`;
+--
+-- Volcado de datos para la tabla `groups`
+--
+
+INSERT INTO `groups` (`id`, `name`) VALUES
+(1, 'Grupo A'),
+(2, 'Grupo B'),
+(3, 'Grupo C'),
+(4, 'Grupo D'),
+(5, 'Grupo E'),
+(6, 'Grupo F'),
+(7, 'Grupo G'),
+(8, 'Grupo H');
 
 -- --------------------------------------------------------
 
@@ -50,116 +178,990 @@ CREATE TABLE `groups` (
 -- Estructura de tabla para la tabla `players`
 --
 
-CREATE TABLE `players` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `players`;
+CREATE TABLE IF NOT EXISTS `players` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `last_name` varchar(200) NOT NULL,
-  `id_team` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_team` int(11) NOT NULL,
+  `position_id` int(200) NOT NULL,
+  `picture` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `players_team` (`id_team`),
+  KEY `players_positions` (`position_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=833 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Truncar tablas antes de insertar `players`
+--
+
+TRUNCATE TABLE `players`;
+--
+-- Volcado de datos para la tabla `players`
+--
+
+INSERT INTO `players` (`id`, `name`, `last_name`, `id_team`, `position_id`, `picture`) VALUES
+(1, 'Manuel', 'NEUER', 1, 3, 'https://digitalhub.fifa.com/transform/a888d8b0-7696-483d-8d8c-95026122bb5c/1442303589?io=transform:fill,width:792,height:900'),
+(2, 'Antonio', 'RUEDIGER', 1, 1, 'https://digitalhub.fifa.com/transform/dc083bab-2f1f-42e8-b0a3-c56dd449b7ec/1442303551?io=transform:fill,width:792,height:900'),
+(3, 'David', 'RAUM', 1, 1, 'https://digitalhub.fifa.com/transform/64f81ec7-0179-4ca8-ae4b-b88b09b97a47/1442303834?io=transform:fill,width:792,height:900'),
+(4, 'Matthias', 'GINTER', 1, 1, 'https://digitalhub.fifa.com/transform/17a8a418-dcab-4922-9b0a-c003486c4c8f/1442304815?io=transform:fill,width:792,height:900'),
+(5, 'Thilo', 'KEHRER', 1, 1, 'https://digitalhub.fifa.com/transform/243ea485-7ae6-45e4-9a45-a8ceb7383538/1442304875?io=transform:fill,width:792,height:900'),
+(6, 'Joshua', 'KIMMICH', 1, 2, 'https://digitalhub.fifa.com/transform/f92301b1-aebb-4dfd-8160-8c88e6867550/1442303808?io=transform:fill,width:792,height:900'),
+(7, 'Kai', 'HAVERTZ', 1, 4, 'https://digitalhub.fifa.com/transform/546ecd82-a41e-4914-9290-4339373a025d/1442304640?io=transform:fill,width:792,height:900'),
+(8, 'Leon', 'GORETZKA', 1, 2, 'https://digitalhub.fifa.com/transform/904c2683-14bf-4b41-949c-8085e0311f85/1442304709?io=transform:fill,width:792,height:900'),
+(9, 'Niclas', 'FUELLKRUG', 1, 4, 'https://digitalhub.fifa.com/transform/8c4c09c8-34fc-41c6-88f7-726716de3f17/1442304691?io=transform:fill,width:792,height:900'),
+(10, 'Serge', 'GNABRY', 1, 4, 'https://digitalhub.fifa.com/transform/77f92a1e-e521-4bae-830c-0961aade8fb0/1442303743?io=transform:fill,width:792,height:900'),
+(11, 'Mario', 'GOETZE', 1, 2, 'https://digitalhub.fifa.com/transform/f816d2a9-5071-4c24-b5bc-2d04f707eb43/1442303760?io=transform:fill,width:792,height:900'),
+(12, 'Kevin', 'TRAPP', 1, 3, 'https://digitalhub.fifa.com/transform/d5abf5c1-845d-4cfa-99ea-3c6822d30ffd/1442303503?io=transform:fill,width:792,height:900'),
+(13, 'Thomas', 'MUELLER', 1, 2, 'https://digitalhub.fifa.com/transform/71b43d35-b1ab-4185-924a-634a94458617/1442303887?io=transform:fill,width:792,height:900'),
+(14, 'Jamal', 'MUSIALA', 1, 2, 'https://digitalhub.fifa.com/transform/f0d37884-cf42-46d5-8a6c-7690e9d93f87/1442304032?io=transform:fill,width:792,height:900'),
+(15, 'Niklas', 'SUELE', 1, 1, 'https://digitalhub.fifa.com/transform/7c47eb34-90df-4383-9c84-5d161efd0b4f/1442304073?io=transform:fill,width:792,height:900'),
+(16, 'Lukas', 'KLOSTERMANN', 1, 1, 'https://digitalhub.fifa.com/transform/8f202e79-2bb2-4c9a-a5bb-d1630724a02b/1442304114?io=transform:fill,width:792,height:900'),
+(17, 'Julian', 'BRANDT', 1, 2, 'https://digitalhub.fifa.com/transform/91acb045-9484-406a-ac4e-23a309cec608/1442303863?io=transform:fill,width:792,height:900'),
+(18, 'Jonas', 'HOFMANN', 1, 2, 'https://digitalhub.fifa.com/transform/86a9357f-07c7-402c-b93f-4c40fe033ec5/1442303962?io=transform:fill,width:792,height:900'),
+(19, 'Leroy', 'SANE', 1, 2, 'https://digitalhub.fifa.com/transform/86c40236-5157-4399-bc1e-1948764538cc/1442303788?io=transform:fill,width:792,height:900'),
+(20, 'Christian', 'GUENTER', 1, 1, 'https://digitalhub.fifa.com/transform/4abb2d65-fe5b-43e0-b942-f5262975a37e/1442303992?io=transform:fill,width:792,height:900'),
+(21, 'Ilkay', 'GUENDOGAN', 1, 2, 'https://digitalhub.fifa.com/transform/6e7836ec-7855-480f-9aed-7dc471e08d63/1442303696?io=transform:fill,width:792,height:900'),
+(22, 'Marc', '-Andre TER STEGEN', 1, 3, 'https://digitalhub.fifa.com/transform/dc083bab-2f1f-42e8-b0a3-c56dd449b7ec/1442303551?io=transform:fill,width:792,height:900'),
+(23, 'Nico', 'SCHLOTTERBECK', 1, 1, 'https://digitalhub.fifa.com/transform/88ad405f-ad63-4b8a-8772-beed58427111/1442304776?io=transform:fill,width:792,height:900'),
+(24, 'Karim', 'ADEYEMI', 1, 4, 'https://digitalhub.fifa.com/transform/51831052-072d-4b7f-be60-e5d8c248da83/1442303644?io=transform:fill,width:792,height:900'),
+(25, 'Armel', 'BELLA KOTCHAP', 1, 1, 'https://digitalhub.fifa.com/transform/78373318-414c-43a9-8c58-8ab067205ba0/1442304727?io=transform:fill,width:792,height:900'),
+(26, 'Youssoufa', 'MOUKOKO', 1, 4, 'https://digitalhub.fifa.com/transform/35376ae6-3e53-4ded-bb6f-74781cf6fd2c/1442303673?io=transform:fill,width:792,height:900'),
+(27, 'MOHAMMED', 'ALYAMI', 2, 3, 'https://digitalhub.fifa.com/transform/5ece8643-f92f-4716-8701-2cc6c68498f8/1442476147?io=transform:fill,width:792,height:900'),
+(28, 'SULTAN', 'ALGHANNAM', 2, 1, 'https://digitalhub.fifa.com/transform/f29b5ba5-b055-4ef9-9237-dba93c33e763/1442483111?io=transform:fill,width:792,height:900'),
+(29, 'ABDULLAH', 'MADU', 2, 1, 'https://digitalhub.fifa.com/transform/c178f617-f927-456f-b1fb-f8b997d53f90/1442477144?io=transform:fill,width:792,height:900'),
+(30, 'Abdulelah', 'ALAMRI', 2, 1, 'https://digitalhub.fifa.com/transform/b79d9806-0721-411b-9f3c-94a5a95c46e3/1442482940?io=transform:fill,width:792,height:900'),
+(31, 'ALI', 'ALBULAYHI', 2, 1, 'https://digitalhub.fifa.com/transform/4f8e42cf-4966-4717-8c6d-f1b7f861a291/1442483955?io=transform:fill,width:792,height:900'),
+(32, 'MOHAMMED', 'ALBURAYK', 2, 1, 'https://digitalhub.fifa.com/transform/86f5148f-e06f-4bcf-916d-87267cb9fa7d/1442482349?io=transform:fill,width:792,height:900'),
+(33, 'SALMAN', 'ALFARAJ', 2, 2, 'https://digitalhub.fifa.com/transform/01b38c34-fe54-4c6b-be17-3c681315ff4b/1442483914?io=transform:fill,width:792,height:900'),
+(34, 'ABDULELAH', 'ALMALKI', 2, 2, 'https://digitalhub.fifa.com/transform/2b4b377b-5dd9-462f-af09-a23f9df270bb/1442483822?io=transform:fill,width:792,height:900'),
+(35, 'FERAS', 'ALBRIKAN', 2, 4, 'https://digitalhub.fifa.com/transform/500cc0c9-bdb7-4864-9ded-437eec9ce6e1/1442480805?io=transform:fill,width:792,height:900'),
+(36, 'SALEM', 'ALDAWSARI', 2, 4, 'https://digitalhub.fifa.com/transform/072ede2c-c624-4479-8a6d-7abe03473692/1442476890?io=transform:fill,width:792,height:900'),
+(37, 'SALEH', 'ALSHEHRI', 2, 4, 'https://digitalhub.fifa.com/transform/34d27bae-23e0-4fb4-8d33-8daabc72ef06/1442480114?io=transform:fill,width:792,height:900'),
+(38, 'SAUD', 'ABDULHAMID', 2, 1, 'https://digitalhub.fifa.com/transform/81d40c90-9740-49f5-b273-4e27a56874a3/1442480785?io=transform:fill,width:792,height:900'),
+(39, 'YASSER', 'ALSHAHRANI', 2, 1, 'https://digitalhub.fifa.com/transform/e7d57d32-2d62-489e-85e7-fddcf1bc17f7/1442482644?io=transform:fill,width:792,height:900'),
+(40, 'ABDULLAH', 'OTAYF', 2, 2, 'https://digitalhub.fifa.com/transform/40ee6d77-9778-486b-a7c2-bff7f49c562d/1442482992?io=transform:fill,width:792,height:900'),
+(41, 'ALI', 'ALHASSAN', 2, 2, 'https://digitalhub.fifa.com/transform/5c208c33-037a-416d-83cf-3ec9629edf48/1442480030?io=transform:fill,width:792,height:900'),
+(42, 'Sami', 'ALNAJI', 2, 2, 'https://digitalhub.fifa.com/transform/f7cd01eb-3dab-457f-ad3e-a5e031f6d445/1442480515?io=transform:fill,width:792,height:900'),
+(43, 'Hassan', 'ALTAMBAKTI', 2, 1, 'https://digitalhub.fifa.com/transform/cc5d7dcf-36a1-4c08-a06c-dd38495ce76f/1442480765?io=transform:fill,width:792,height:900'),
+(44, 'NAWAF', 'AL ABID', 2, 2, 'https://digitalhub.fifa.com/transform/66dac81a-9d3b-4adf-9793-984091e4952f/1442480014?io=transform:fill,width:792,height:900'),
+(45, 'HATAN', 'BAHBRI', 2, 4, 'https://digitalhub.fifa.com/transform/1b679951-d731-4c50-9c39-80fc47edd94c/1442483861?io=transform:fill,width:792,height:900'),
+(46, 'ABDULRAHMAN', 'ALOBUD', 2, 4, 'https://digitalhub.fifa.com/transform/15111bfa-ce3e-471a-bd97-01efd9b052f4/1442477752?io=transform:fill,width:792,height:900'),
+(47, 'MOHAMMED', 'ALOWAIS', 2, 3, 'https://digitalhub.fifa.com/transform/b0bd2aa4-cbef-421f-9933-b73b92cdf2f1/1442476202?io=transform:fill,width:792,height:900'),
+(48, 'NAWAF', 'ALAQIDI', 2, 3, 'https://digitalhub.fifa.com/transform/aacfb3f9-17de-4178-a1e6-8087257ccae8/1442476218?io=transform:fill,width:792,height:900'),
+(49, 'MOHAMED', 'KANNO', 2, 2, 'https://digitalhub.fifa.com/transform/baf07a7f-1257-46bb-a113-331a5c0a57e4/1442482688?io=transform:fill,width:792,height:900'),
+(50, 'Nasser', 'ALDAWSARI', 2, 2, 'https://digitalhub.fifa.com/transform/1e276d88-4880-4e44-8172-1fc403292e13/1442480681?io=transform:fill,width:792,height:900'),
+(51, 'HAITHAM', 'ASIRI', 2, 4, 'https://digitalhub.fifa.com/transform/d9eafc6f-4d92-4fbb-8205-adb792363b0f/1442482198?io=transform:fill,width:792,height:900'),
+(52, 'RIYADH', 'SHARAHILI', 2, 2, 'https://digitalhub.fifa.com/transform/bb0bf1a2-9383-4fe1-9251-30932d36cfb6/1442480439?io=transform:fill,width:792,height:900'),
+(53, 'Franco', 'ARMANI', 3, 3, 'https://digitalhub.fifa.com/transform/55e9fe36-b328-44f5-86d8-1cba96a4d05e/1442740056?io=transform:fill,width:792,height:900'),
+(54, 'Juan', 'FOYTH', 3, 1, 'https://digitalhub.fifa.com/transform/fd88628f-36a5-4bef-875e-fcb52581207a/1442742652?io=transform:fill,width:792,height:900'),
+(55, 'Nicolas', 'TAGLIAFICO', 3, 1, 'https://digitalhub.fifa.com/transform/9c5788af-5f9c-4d80-ba26-296edd06e352/1442740186?io=transform:fill,width:792,height:900'),
+(56, 'Gonzalo', 'MONTIEL', 3, 1, 'https://digitalhub.fifa.com/transform/d37e7b7f-e91d-4ed4-b601-8494b56af199/1442742819?io=transform:fill,width:792,height:900'),
+(57, 'Leandro', 'PAREDES', 3, 2, 'https://digitalhub.fifa.com/transform/df4eb81d-b234-432c-a5d1-47f10fd6b844/1442742223?io=transform:fill,width:792,height:900'),
+(58, 'German', 'PEZZELLA', 3, 1, 'https://digitalhub.fifa.com/transform/57c8d393-5328-40ab-a5f2-59efd1a042df/1442742197?io=transform:fill,width:792,height:900'),
+(59, 'Rodrigo', 'DE PAUL', 3, 2, 'https://digitalhub.fifa.com/transform/427cc23a-3489-42f1-892f-881b85b857d8/1442742174?io=transform:fill,width:792,height:900'),
+(60, 'Marcos', 'ACUNA', 3, 2, 'https://digitalhub.fifa.com/transform/b1d9ebe0-067f-4246-881d-ed9dab03835e/1442742836?io=transform:fill,width:792,height:900'),
+(61, 'Julian', 'ALVAREZ', 3, 4, 'https://digitalhub.fifa.com/transform/86f9d09d-336e-49e9-868f-78e8426d6bfb/1442743531?io=transform:fill,width:792,height:900'),
+(62, 'Lionel', 'MESSI', 3, 4, 'https://digitalhub.fifa.com/transform/40e6d6b5-9742-4123-8fb8-d69662c3b24a/1442770580?io=transform:fill,width:792,height:900'),
+(63, 'Angel', 'DI MARIA', 3, 4, 'https://digitalhub.fifa.com/transform/1ced2af1-6b06-4896-ba4b-111c9de737e9/1442742357?io=transform:fill,width:792,height:900'),
+(64, 'Geronimo', 'RULLI', 3, 3, 'https://digitalhub.fifa.com/transform/08c7e932-41a2-460e-b14b-04903ac5ca8c/1442774135?io=transform:fill,width:792,height:900'),
+(65, 'Cristian', 'ROMERO', 3, 1, 'https://digitalhub.fifa.com/transform/10db8803-6d59-4a4b-909d-4cb0b297f904/1442742592?io=transform:fill,width:792,height:900'),
+(66, 'Exequiel', 'PALACIOS', 3, 2, 'https://digitalhub.fifa.com/transform/79db6a3d-02a5-470e-9b36-7828d5b2d02c/1442742805?io=transform:fill,width:792,height:900'),
+(67, 'Angel', 'CORREA', 3, 4, 'https://digitalhub.fifa.com/transform/1c0d0dd2-244d-4566-972d-f6bf0acd3632/1442770400?io=transform:fill,width:792,height:900'),
+(68, 'Thiago', 'ALMADA', 3, 2, 'https://digitalhub.fifa.com/transform/555f0c07-6203-4aaf-8830-6fd909a22193/1442770365?io=transform:fill,width:792,height:900'),
+(69, 'Alejandro', 'GOMEZ', 3, 2, 'https://digitalhub.fifa.com/transform/a2a9f2d8-b6ef-4152-87ea-82314c0c106e/1442741064?io=transform:fill,width:792,height:900'),
+(70, 'RODRIGUEZ', 'GUIDO', 3, 2, 'https://digitalhub.fifa.com/transform/7819e5f3-30ca-40b3-82f1-e0d30b83e384/1442743421?io=transform:fill,width:792,height:900'),
+(71, 'Nicolas', 'OTAMENDI', 3, 1, 'https://digitalhub.fifa.com/transform/592d999d-3ded-4a1c-8df1-0ddcad20c18b/1442741360?io=transform:fill,width:792,height:900'),
+(72, 'Alexis', 'MAC ALLISTER', 3, 2, 'https://digitalhub.fifa.com/transform/587f8ff4-72a1-4499-bf71-c38bbc87c9ec/1442742544?io=transform:fill,width:792,height:900'),
+(73, 'Paulo', 'DYBALA', 3, 4, 'https://digitalhub.fifa.com/transform/ca25a965-d216-44dc-b256-cc708605d2fc/1442740796?io=transform:fill,width:792,height:900'),
+(74, 'Lautaro', 'MARTINEZ', 3, 4, 'https://digitalhub.fifa.com/transform/ce6502bd-6a21-4a83-a434-9ee5da63e99e/1442742404?io=transform:fill,width:792,height:900'),
+(75, 'Damian', 'MARTINEZ', 3, 3, 'https://digitalhub.fifa.com/transform/ec57583f-85ed-4b6e-b619-8ec94de13b8f/1442740128?io=transform:fill,width:792,height:900'),
+(76, 'Enzo', 'FERNANDEZ', 3, 2, 'https://digitalhub.fifa.com/transform/15281e95-c206-4287-a572-c52d523e188c/1442743507?io=transform:fill,width:792,height:900'),
+(77, 'Lisandro', 'MARTINEZ', 3, 1, 'https://digitalhub.fifa.com/transform/5c6bc06c-6694-4863-b543-e74b672741a3/1442801367?io=transform:fill,width:792,height:900'),
+(78, 'Nahuel', 'MOLINA', 3, 1, 'https://digitalhub.fifa.com/transform/0c723ec4-6132-42de-8b21-a70ad7a1c4c1/1442742632?io=transform:fill,width:792,height:900'),
+(79, 'Mathew', 'RYAN', 4, 3, 'https://digitalhub.fifa.com/transform/ab34d096-1c72-4fb0-bc8c-b2181a03afd8/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(80, 'Milos', 'DEGENEK', 4, 1, 'https://digitalhub.fifa.com/transform/4db65003-9d44-4ae3-9e99-9c1decde80ee/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(81, 'Nathaniel', 'ATKINSON', 4, 1, 'https://digitalhub.fifa.com/transform/1b5aed14-761f-47a8-b8e6-b02d805c295d/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(82, 'Kye', 'ROWLES', 4, 1, 'https://digitalhub.fifa.com/transform/04fd32f9-273a-460b-aaa7-ce6dcbfb57b8/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(83, 'Fran', 'KARACIC', 4, 1, 'https://digitalhub.fifa.com/transform/83f5aa2c-800c-44c5-9194-8a50531bbfcb/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(84, 'Marco', 'TILIO', 4, 4, 'https://digitalhub.fifa.com/transform/76d580d0-80ed-4379-b8ad-f9e0450f9888/432015?io=transform:fill,width:792,height:900'),
+(85, 'Mathew', 'LECKIE', 4, 4, 'https://digitalhub.fifa.com/transform/a59e2bd5-7e33-4870-a682-372fd28a4c62/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(86, 'Bailey', 'WRIGHT', 4, 1, 'https://digitalhub.fifa.com/transform/e46fee40-ddcd-449d-bfc8-5f5728ee99f7/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(87, 'Jamie', 'MacLAREN', 4, 4, 'https://digitalhub.fifa.com/transform/77a5e61b-3474-4661-bbe2-6c0cbf0f531e/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(88, 'Ajdin', 'HRUSTIC', 4, 2, 'https://digitalhub.fifa.com/transform/1902b759-15e7-46a3-9377-3dddc86ed62f/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(89, 'Awer', 'MABIL', 4, 4, 'https://digitalhub.fifa.com/transform/445d0f63-66cf-40df-ba9d-ae3fb5b287e6/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(90, 'Andrew', 'REDMAYNE', 4, 3, 'https://digitalhub.fifa.com/transform/369b5183-9588-4968-9332-01badba82fe0/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(91, 'Aaron', 'MOOY', 4, 2, 'https://digitalhub.fifa.com/transform/96fe8ea1-d2c8-4aa2-a398-0a4e7e6f650e/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(92, 'Riley', 'McGREE', 4, 2, 'https://digitalhub.fifa.com/transform/90c30982-feae-473d-afea-ab71ebac13fc/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(93, 'Mitch', 'DUKE', 4, 4, 'https://digitalhub.fifa.com/transform/6d8bc1a2-9372-4be3-be28-9786bd087fc4/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(94, 'Aziz', 'BEHICH', 4, 1, 'https://digitalhub.fifa.com/transform/3a7f702e-42aa-419d-ba16-e09ce11a7780/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(95, 'Cameron', 'DEVLIN', 4, 2, 'https://digitalhub.fifa.com/transform/53142f38-602b-4f38-bd8e-48ca66019de0/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(96, 'Danny', 'VUKOVIC', 4, 3, 'https://digitalhub.fifa.com/transform/ab40e03a-255e-4413-9663-6e2a7b0ecefd/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(97, 'Harry', 'SOUTTAR', 4, 1, 'https://digitalhub.fifa.com/transform/7993a198-b847-4028-a71b-99689d7d1f97/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(98, 'Thomas', 'DENG', 4, 1, 'https://digitalhub.fifa.com/transform/838fed92-1a5f-43da-8d17-89c965ec382b/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(99, 'Garang', 'KUOL', 4, 4, 'https://digitalhub.fifa.com/transform/f9d1ba76-fd8b-4c99-9b65-d89693f1374b/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(100, 'Jackson', 'IRVINE', 4, 2, 'https://digitalhub.fifa.com/transform/d15198f9-9f27-4e0b-91cb-8fcb5948d5eb/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(101, 'Craig', 'GOODWIN', 4, 4, 'https://digitalhub.fifa.com/transform/ca86de50-e8d6-4065-8be5-8501919e6499/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(102, 'Joel', 'KING', 4, 1, 'https://digitalhub.fifa.com/transform/18c33805-29af-44fb-badb-231092075ca9/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(103, 'Jason', 'CUMMINGS', 4, 4, 'https://digitalhub.fifa.com/transform/84466127-5974-490c-8d16-cf3213afd35b/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(104, 'Keanu', 'BACCUS', 4, 2, 'https://digitalhub.fifa.com/transform/acb6b0d9-626b-414d-a679-7696cd6e9ec2/Australia-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(105, 'Thibaut', 'COURTOIS', 5, 3, 'https://digitalhub.fifa.com/transform/0ac06079-73ec-4dd4-a0ca-77e9c79cb411/1442830156?io=transform:fill,width:792,height:900'),
+(106, 'Toby', 'ALDERWEIRELD', 5, 1, 'https://digitalhub.fifa.com/transform/dc6a2ee5-576e-406b-86ef-39e0f8052f1c/1442831258?io=transform:fill,width:792,height:900'),
+(107, 'Arthur', 'THEATE', 5, 1, 'https://digitalhub.fifa.com/transform/167ed520-293d-4afd-b475-a3f05dbb7e21/1442831205?io=transform:fill,width:792,height:900'),
+(108, 'Wout', 'FAES', 5, 1, 'https://digitalhub.fifa.com/transform/91f5100b-cbf4-4b16-b42b-89acec809f35/1442830885?io=transform:fill,width:792,height:900'),
+(109, 'Jan', 'VERTONGHEN', 5, 1, 'https://digitalhub.fifa.com/transform/eb24f201-91f8-4594-824a-fc79d3d847ed/1442831389?io=transform:fill,width:792,height:900'),
+(110, 'Axel', 'WITSEL', 5, 2, 'https://digitalhub.fifa.com/transform/7babea7d-4bac-4fc4-a166-21625949283d/1442831359?io=transform:fill,width:792,height:900'),
+(111, 'Kevin', 'DE BRUYNE', 5, 2, 'https://digitalhub.fifa.com/transform/4ea8805b-e75b-4bf7-8d1c-1f5b3fa5d9b0/1442830273?io=transform:fill,width:792,height:900'),
+(112, 'Youri', 'TIELEMANS', 5, 2, 'https://digitalhub.fifa.com/transform/dfd9f9ed-1536-4dac-b7b5-6bd889ebf379/1442831162?io=transform:fill,width:792,height:900'),
+(113, 'Romelu', 'LUKAKU', 5, 4, 'https://digitalhub.fifa.com/transform/e637e01c-e572-4184-846c-88442174fa7e/1442831418?io=transform:fill,width:792,height:900'),
+(114, 'Eden', 'HAZARD', 5, 4, 'https://digitalhub.fifa.com/transform/f2c177b8-0919-4b6d-8494-e0c74d235b2c/1442831074?io=transform:fill,width:792,height:900'),
+(115, 'Yannick', 'CARRASCO', 5, 4, 'https://digitalhub.fifa.com/transform/90359cb6-4350-4a9d-b9e7-549bdf444c96/1442830873?io=transform:fill,width:792,height:900'),
+(116, 'Simon', 'MIGNOLET', 5, 3, 'https://digitalhub.fifa.com/transform/598ef462-c1d6-455f-9e0c-b04176ce009a/1442830179?io=transform:fill,width:792,height:900'),
+(117, 'Koen', 'CASTEELS', 5, 3, 'https://digitalhub.fifa.com/transform/b0d79089-3449-46e4-9de4-0c0d91f5ab33/1442830192?io=transform:fill,width:792,height:900'),
+(118, 'Dries', 'MERTENS', 5, 4, 'https://digitalhub.fifa.com/transform/73310c7b-31ea-4161-8353-8dfeb45f372a/1442831124?io=transform:fill,width:792,height:900'),
+(119, 'Thomas', 'MEUNIER', 5, 2, 'https://digitalhub.fifa.com/transform/e2f176f4-542a-4aaa-82b0-0348fc5c0367/1442831098?io=transform:fill,width:792,height:900'),
+(120, 'Thorgan', 'HAZARD', 5, 2, 'https://digitalhub.fifa.com/transform/3741a815-1de2-424d-811a-d1385a11a5ce/1442831048?io=transform:fill,width:792,height:900'),
+(121, 'Leandro', 'TROSSARD', 5, 4, 'https://digitalhub.fifa.com/transform/e0d92ec4-1309-4ae6-8a19-7c114481d23f/1442831271?io=transform:fill,width:792,height:900'),
+(122, 'Amadou', 'ONANA', 5, 2, 'https://digitalhub.fifa.com/transform/c20efb33-edb9-4fc6-b810-813163640c76/1442831239?io=transform:fill,width:792,height:900'),
+(123, 'Leander', 'DENDONCKER', 5, 1, 'https://digitalhub.fifa.com/transform/e628cf5d-ec51-449e-91b0-53b7452f33ae/1442830927?io=transform:fill,width:792,height:900'),
+(124, 'Hans', 'VANAKEN', 5, 2, 'https://digitalhub.fifa.com/transform/19484c49-95a2-495c-a1e1-0985c3cb1eaf/1442830251?io=transform:fill,width:792,height:900'),
+(125, 'Timothy', 'CASTAGNE', 5, 2, 'https://digitalhub.fifa.com/transform/ff063eea-bf14-42ea-9095-fb0a8aba2431/1442830230?io=transform:fill,width:792,height:900'),
+(126, 'DE', 'KETELAERE', 5, 4, 'https://digitalhub.fifa.com/transform/038fdfa1-e6a3-4263-a641-256fa92f9d6c/1442830290?io=transform:fill,width:792,height:900'),
+(127, 'Michy', 'BATSHUAYI', 5, 4, 'https://digitalhub.fifa.com/transform/0076a0d4-18ff-4e44-a9b5-297b5693dfe4/1442831198?io=transform:fill,width:792,height:900'),
+(128, 'Lois', 'OPENDA', 5, 4, 'https://digitalhub.fifa.com/transform/29bfc313-f2ba-4b94-9bee-10e318e7449d/1442831190?io=transform:fill,width:792,height:900'),
+(129, 'Jeremy', 'DOKU', 5, 4, 'https://digitalhub.fifa.com/transform/8a88ac1d-c80c-4983-9315-31367b35548a/1442830967?io=transform:fill,width:792,height:900'),
+(130, 'Zeno', 'DEBAST', 5, 1, 'https://digitalhub.fifa.com/transform/0d445c85-09b0-4d1f-8821-fd9e7d54f62a/1442830845?io=transform:fill,width:792,height:900'),
+(131, 'ALISSON', '', 6, 3, 'https://digitalhub.fifa.com/transform/6f442f76-255f-4989-9fc7-e3263e2e9a0a/1443020790?io=transform:fill,width:792,height:900'),
+(132, 'DANILO', '', 6, 1, 'https://digitalhub.fifa.com/transform/f730d6f2-bcd5-4e1d-965c-4edfdd69ec3f/1443025794?io=transform:fill,width:792,height:900'),
+(133, 'THIAGO', 'SILVA', 6, 1, 'https://digitalhub.fifa.com/transform/328d2c02-44e8-479c-97e1-764e3affac8c/1443023175?io=transform:fill,width:792,height:900'),
+(134, 'MARQUINHOS', '', 6, 1, 'https://digitalhub.fifa.com/transform/a29ddb25-361b-4f6f-8fb3-50690cb01dbf/1443022046?io=transform:fill,width:792,height:900'),
+(135, 'CASEMIRO', '', 6, 2, 'https://digitalhub.fifa.com/transform/dcc8b999-a4e2-4bd6-badb-97b4c448789f/1443025808?io=transform:fill,width:792,height:900'),
+(136, 'ALEX', 'SANDRO', 6, 1, 'https://digitalhub.fifa.com/transform/3b8d2886-0097-4c87-97dd-206fe5007de2/1443021934?io=transform:fill,width:792,height:900'),
+(137, 'LUCAS', 'PAQUETA', 6, 2, 'https://digitalhub.fifa.com/transform/f7387d44-c265-4de5-b361-6e2563d7cc23/1443021748?io=transform:fill,width:792,height:900'),
+(138, 'FRED', '', 6, 2, 'https://digitalhub.fifa.com/transform/c3ebc1c0-29c7-4d2d-826e-4bf2748a3ac8/1443022121?io=transform:fill,width:792,height:900'),
+(139, 'RICHARLISON', '', 6, 4, 'https://digitalhub.fifa.com/transform/49fe3ff4-3fd9-4555-981d-615d711ce248/1443023503?io=transform:fill,width:792,height:900'),
+(140, 'NEYMAR', '', 6, 4, 'https://digitalhub.fifa.com/transform/c4e4c789-9423-47cd-8e4e-21a416f2cb06/1443025860?io=transform:fill,width:792,height:900'),
+(141, 'RAPHINHA', '', 6, 4, 'https://digitalhub.fifa.com/transform/896f5ae1-98f6-47df-a717-85320040f605/1443022143?io=transform:fill,width:792,height:900'),
+(142, 'WEVERTON', '', 6, 3, 'https://digitalhub.fifa.com/transform/7583607b-8cc5-4062-b33c-fe2e0524bbaa/1443020872?io=transform:fill,width:792,height:900'),
+(143, 'DANI', 'ALVES', 6, 1, 'https://digitalhub.fifa.com/transform/e00e36a8-49d4-4ecb-9e3f-edca7323c3ec/1443021532?io=transform:fill,width:792,height:900'),
+(144, 'EDER', 'MILITAO', 6, 1, 'https://digitalhub.fifa.com/transform/01e1c7e3-ae46-4eca-9409-1afe1619b77b/1443021700?io=transform:fill,width:792,height:900'),
+(145, 'FABINHO', '', 6, 2, 'https://digitalhub.fifa.com/transform/456fc1be-6aca-48bd-8f39-a9061e360470/1443022099?io=transform:fill,width:792,height:900'),
+(146, 'ALEX', 'TELLES', 6, 1, 'https://digitalhub.fifa.com/transform/4c0be3b7-493c-4abb-aeb0-3de078d639f9/1443022070?io=transform:fill,width:792,height:900'),
+(147, 'BRUNO', 'GUIMARAES', 6, 2, 'https://digitalhub.fifa.com/transform/f85c50c3-8376-4121-99e6-7ff9f700dada/1443021835?io=transform:fill,width:792,height:900'),
+(148, 'GABRIEL', 'JESUS', 6, 4, 'https://digitalhub.fifa.com/transform/a3fba875-a9c9-4d5b-aa92-ff7319d1177a/1443021717?io=transform:fill,width:792,height:900'),
+(149, 'ANTONY', '', 6, 4, 'https://digitalhub.fifa.com/transform/a7a2866a-2d16-4c3f-803d-e27df5fbdabc/1443021980?io=transform:fill,width:792,height:900'),
+(150, 'VINICIUS', 'JR', 6, 4, 'https://digitalhub.fifa.com/transform/f7e48956-e85e-403d-b728-2b2f3a6419ec/1443025821?io=transform:fill,width:792,height:900'),
+(151, 'RODRYGO', '', 6, 4, 'https://digitalhub.fifa.com/transform/f03a612a-1563-4fd2-93d4-85f2b53da0b3/1443021592?io=transform:fill,width:792,height:900'),
+(152, 'EVERTON', 'RIBEIRO', 6, 2, 'https://digitalhub.fifa.com/transform/6bf99a03-42db-4938-b6fd-73a254e95f36/1443023468?io=transform:fill,width:792,height:900'),
+(153, 'EDERSON', '', 6, 3, 'https://digitalhub.fifa.com/transform/eabd9fa0-3641-48c7-afbe-21220c7a69d0/1443021430?io=transform:fill,width:792,height:900'),
+(154, 'BREMER', '', 6, 1, 'https://digitalhub.fifa.com/transform/1406843e-640a-41a3-b43a-00602d1f5008/1443022026?io=transform:fill,width:792,height:900'),
+(155, 'PEDRO', '', 6, 4, 'https://digitalhub.fifa.com/transform/b8477576-af53-4b1a-92dd-f7a6688c6266/1443021995?io=transform:fill,width:792,height:900'),
+(156, 'GABRIEL', 'MARTINELLI', 6, 4, 'https://digitalhub.fifa.com/transform/708e64be-d322-44ed-b1de-1c305e7da442/1443021960?io=transform:fill,width:792,height:900'),
+(157, 'Brady', 'NGAPANDOUETNBU', 7, 3, 'https://digitalhub.fifa.com/transform/6ddedc86-e6dd-4c78-b315-6396e832c491/1443091942?io=transform:fill,width:792,height:900'),
+(158, 'Jerome', 'NGOM MBEKELI', 7, 1, 'https://digitalhub.fifa.com/transform/c4ad0dac-8032-4502-aa6a-9327039ce058/1443093900?io=transform:fill,width:792,height:900'),
+(159, 'Nicolas', 'NKOULOU', 7, 1, 'https://digitalhub.fifa.com/transform/057f705f-96ae-49ba-812e-344e968b61db/1443092996?io=transform:fill,width:792,height:900'),
+(160, 'Christopher', 'WOOH', 7, 1, 'https://digitalhub.fifa.com/transform/b100f560-2fb0-482d-805c-152a08345d4e/1443092734?io=transform:fill,width:792,height:900'),
+(161, 'Gael', 'ONDOUA', 7, 2, 'https://digitalhub.fifa.com/transform/d72e7fd5-5ddc-498a-807f-03f100e1ab67/1443093727?io=transform:fill,width:792,height:900'),
+(162, 'Nicolas', 'NGAMALEU', 7, 4, 'https://digitalhub.fifa.com/transform/9159c8d4-9a09-494e-acd9-5884e0fc758c/1443093122?io=transform:fill,width:792,height:900'),
+(163, 'Georges', '-Kevin NKOUDOU', 7, 2, 'https://digitalhub.fifa.com/transform/0f7e5f32-627e-47d3-8ca8-2d7873a85f84/1443093506?io=transform:fill,width:792,height:900'),
+(164, 'Andre', '-Frank ZAMBO ANGUISSA', 7, 2, 'https://digitalhub.fifa.com/transform/544a8d2d-26ac-4cfa-bf9d-952ac00d3088/1443093055?io=transform:fill,width:792,height:900'),
+(165, 'Jean', '-Pierre Nsame', 7, 4, 'https://digitalhub.fifa.com/transform/659618da-e361-4a9a-b608-f05da1816f43/1443092811?io=transform:fill,width:792,height:900'),
+(166, 'Vincent', 'ABOUBAKAR', 7, 4, 'https://digitalhub.fifa.com/transform/0fb327ff-be98-417d-ad8d-4f9c34bc6493/1443093024?io=transform:fill,width:792,height:900'),
+(167, 'Christian', 'BASSOGOG', 7, 4, 'https://digitalhub.fifa.com/transform/455f54f5-80f0-495c-bb03-5a4fdf188706/1443092549?io=transform:fill,width:792,height:900'),
+(168, 'Karl', 'TOKO EKAMBI', 7, 4, 'https://digitalhub.fifa.com/transform/6cfab7ec-3542-4df9-a02e-dc26923cbc6b/1443093953?io=transform:fill,width:792,height:900'),
+(169, 'Eric', 'Maxim CHOUPO-MOTING', 7, 4, 'https://digitalhub.fifa.com/transform/651d5872-995c-457a-8c6d-6be7d7f6b44f/Eric-Maxim-Choupo-Moting?io=transform:fill,width:792,height:900'),
+(170, 'Samuel', 'GOUET', 7, 2, 'https://digitalhub.fifa.com/transform/2d5fb873-d9df-4985-92fb-1479cb129227/1443092860?io=transform:fill,width:792,height:900'),
+(171, 'Pierre', 'KUNDE', 7, 2, 'https://digitalhub.fifa.com/transform/708caa85-0502-46c5-95f5-72f160db67ac/1443092769?io=transform:fill,width:792,height:900'),
+(172, 'Devis', 'EPASSY', 7, 3, 'https://digitalhub.fifa.com/transform/39872d74-53c8-4185-960d-6437599682aa/1443091973?io=transform:fill,width:792,height:900'),
+(173, 'Olivier', 'MBAIZO', 7, 1, 'https://digitalhub.fifa.com/transform/493ec844-d957-4236-8627-9993567f5303/1443092956?io=transform:fill,width:792,height:900'),
+(174, 'Martin', 'HONGLA', 7, 2, 'https://digitalhub.fifa.com/transform/db48acfe-edc7-40cf-9855-b12c9d06c486/1443092904?io=transform:fill,width:792,height:900'),
+(175, 'Collins', 'FAI', 7, 1, 'https://digitalhub.fifa.com/transform/0373615a-7813-4dfe-bf45-34a64e8da7ff/1443092600?io=transform:fill,width:792,height:900'),
+(176, 'Bryan', 'MBEUMO', 7, 4, 'https://digitalhub.fifa.com/transform/f13ebc72-a7bb-4449-af28-b904e5658910/1443092641?io=transform:fill,width:792,height:900'),
+(177, 'Jean', '-Charles CASTELLETTO', 7, 1, 'https://digitalhub.fifa.com/transform/91286cbe-9c39-4225-a5eb-1754137ff097/1443093839?io=transform:fill,width:792,height:900'),
+(178, 'Olivier', 'NTCHAM', 7, 2, 'https://digitalhub.fifa.com/transform/b1676b30-b301-4863-8ab5-d488ef27dabc/1443092016?io=transform:fill,width:792,height:900'),
+(179, 'Andre', 'ONANA', 7, 3, 'https://digitalhub.fifa.com/transform/9c1d424a-20f4-4373-bd81-8b9b795d244c/1443091999?io=transform:fill,width:792,height:900'),
+(180, 'Enzo', 'EBOSSE', 7, 1, 'https://digitalhub.fifa.com/transform/84739644-3ead-4868-9298-dfd0408d0ac4/1443092573?io=transform:fill,width:792,height:900'),
+(181, 'Nouhou', 'TOLO', 7, 1, 'https://digitalhub.fifa.com/transform/fbd130fc-dd7c-4384-b736-cff1f0efe7ac/1443092701?io=transform:fill,width:792,height:900'),
+(182, 'Souaibou', 'MAROU', 7, 2, 'https://digitalhub.fifa.com/transform/eba02e6d-5a85-4ae2-bcc7-e28fe000b178/1443093764?io=transform:fill,width:792,height:900'),
+(183, 'Dayne', 'ST. CLAIR', 8, 3, 'https://digitalhub.fifa.com/transform/867a0cc4-fff2-4bca-9292-a489bd2c5c82/1442844606?io=transform:fill,width:792,height:900'),
+(184, 'Alistair', 'JOHNSTON', 8, 1, 'https://digitalhub.fifa.com/transform/23e6bb77-7472-43b3-93fb-1d170899da4c/1442846604?io=transform:fill,width:792,height:900'),
+(185, 'Sam', 'ADEKUGBE', 8, 1, 'https://digitalhub.fifa.com/transform/66638aec-42cf-4852-bed6-29aab64b4d9b/1442847523?io=transform:fill,width:792,height:900'),
+(186, 'Kamal', 'MILLER', 8, 1, 'https://digitalhub.fifa.com/transform/6d8ba727-6898-4625-ad5c-00b3c52e5054/1442846594?io=transform:fill,width:792,height:900'),
+(187, 'Steven', 'VITORIA', 8, 1, 'https://digitalhub.fifa.com/transform/85f6d273-9d82-4a71-991c-ea8728843d91/1442844930?io=transform:fill,width:792,height:900'),
+(188, 'Samuel', 'PIETTE', 8, 2, 'https://digitalhub.fifa.com/transform/259b3ec4-691d-4275-91eb-3dac7686db9b/1442846752?io=transform:fill,width:792,height:900'),
+(189, 'Stephen', 'EUSTAQUIO', 8, 2, 'https://digitalhub.fifa.com/transform/cf5a1a06-79af-4224-b2e1-cf26af0c7441/1442846614?io=transform:fill,width:792,height:900'),
+(190, 'Liam', 'FRASER', 8, 2, 'https://digitalhub.fifa.com/transform/4efeed9e-f218-469c-97a0-5b1971ad3f19/1442845354?io=transform:fill,width:792,height:900'),
+(191, 'Lucas', 'CAVALLINI', 8, 4, 'https://digitalhub.fifa.com/transform/d15d219e-026f-4b3f-aa25-690214845bbd/1442846585?io=transform:fill,width:792,height:900'),
+(192, 'Junior', 'HOILETT', 8, 2, 'https://digitalhub.fifa.com/transform/02212ce0-8deb-4644-b5ff-62574ea55692/1442846791?io=transform:fill,width:792,height:900'),
+(193, 'Tajon', 'BUCHANAN', 8, 4, 'https://digitalhub.fifa.com/transform/e3f5b410-f66b-4ea2-85c0-86a277fc26e2/1442846559?io=transform:fill,width:792,height:900'),
+(194, 'Ike', 'UGBO', 8, 4, 'https://digitalhub.fifa.com/transform/0152db56-4ec0-489c-8c4b-773633fb9805/1442845483?io=transform:fill,width:792,height:900'),
+(195, 'Atiba', 'HUTCHINSON', 8, 2, 'https://digitalhub.fifa.com/transform/9d97a5c4-eb84-429e-a54f-b35990368044/1442845134?io=transform:fill,width:792,height:900'),
+(196, 'Mark', '-Anthony KAYE', 8, 2, 'https://digitalhub.fifa.com/transform/b18ef259-0cf0-45e9-a99c-938f9c4b0e92/1442845181?io=transform:fill,width:792,height:900'),
+(197, 'Ismael', 'KONE', 8, 2, 'https://digitalhub.fifa.com/transform/20f48797-14f3-4323-b2ca-ffe44aaf8de4/1442846452?io=transform:fill,width:792,height:900'),
+(198, 'James', 'PANTEMIS', 8, 3, 'https://digitalhub.fifa.com/transform/bdcf7561-a5a6-4cdc-92cf-1634f3c32461/1442844652?io=transform:fill,width:792,height:900'),
+(199, 'Cyle', 'LARIN', 8, 4, 'https://digitalhub.fifa.com/transform/dbf56358-3302-4365-82a2-5f7ac07b7a82/1442845035?io=transform:fill,width:792,height:900'),
+(200, 'Milan', 'BORJAN', 8, 3, 'https://digitalhub.fifa.com/transform/a1bc4cb1-629a-465a-805e-cfa81da53ff8/1442844750?io=transform:fill,width:792,height:900'),
+(201, 'Alphonso', 'DAVIES', 8, 4, 'https://digitalhub.fifa.com/transform/af5a9e08-0f62-48c3-b204-df45bfd14371/1442847715?io=transform:fill,width:792,height:900'),
+(202, 'Jonathan', 'DAVID', 8, 4, 'https://digitalhub.fifa.com/transform/4e68b7b6-54fb-49d5-bac0-c80f5580da95/1442844823?io=transform:fill,width:792,height:900'),
+(203, 'Jonathan', 'OSORIO', 8, 2, 'https://digitalhub.fifa.com/transform/1a621a8c-b640-4f3c-a104-bb1aa0276c8b/1442846685?io=transform:fill,width:792,height:900'),
+(204, 'Richie', 'LARYEA', 8, 1, 'https://digitalhub.fifa.com/transform/a25cf0da-9f6d-4d3e-9f93-b930069eb30e/1442846719?io=transform:fill,width:792,height:900'),
+(205, 'Liam', 'MILLAR', 8, 2, 'https://digitalhub.fifa.com/transform/70ffa6c2-3b44-414d-b276-ce4e92f4868a/1442846654?io=transform:fill,width:792,height:900'),
+(206, 'David', 'WOTHERSPOON', 8, 2, 'https://digitalhub.fifa.com/transform/155610e1-4e2c-4df8-afa7-6d24d398e387/1442847605?io=transform:fill,width:792,height:900'),
+(207, 'Derek', 'CORNELIUS', 8, 1, 'https://digitalhub.fifa.com/transform/83210c0d-5496-46da-8688-21cdaec66c0a/1442844963?io=transform:fill,width:792,height:900'),
+(208, 'Joel', 'WATERMAN', 8, 1, 'https://digitalhub.fifa.com/transform/9c6bf2eb-6733-4123-9a6d-476880138685/1442846218?io=transform:fill,width:792,height:900'),
+(209, 'Keylor', 'NAVAS', 10, 3, 'https://digitalhub.fifa.com/transform/04860ffa-901b-4e45-80f6-4da477abba59/1442775085?io=transform:fill,width:792,height:900'),
+(210, 'Daniel', 'CHACON', 10, 2, 'https://digitalhub.fifa.com/transform/49c0d936-35c2-4f42-aef5-f0486e755f94/1442777372?io=transform:fill,width:792,height:900'),
+(211, 'Juan', 'VARGAS', 10, 1, 'https://digitalhub.fifa.com/transform/68c03ad1-c4c4-4e53-8983-143feae14879/1442776669?io=transform:fill,width:792,height:900'),
+(212, 'Keysher', 'FULLER', 10, 1, 'https://digitalhub.fifa.com/transform/0ed98d2d-c331-4341-8603-43822c351a60/1442777515?io=transform:fill,width:792,height:900'),
+(213, 'Celso', 'BORGES', 10, 2, 'https://digitalhub.fifa.com/transform/a734c292-02b9-4cdb-8c17-e3f974d5a866/1442777106?io=transform:fill,width:792,height:900'),
+(214, 'Oscar', 'DUARTE', 10, 1, 'https://digitalhub.fifa.com/transform/8dfc9d25-004d-4e93-ba68-45793d3add24/1442776737?io=transform:fill,width:792,height:900'),
+(215, 'Anthony', 'CONTRERAS', 10, 4, 'https://digitalhub.fifa.com/transform/b5c97d54-98f2-45d4-a5c7-56a44c650fa2/1442776757?io=transform:fill,width:792,height:900'),
+(216, 'Bryan', 'OVIEDO', 10, 1, 'https://digitalhub.fifa.com/transform/f1c3e878-b626-429c-936b-ae6827da0a7a/Bryan-Oviedo?io=transform:fill,width:792,height:900'),
+(217, 'Jewison', 'BENNETTE', 10, 2, 'https://digitalhub.fifa.com/transform/2c407cb1-8c87-48a7-a447-8dc5a491903c/1442776774?io=transform:fill,width:792,height:900'),
+(218, 'Bryan', 'RUIZ', 10, 2, 'https://digitalhub.fifa.com/transform/839f9485-02b6-4c60-8031-cff7781af6da/1442777538?io=transform:fill,width:792,height:900'),
+(219, 'Johan', 'VENEGAS', 10, 4, 'https://digitalhub.fifa.com/transform/4b210a43-c033-4f45-ae48-1194b1a4f1de/1442777356?io=transform:fill,width:792,height:900'),
+(220, 'Joel', 'CAMPBELL', 10, 4, 'https://digitalhub.fifa.com/transform/1a13a3e9-58a3-4d46-bba2-f10e5e2b1ed1/1442777459?io=transform:fill,width:792,height:900'),
+(221, 'Gerson', 'TORRES', 10, 2, 'https://digitalhub.fifa.com/transform/8a285086-54b7-4c1b-93bd-2ea3d75fdfa3/1442776697?io=transform:fill,width:792,height:900'),
+(222, 'Youstin', 'SALAS', 10, 2, 'https://digitalhub.fifa.com/transform/7f502644-9496-420d-97d7-5b96ecc163fc/1442777250?io=transform:fill,width:792,height:900'),
+(223, 'Francisco', 'CALVO', 10, 1, 'https://digitalhub.fifa.com/transform/49f82d3e-866a-4810-ab77-4bc5030496b5/1442777065?io=transform:fill,width:792,height:900'),
+(224, 'Carlos', 'MARTINEZ', 10, 1, 'https://digitalhub.fifa.com/transform/9ff05114-20f1-43a0-9ba7-7ce7f20bd6bb/1442776713?io=transform:fill,width:792,height:900'),
+(225, 'Yeltsin', 'TEJEDA', 10, 2, 'https://digitalhub.fifa.com/transform/e9d8010e-ef51-4b6b-b624-553d30055776/1442776873?io=transform:fill,width:792,height:900'),
+(226, 'Esteban', 'ALVARADO', 10, 3, 'https://digitalhub.fifa.com/transform/1eed0c01-71fe-4b58-9db5-be371a3bb4d4/1442775253?io=transform:fill,width:792,height:900'),
+(227, 'Kendall', 'WASTON', 10, 1, 'https://digitalhub.fifa.com/transform/51107113-925f-45cb-bea3-1e3fcc8022a6/1442776008?io=transform:fill,width:792,height:900'),
+(228, 'Brandon', 'AGUILERA', 10, 2, 'https://digitalhub.fifa.com/transform/a1749d0f-8ea9-42ad-9538-03c5257bd05c/1442777487?io=transform:fill,width:792,height:900'),
+(229, 'Douglas', 'LOPEZ', 10, 2, 'https://digitalhub.fifa.com/transform/f08e4972-5b11-40ac-81ab-59c0be852192/1442776839?io=transform:fill,width:792,height:900'),
+(230, 'Ronald', 'MATARRITA', 10, 1, 'https://digitalhub.fifa.com/transform/b194598a-52c0-4386-b983-60119e9c9090/1442777022?io=transform:fill,width:792,height:900'),
+(231, 'Patrick', 'SEQUEIRA', 10, 3, 'https://digitalhub.fifa.com/transform/085665ea-bbb2-4da0-99b7-89dff98fdf3e/1442775316?io=transform:fill,width:792,height:900'),
+(232, 'Roan', 'WILSON', 10, 2, 'https://digitalhub.fifa.com/transform/f08e4972-5b11-40ac-81ab-59c0be852192/1442776839?io=transform:fill,width:792,height:900'),
+(233, 'Anthony', 'HERNANDEZ', 10, 2, 'https://digitalhub.fifa.com/transform/08972279-b9cd-4bd8-a95c-dcf64099dd98/1442776056?io=transform:fill,width:792,height:900'),
+(234, 'Alvaro', 'ZAMORA', 10, 2, 'https://digitalhub.fifa.com/transform/b1b53f7f-2bc2-4211-8047-1e204cbae33e/1442776092?io=transform:fill,width:792,height:900'),
+(235, 'SAAD', 'ALSHEEB', 9, 3, 'https://digitalhub.fifa.com/transform/de6c428e-dcfc-4bc3-9ee3-ee1e0a463dbd/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(236, 'PEDRO', 'MIGUEL', 9, 1, 'https://digitalhub.fifa.com/transform/cf5cbee7-cb4d-454c-95e1-8936e9621b1f/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(237, 'ABDELKARIM', 'HASSAN', 9, 2, 'https://digitalhub.fifa.com/transform/8bb4bf53-a3e2-4fa7-afa7-1d902c6ea935/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(238, 'MOHAMMED', 'WAAD', 9, 1, 'https://digitalhub.fifa.com/transform/74871e91-20c5-4b4d-b2ba-21b5a4383f90/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(239, 'TAREK', 'SALMAN', 9, 1, 'https://digitalhub.fifa.com/transform/02b0cbbb-9e1c-46b7-a625-45393ead806e/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(240, 'ABDULAZIZ', 'HATEM', 9, 2, 'https://digitalhub.fifa.com/transform/1714595c-c7a9-40c3-abc4-6e1c70ede6a2/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(241, 'AHMED', 'ALAAELDIN', 9, 4, 'https://digitalhub.fifa.com/transform/c87fb6e9-81d7-4fb4-8971-138d9dcf75c1/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(242, 'ALI', 'ASSADALLA', 9, 2, 'https://digitalhub.fifa.com/transform/d3bce4b1-b0ee-4473-84f7-7822be3cbeb9/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(243, 'MOHAMMED', 'MUNTARI', 9, 4, 'https://digitalhub.fifa.com/transform/58246f45-3a40-440b-b047-c5eda408c32d/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(244, 'HASSAN', 'ALHAYDOS', 9, 2, 'https://digitalhub.fifa.com/transform/9b187094-1cdc-428e-9bac-931aab584672/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(245, 'AKRAM', 'AFIF', 9, 4, 'https://digitalhub.fifa.com/transform/b6c9c4bb-43a7-48c9-8e5b-3998ac460c39/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(246, 'KARIM', 'BOUDIAF', 9, 2, 'https://digitalhub.fifa.com/transform/9f10d90d-48e2-4903-8413-2d2bef8c00c3/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(247, 'MUSAAB', 'KHIDIR', 9, 1, 'https://digitalhub.fifa.com/transform/e769273c-4116-4cd8-91e3-97abcdaa5817/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(248, 'HOMAM', 'AHMED', 9, 1, 'https://digitalhub.fifa.com/transform/b8d905bd-739c-4615-a3e2-22b51f5ce610/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(249, 'BASSAM', 'HISHAM', 9, 1, 'https://digitalhub.fifa.com/transform/7c6f3782-d6f0-4d46-ae0f-940e414c52af/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(250, 'BOUALEM', 'KHOUKHI', 9, 1, 'https://digitalhub.fifa.com/transform/528f4b84-b65f-4833-8957-5e6280f21876/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(251, 'ISMAIL', 'MOHAMAD', 9, 1, 'https://digitalhub.fifa.com/transform/5ff850f8-8d19-447b-a994-5341cfa2ce9f/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(252, 'KHALID', 'MUNEER', 9, 4, 'https://digitalhub.fifa.com/transform/6107b94a-a1c0-4fc5-ad6a-6a4f14e650eb/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(253, 'ALMOEZ', 'ALI', 9, 4, 'https://digitalhub.fifa.com/transform/3f1bd551-1452-4d03-852f-baf31bd2aa0d/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(254, 'SALEM', 'AL HAJRI', 9, 2, 'https://digitalhub.fifa.com/transform/59bd16fb-b60d-4d68-b124-02e84a1f670a/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(255, 'YOUSOF', 'HASSAN', 9, 3, 'https://digitalhub.fifa.com/transform/de6c428e-dcfc-4bc3-9ee3-ee1e0a463dbd/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(256, 'MESHAAL', 'BARSHAM', 9, 3, 'https://digitalhub.fifa.com/transform/f7f46288-3874-4061-8e63-def9553f3ba6/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(257, 'ASSIM', 'MADIBO', 9, 2, 'https://digitalhub.fifa.com/transform/59bd16fb-b60d-4d68-b124-02e84a1f670a/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(258, 'NAIF', 'ABDULRAHEEM', 9, 2, 'https://digitalhub.fifa.com/transform/19664dbc-8883-47d7-9547-fb8de1091a07/1441918250?io=transform:fill,width:792,height:900'),
+(259, 'JASSEM', 'GABER', 9, 2, 'https://digitalhub.fifa.com/transform/0eecb72e-30df-488b-a0a2-f3cc3774d080/Qatar-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(260, 'MOUSTAFA', 'TAREK', 9, 2, 'https://digitalhub.fifa.com/transform/cdb4b97b-fc36-4cd9-9aff-e576a9bd7afe/1441917120?io=transform:fill,width:792,height:900'),
+(261, 'Dominik', 'LIVAKOVIC', 11, 3, 'https://digitalhub.fifa.com/transform/344c53dd-7109-4a01-b75a-b1956af683ce/1442833831?io=transform:fill,width:792,height:900'),
+(262, 'Josip', 'STANISIC', 11, 1, 'https://digitalhub.fifa.com/transform/dd54895b-2fe9-4015-8b6e-216710a4e65a/1442834883?io=transform:fill,width:792,height:900'),
+(263, 'Borna', 'BARISIC', 11, 1, 'https://digitalhub.fifa.com/transform/59c69f25-e51a-41e9-b5ed-882c5c33132f/1442834133?io=transform:fill,width:792,height:900'),
+(264, 'Ivan', 'PERISIC', 11, 4, 'https://digitalhub.fifa.com/transform/b042c04a-b2b3-4b61-b141-96df26e5c58f/1442835074?io=transform:fill,width:792,height:900'),
+(265, 'Martin', 'ERLIC', 11, 1, 'https://digitalhub.fifa.com/transform/f4c3a9f7-1801-46d8-91b8-ab2f10bb0845/1442834365?io=transform:fill,width:792,height:900'),
+(266, 'Dejan', 'LOVREN', 11, 1, 'https://digitalhub.fifa.com/transform/8e3af8ba-f57b-4acc-8b9a-65eecb9386b1/1442834061?io=transform:fill,width:792,height:900'),
+(267, 'Lovro', 'MAJER', 11, 2, 'https://digitalhub.fifa.com/transform/0675b5e4-433c-4f61-8853-b1f02445515a/1442833911?io=transform:fill,width:792,height:900'),
+(268, 'Mateo', 'KOVACIC', 11, 2, 'https://digitalhub.fifa.com/transform/f1171d95-ce45-406c-9b58-672ab7f12a99/1442835025?io=transform:fill,width:792,height:900'),
+(269, 'Andrej', 'KRAMARIC', 11, 4, 'https://digitalhub.fifa.com/transform/a1b0faa7-d634-4440-b8d2-124883fca434/1442834913?io=transform:fill,width:792,height:900'),
+(270, 'Luka', 'MODRIC', 11, 2, 'https://digitalhub.fifa.com/transform/d67acdb0-b9a3-4bb7-a49c-8ee0c2844d55/1442835091?io=transform:fill,width:792,height:900'),
+(271, 'Marcelo', 'BROZOVIC', 11, 2, 'https://digitalhub.fifa.com/transform/ba577816-7c39-48ba-8072-c095cd6c10fd/1442835048?io=transform:fill,width:792,height:900'),
+(272, 'Ivo', 'GRBIC', 11, 3, 'https://digitalhub.fifa.com/transform/6646af68-41ba-45ae-a43b-fa76e98f09e5/1442833881?io=transform:fill,width:792,height:900'),
+(273, 'Nikola', 'VLASIC', 11, 2, 'https://digitalhub.fifa.com/transform/200ab89f-97ed-4476-b44c-f26e4daf0716/1442834984?io=transform:fill,width:792,height:900'),
+(274, 'Marko', 'LIVAJA', 11, 4, 'https://digitalhub.fifa.com/transform/d1faa11c-c668-48f9-a2da-668c8a7caed3/1442834999?io=transform:fill,width:792,height:900'),
+(275, 'Mario', 'PASALIC', 11, 2, 'https://digitalhub.fifa.com/transform/578728a2-b038-4078-8bc9-0d221722d92b/1442834160?io=transform:fill,width:792,height:900'),
+(276, 'Bruno', 'PETKOVIC', 11, 4, 'https://digitalhub.fifa.com/transform/6e955c0c-4e07-44a0-a519-84eb304b7f1a/1442835013?io=transform:fill,width:792,height:900'),
+(277, 'Ante', 'BUDIMIR', 11, 4, 'https://digitalhub.fifa.com/transform/a2a3a1dc-9429-408b-80bb-7c54108314fe/1442834215?io=transform:fill,width:792,height:900'),
+(278, 'Mislav', 'ORSIC', 11, 4, 'https://digitalhub.fifa.com/transform/55edadf5-ec8c-4ebb-b61e-4b51f769c977/1442834297?io=transform:fill,width:792,height:900'),
+(279, 'Borna', 'SOSA', 11, 1, 'https://digitalhub.fifa.com/transform/ded7d222-b357-462f-8ec5-fe665e09f409/1442834343?io=transform:fill,width:792,height:900'),
+(280, 'Josko', 'GVARDIOL', 11, 1, 'https://digitalhub.fifa.com/transform/b7bc930d-c5fb-4d90-8ce5-abc569851932/1442834258?io=transform:fill,width:792,height:900'),
+(281, 'Domagoj', 'VIDA', 11, 1, 'https://digitalhub.fifa.com/transform/c10c9364-d200-48eb-b68b-de52a4b97d18/1442835060?io=transform:fill,width:792,height:900'),
+(282, 'Josip', 'JURANOVIC', 11, 1, 'https://digitalhub.fifa.com/transform/03c26131-5dcd-487f-8a74-0f9be3407a86/1442834167?io=transform:fill,width:792,height:900'),
+(283, 'Ivica', 'IVUSIC', 11, 3, 'https://digitalhub.fifa.com/transform/cd499391-5643-4a49-8b9c-d0333c84a740/1442833849?io=transform:fill,width:792,height:900'),
+(284, 'Josip', 'SUTALO', 11, 1, 'https://digitalhub.fifa.com/transform/2f642a94-030c-4cca-9575-4e7e682505bc/1442834935?io=transform:fill,width:792,height:900'),
+(285, 'Luka', 'SUCIC', 11, 2, 'https://digitalhub.fifa.com/transform/740af468-7709-45f7-93fc-15dbdd774e06/1442834948?io=transform:fill,width:792,height:900'),
+(286, 'Kristijan', 'JAKIC', 11, 2, 'https://digitalhub.fifa.com/transform/213f644e-c616-4542-b2cf-f2bf815e8e8d/1442834235?io=transform:fill,width:792,height:900'),
+(287, 'Kasper', 'SCHMEICHEL', 12, 3, 'https://digitalhub.fifa.com/transform/11f12fe0-fa12-47c9-8c38-137dd9749bb3/1442266365?io=transform:fill,width:792,height:900'),
+(288, 'Joachim', 'ANDERSEN', 12, 1, 'https://digitalhub.fifa.com/transform/c0aa4db2-7eec-4d9f-a394-1af30b0dccb3/1442266519?io=transform:fill,width:792,height:900'),
+(289, 'Victor', 'NELSSON', 12, 1, 'https://digitalhub.fifa.com/transform/09dc2be2-0a78-4e55-be28-292034b3adc5/1442266887?io=transform:fill,width:792,height:900'),
+(290, 'Simon', 'KJAER', 12, 1, 'https://digitalhub.fifa.com/transform/46286c8d-c341-4c02-a39f-c13850065c6a/1442266382?io=transform:fill,width:792,height:900'),
+(291, 'Joakim', 'MAEHLE', 12, 1, 'https://digitalhub.fifa.com/transform/c61af3d6-da22-4104-afb3-e689e1f363f1/1442266412?io=transform:fill,width:792,height:900'),
+(292, 'Andreas', 'CHRISTENSEN', 12, 1, 'https://digitalhub.fifa.com/transform/adcbc9a1-26a4-42c2-a001-83dee23183fa/1442266732?io=transform:fill,width:792,height:900'),
+(293, 'Mathias', 'JENSEN', 12, 2, 'https://digitalhub.fifa.com/transform/2edc6371-40f0-4320-89f9-d10d6036ea36/1442267067?io=transform:fill,width:792,height:900'),
+(294, 'Thomas', 'DELANEY', 12, 2, 'https://digitalhub.fifa.com/transform/9f09a56a-3488-4fdd-abb0-f1c0da3177dc/1442266831?io=transform:fill,width:792,height:900'),
+(295, 'Martin', 'BRAITHWAITE', 12, 4, 'https://digitalhub.fifa.com/transform/ce5e9796-21a1-48c7-8073-eabb7ff40ad8/1442267611?io=transform:fill,width:792,height:900'),
+(296, 'Christian', 'ERIKSEN', 12, 2, 'https://digitalhub.fifa.com/transform/e454f07e-015d-4787-81b0-512a6f032c46/1442267640?io=transform:fill,width:792,height:900'),
+(297, 'Andreas', 'SKOV OLSEN', 12, 2, 'https://digitalhub.fifa.com/transform/3d0e53cd-da6e-409d-be45-77c344376780/1442266453?io=transform:fill,width:792,height:900'),
+(298, 'Kasper', 'DOLBERG', 12, 4, 'https://digitalhub.fifa.com/transform/787de66a-9c2b-4553-bad3-6c5829f7deb9/1442266793?io=transform:fill,width:792,height:900'),
+(299, 'Rasmus', 'KRISTENSEN', 12, 1, 'https://digitalhub.fifa.com/transform/88cc7eea-f430-42be-98ef-a030d74cf063/1442266537?io=transform:fill,width:792,height:900'),
+(300, 'Mikkel', 'DAMSGAARD', 12, 2, 'https://digitalhub.fifa.com/transform/da932c55-788f-4b3c-9970-83f3b172d660/1442266493?io=transform:fill,width:792,height:900'),
+(301, 'Christian', 'NORGAARD', 12, 2, 'https://digitalhub.fifa.com/transform/8fcdf4e6-bdef-4b1b-89a9-7632f36912d7/1442267001?io=transform:fill,width:792,height:900'),
+(302, 'Oliver', 'CHRISTENSEN', 12, 3, 'https://digitalhub.fifa.com/transform/391e9ecb-536a-41a5-bd70-efc808d890ba/1442266324?io=transform:fill,width:792,height:900');
+INSERT INTO `players` (`id`, `name`, `last_name`, `id_team`, `position_id`, `picture`) VALUES
+(303, 'Jens', 'STRYGER LARSEN', 12, 1, 'https://digitalhub.fifa.com/transform/3b6fab1b-9e18-48c3-a145-a8c843db8784/1442266709?io=transform:fill,width:792,height:900'),
+(304, 'Daniel', 'WASS', 12, 1, 'https://digitalhub.fifa.com/transform/6da3fe04-c011-4ec4-929e-a53bbfbecbf5/1442266769?io=transform:fill,width:792,height:900'),
+(305, 'Jonas', 'WIND', 12, 4, 'https://digitalhub.fifa.com/transform/8344ce75-d0ca-41b6-9e60-abebbce84417/1442266963?io=transform:fill,width:792,height:900'),
+(306, 'Yussuf', 'YURARY POULSEN', 12, 4, 'https://digitalhub.fifa.com/transform/cb4949ed-04ba-4a5c-9db6-d6ffebb2ce59/1442267629?io=transform:fill,width:792,height:900'),
+(307, 'Andreas', 'CORNELIUS', 12, 4, 'https://digitalhub.fifa.com/transform/6ad0852c-bdee-4b41-8f79-208be41c32e3/1442266858?io=transform:fill,width:792,height:900'),
+(308, 'Frederik', 'RONNOW', 12, 3, 'https://digitalhub.fifa.com/transform/53302020-81a5-4e07-af8d-7e204fdcc019/1442266297?io=transform:fill,width:792,height:900'),
+(309, 'Pierre', '-Emile HOJBJERG', 12, 2, 'https://digitalhub.fifa.com/transform/6eed8203-b998-4030-97ee-54e3c6210d9e/1442266655?io=transform:fill,width:792,height:900'),
+(310, 'Robert', 'SKOV', 12, 2, 'https://digitalhub.fifa.com/transform/088e8f9e-19d9-4254-bba8-010ba70ac2f7/1442267041?io=transform:fill,width:792,height:900'),
+(311, 'Jesper', 'LINDSTROM', 12, 2, 'https://digitalhub.fifa.com/transform/9366e564-5871-4b28-ba1e-2d677f3d9b09/1442266434?io=transform:fill,width:792,height:900'),
+(312, 'Alexander', 'BAH', 12, 1, 'https://digitalhub.fifa.com/transform/34279ece-ddd8-48f2-bfdd-4c388b4b05a1/1442266981?io=transform:fill,width:792,height:900'),
+(313, 'Hernan', 'GALINDEZ', 13, 3, 'https://digitalhub.fifa.com/transform/fd6dd52d-7dac-4c1c-91cf-647674ffcc3d/1442153514?io=transform:fill,width:792,height:900'),
+(314, 'Felix', 'TORRES', 13, 1, 'https://digitalhub.fifa.com/transform/c2158847-1ebb-4af1-a676-739485cdb191/1442157061?io=transform:fill,width:792,height:900'),
+(315, 'Piero', 'HINCAPIE', 13, 1, 'https://digitalhub.fifa.com/transform/d1dcc9c6-75a0-47ce-b9f8-f28a71a76ad1/1442153769?io=transform:fill,width:792,height:900'),
+(316, 'Robert', 'ARBOLEDA', 13, 1, 'https://digitalhub.fifa.com/transform/15266fa6-2c23-48ff-9a63-36d068c3fe58/1442157021?io=transform:fill,width:792,height:900'),
+(317, 'Jose', 'CIFUENTES', 13, 2, 'https://digitalhub.fifa.com/transform/961c1a40-a931-4e14-b057-1e8382aa4e5a/1442157398?io=transform:fill,width:792,height:900'),
+(318, 'William', 'PACHO', 13, 1, 'https://digitalhub.fifa.com/transform/91932a10-5782-4307-874e-597f62ec9385/1442158666?io=transform:fill,width:792,height:900'),
+(319, 'Pervis', 'ESTUPINAN', 13, 1, 'https://digitalhub.fifa.com/transform/990f62e0-0ac5-41ef-a43c-cc4354e63f27/1442158380?io=transform:fill,width:792,height:900'),
+(320, 'Carlos', 'GRUEZO', 13, 2, 'https://digitalhub.fifa.com/transform/48f6672a-4213-4ba2-8d1a-c29525f49291/1442153578?io=transform:fill,width:792,height:900'),
+(321, 'Eduar', 'PRECIADO', 13, 2, 'https://digitalhub.fifa.com/transform/e3fd1b6f-923a-4b98-b3ea-791a8e88fca7/1442153978?io=transform:fill,width:792,height:900'),
+(322, 'Romario', 'IBARRA', 13, 2, 'https://digitalhub.fifa.com/transform/59ffee8e-f7db-4304-86ea-ce51fbd17552/1442157555?io=transform:fill,width:792,height:900'),
+(323, 'Michael', 'ESTRADA', 13, 4, 'https://digitalhub.fifa.com/transform/5bcc7446-5816-4603-9aa8-882fa357f6e3/1442154004?io=transform:fill,width:792,height:900'),
+(324, 'Moises', 'RAMIREZ', 13, 3, 'https://digitalhub.fifa.com/transform/45effb51-3759-4443-86c4-1adda359aaa8/1442153543?io=transform:fill,width:792,height:900'),
+(325, 'Enner', 'VALENCIA', 13, 4, 'https://digitalhub.fifa.com/transform/e9817141-9985-4b8a-818e-3a06260d7a8c/1442153993?io=transform:fill,width:792,height:900'),
+(326, 'Xavier', 'ARREAGA', 13, 1, 'https://digitalhub.fifa.com/transform/eb538dd3-559b-494d-9e61-26ae40627351/1442157377?io=transform:fill,width:792,height:900'),
+(327, 'Angel', 'MENA', 13, 2, 'https://digitalhub.fifa.com/transform/85a2f7b4-8153-4c04-89e4-46c8555bb5bb/1442153920?io=transform:fill,width:792,height:900'),
+(328, 'Jeremy', 'SARMIENTO', 13, 2, 'https://digitalhub.fifa.com/transform/59b0fcdc-5cbf-4e78-8221-a2a28e651702/1442153740?io=transform:fill,width:792,height:900'),
+(329, 'Angelo', 'PRECIADO', 13, 1, 'https://digitalhub.fifa.com/transform/c0ab58e9-0b9c-4f71-9bf4-1e82d77f67e9/1442158606?io=transform:fill,width:792,height:900'),
+(330, 'Diego', 'PALACIOS', 13, 1, 'https://digitalhub.fifa.com/transform/5c914ef0-1413-434c-b2f0-d686f2d8c6ba/1442157042?io=transform:fill,width:792,height:900'),
+(331, 'Gonzalo', 'PLATA', 13, 2, 'https://digitalhub.fifa.com/transform/ce5dbf75-83be-4165-b855-4d31b1e310b0/1442153965?io=transform:fill,width:792,height:900'),
+(332, 'Jhegson', 'MENDEZ', 13, 2, 'https://digitalhub.fifa.com/transform/de46491e-7d8a-4df4-8779-a7946b2f97c3/Jhegson-Mendez?io=transform:fill,width:792,height:900'),
+(333, 'Alan', 'FRANCO', 13, 2, 'https://digitalhub.fifa.com/transform/9df2306e-4148-44ff-9c26-4891e064015e/1442158410?io=transform:fill,width:792,height:900'),
+(334, 'Alexander', 'DOMINGUEZ', 13, 3, 'https://digitalhub.fifa.com/transform/51c7eafe-59db-4234-a9d6-04bc8081d32b/1442153558?io=transform:fill,width:792,height:900'),
+(335, 'Moises', 'CAICEDO', 13, 2, 'https://digitalhub.fifa.com/transform/00fd3d24-b26c-48ac-a4b0-11127bb6b99b/1442158632?io=transform:fill,width:792,height:900'),
+(336, 'Djorkaeff', 'REASCO', 13, 4, 'https://digitalhub.fifa.com/transform/e9817141-9985-4b8a-818e-3a06260d7a8c/1442153993?io=transform:fill,width:792,height:900'),
+(337, 'Jackson', 'POROZO', 13, 1, 'https://digitalhub.fifa.com/transform/a7aaa188-ac74-4109-9fc4-68c87db5e861/1442157465?io=transform:fill,width:792,height:900'),
+(338, 'Kevin', 'RODRIGUEZ', 13, 4, 'https://digitalhub.fifa.com/transform/92e86609-09f6-41ff-ac88-78f31085d820/1442157538?io=transform:fill,width:792,height:900'),
+(339, 'Robert', 'SANCHEZ', 14, 3, 'https://digitalhub.fifa.com/transform/501a7b8c-121a-450a-8da1-04768e3b239c/1442546780?io=transform:fill,width:792,height:900'),
+(340, 'Cesar', 'AZPILICUETA', 14, 1, 'https://digitalhub.fifa.com/transform/2a40ece5-6fa5-423e-81e4-b8f404480d7c/1442552014?io=transform:fill,width:792,height:900'),
+(341, 'Eric', 'GARCIA', 14, 1, 'https://digitalhub.fifa.com/transform/765d6a9d-4f5d-42af-a187-6fceb77f7076/1442550812?io=transform:fill,width:792,height:900'),
+(342, 'Pau', 'TORRES', 14, 1, 'https://digitalhub.fifa.com/transform/8f710499-fba6-4d2e-b512-e0c1c242379e/1442551864?io=transform:fill,width:792,height:900'),
+(343, 'Sergio', 'BUSQUETS', 14, 2, 'https://digitalhub.fifa.com/transform/2dec5173-d2fd-4a06-8715-398332b2cc44/1442551723?io=transform:fill,width:792,height:900'),
+(344, 'Marcos', 'LLORENTE', 14, 2, 'https://digitalhub.fifa.com/transform/bc994cd1-cfcd-4de7-ad0b-182b16a6ebd5/1442551339?io=transform:fill,width:792,height:900'),
+(345, 'Alvaro', 'MORATA', 14, 4, 'https://digitalhub.fifa.com/transform/a6d1d8b4-a559-4c7f-aed3-095126b60e1c/1442552095?io=transform:fill,width:792,height:900'),
+(346, 'KOKE', '', 14, 2, 'https://digitalhub.fifa.com/transform/87132c4b-85cb-4eeb-add2-06ea6489d9ec/1442552127?io=transform:fill,width:792,height:900'),
+(347, 'GAVI', '', 14, 2, 'https://digitalhub.fifa.com/transform/3accf767-b78f-4bf4-87f8-25ab808366c4/1442551912?io=transform:fill,width:792,height:900'),
+(348, 'Marco', 'ASENSIO', 14, 4, 'https://digitalhub.fifa.com/transform/a28c5f8b-ef3b-4fb0-9cd3-a59c0c10c8f9/1442551256?io=transform:fill,width:792,height:900'),
+(349, 'Ferran', 'TORRES', 14, 4, 'https://digitalhub.fifa.com/transform/405abbab-5e5d-4277-905f-6bbdf618bad5/1442551768?io=transform:fill,width:792,height:900'),
+(350, 'Nico', 'WILLIAMS', 14, 4, 'https://digitalhub.fifa.com/transform/0c54f295-1459-4e47-b2ce-d40500aedbf4/1442551969?io=transform:fill,width:792,height:900'),
+(351, 'David', 'RAYA', 14, 3, 'https://digitalhub.fifa.com/transform/99bac8dc-3541-42aa-9ee7-c2062dab21c5/1442550384?io=transform:fill,width:792,height:900'),
+(352, 'Alejandro', 'BALDE', 14, 1, 'https://digitalhub.fifa.com/transform/7214e635-be61-40c0-9a18-9432b2e8bfdf/447862?io=transform:fill,width:792,height:900'),
+(353, 'Hugo', 'GUILLAMON', 14, 1, 'https://digitalhub.fifa.com/transform/e35f29a4-1613-4259-9671-af391c2329a2/1442550948?io=transform:fill,width:792,height:900'),
+(354, 'RODRI', '', 14, 2, 'https://digitalhub.fifa.com/transform/5e614c86-4c65-4d3a-b211-7ca38710187c/1442551426?io=transform:fill,width:792,height:900'),
+(355, 'Yeremy', 'PINO', 14, 4, 'https://digitalhub.fifa.com/transform/8cec67ff-34d6-48eb-84a2-438f6dbad67a/1442552155?io=transform:fill,width:792,height:900'),
+(356, 'Jordi', 'ALBA', 14, 1, 'https://digitalhub.fifa.com/transform/bef08b26-042b-4a7c-a517-f29e1c937c39/1442550649?io=transform:fill,width:792,height:900'),
+(357, 'Carlos', 'SOLER', 14, 2, 'https://digitalhub.fifa.com/transform/422d4d27-2116-480f-9651-80561352a2b2/1442551423?io=transform:fill,width:792,height:900'),
+(358, 'Dani', 'CARVAJAL', 14, 1, 'https://digitalhub.fifa.com/transform/e4f534e2-d24e-4d69-aae7-970fe7bcbf54/1442550925?io=transform:fill,width:792,height:900'),
+(359, 'Dani', 'OLMO', 14, 4, 'https://digitalhub.fifa.com/transform/fe13d81b-073b-4657-a210-de2b48e2b449/1442551204?io=transform:fill,width:792,height:900'),
+(360, 'Pablo', 'SARABIA', 14, 4, 'https://digitalhub.fifa.com/transform/e93bb879-a521-4d0e-9201-1260c25895f0/1442551078?io=transform:fill,width:792,height:900'),
+(361, 'Unai', 'SIMON', 14, 3, 'https://digitalhub.fifa.com/transform/3996caf6-8de6-4cc9-b320-43269c6a8b68/1442550448?io=transform:fill,width:792,height:900'),
+(362, 'Aymeric', 'LAPORTE', 14, 1, 'https://digitalhub.fifa.com/transform/2b44baf6-3e19-42b0-b982-427f88c56334/1442551021?io=transform:fill,width:792,height:900'),
+(363, 'Ansu', 'FATI', 14, 4, 'https://digitalhub.fifa.com/transform/c18616da-8431-4a85-b6ce-d706b85e8095/1442552066?io=transform:fill,width:792,height:900'),
+(364, 'Pedri', 'GONZALEZ', 14, 2, 'https://digitalhub.fifa.com/transform/103c93e3-a3d4-4022-9bde-1285f4677ba8/1442551614?io=transform:fill,width:792,height:900'),
+(365, 'Matt', 'TURNER', 15, 3, 'https://digitalhub.fifa.com/transform/402cd2c6-92e6-4dd6-8e1d-b5ecc10fd8c2/1441720646?io=transform:fill,width:792,height:900'),
+(366, 'Sergino', 'DEST', 15, 1, 'https://digitalhub.fifa.com/transform/fcccbd03-ba84-4ddc-8c53-f1fe7eb2ffe4/1441732428?io=transform:fill,width:792,height:900'),
+(367, 'Walker', 'ZIMMERMAN', 15, 1, 'https://digitalhub.fifa.com/transform/388db833-d561-413d-810f-3a165c70bb49/1441723317?io=transform:fill,width:792,height:900'),
+(368, 'Tyler', 'ADAMS', 15, 2, 'https://digitalhub.fifa.com/transform/82b773ca-eebb-490c-a40b-23c535446160/1441722078?io=transform:fill,width:792,height:900'),
+(369, 'Antonee', 'ROBINSON', 15, 1, 'https://digitalhub.fifa.com/transform/1b0b40a8-f849-4a2b-908f-daf12f825be8/1441732497?io=transform:fill,width:792,height:900'),
+(370, 'Yunus', 'MUSAH', 15, 2, 'https://digitalhub.fifa.com/transform/03b3237a-ffdd-4b7b-8945-4f4b6bb4ecfc/1441721484?io=transform:fill,width:792,height:900'),
+(371, 'Giovanni', 'REYNA', 15, 4, 'https://digitalhub.fifa.com/transform/acf97fce-4833-4853-94e9-e4e3ec167ec2/1441723620?io=transform:fill,width:792,height:900'),
+(372, 'Weston', 'McKENNIE', 15, 2, 'https://digitalhub.fifa.com/transform/da55bf89-5fe5-49b0-b228-fa159a0a1dfe/1441722790?io=transform:fill,width:792,height:900'),
+(373, 'Jesus', 'FERREIRA', 15, 4, 'https://digitalhub.fifa.com/transform/49be053d-9d02-494e-93b6-8c1804623763/1441723343?io=transform:fill,width:792,height:900'),
+(374, 'Christian', 'PULISIC', 15, 4, 'https://digitalhub.fifa.com/transform/4c947748-ad14-4972-ae99-b78ddbf6cba4/1441721640?io=transform:fill,width:792,height:900'),
+(375, 'Brenden', 'AARONSON', 15, 4, 'https://digitalhub.fifa.com/transform/134ec80f-a492-4f93-8993-1bcd9bf4cf6e/1441723033?io=transform:fill,width:792,height:900'),
+(376, 'Ethan', 'HORVATH', 15, 3, 'https://digitalhub.fifa.com/transform/f3b199e6-d641-4089-9815-9ab1aee4b3f8/1441720667?io=transform:fill,width:792,height:900'),
+(377, 'Tim', 'REAM', 15, 1, 'https://digitalhub.fifa.com/transform/89ffe6a1-f061-4c5d-8673-e602b35f3c4b/1441722139?io=transform:fill,width:792,height:900'),
+(378, 'Luca', 'DE LA TORRE', 15, 2, 'https://digitalhub.fifa.com/transform/23e4879b-af63-45bf-bcdc-6c741dcf8401/1441723161?io=transform:fill,width:792,height:900'),
+(379, 'Aaron', 'LONG', 15, 1, 'https://digitalhub.fifa.com/transform/703fcadf-fb30-4ac2-b960-e479d0fd84f4/1441721745?io=transform:fill,width:792,height:900'),
+(380, 'Jordan', 'MORRIS', 15, 4, 'https://digitalhub.fifa.com/transform/fea56c7c-6c2f-46af-a2ad-946f749fcbde/1441722238?io=transform:fill,width:792,height:900'),
+(381, 'Cristian', 'ROLDAN', 15, 2, 'https://digitalhub.fifa.com/transform/b8a9e595-8b85-40dc-b13b-5f8987d905f1/1441723283?io=transform:fill,width:792,height:900'),
+(382, 'Shaquell', 'MOORE', 15, 1, 'https://digitalhub.fifa.com/transform/50a00648-7df0-4eaa-b520-4dd5da35e285/1441722964?io=transform:fill,width:792,height:900'),
+(383, 'Haji', 'WRIGHT', 15, 4, 'https://digitalhub.fifa.com/transform/f1ee9fad-2204-4c6c-beb1-0c03cf3d3c0b/1441723126?io=transform:fill,width:792,height:900'),
+(384, 'Cameron', 'CARTER-VICKERS', 15, 1, 'https://digitalhub.fifa.com/transform/880ba7a7-2578-471c-b42b-bb7e7f447682/1441722845?io=transform:fill,width:792,height:900'),
+(385, 'Tim', 'WEAH', 15, 4, 'https://digitalhub.fifa.com/transform/dc9bfe1c-ea16-487c-8036-e55649afbf58/1441723369?io=transform:fill,width:792,height:900'),
+(386, 'DeAndre', 'YEDLIN', 15, 1, 'https://digitalhub.fifa.com/transform/59d99c4c-a86e-4e00-b99e-9c6852d75b78/1441723406?io=transform:fill,width:792,height:900'),
+(387, 'Kellyn', 'PERRY-ACOSTA', 15, 2, 'https://digitalhub.fifa.com/transform/3a4dde02-8f71-46c3-95e1-5940df4dae82/1441721412?io=transform:fill,width:792,height:900'),
+(388, 'Josh', 'SARGENT', 15, 4, 'https://digitalhub.fifa.com/transform/5e0172af-7985-4dcc-9c50-243382734509/1441732346?io=transform:fill,width:792,height:900'),
+(389, 'Sean', 'JOHNSON', 15, 3, 'https://digitalhub.fifa.com/transform/61a88ddb-edc6-4f86-a0a7-5e862bd04c3d/1441720740?io=transform:fill,width:792,height:900'),
+(390, 'Joe', 'SCALLY', 15, 1, 'https://digitalhub.fifa.com/transform/d544c8aa-caf9-497c-b5bb-01beee7c8ab2/1441723462?io=transform:fill,width:792,height:900'),
+(391, 'Hugo', 'LLORIS', 16, 3, 'https://digitalhub.fifa.com/transform/14a6f35e-6853-4bbc-bcc7-eb7b4774f226/1442232958?io=transform:fill,width:792,height:900'),
+(392, 'Benjamin', 'PAVARD', 16, 1, 'https://digitalhub.fifa.com/transform/37d5f7e7-3b91-4f23-b00c-1d7ede6ab7dd/1442233170?io=transform:fill,width:792,height:900'),
+(393, 'Axel', 'DISASI', 16, 1, 'https://digitalhub.fifa.com/transform/25128776-bc46-4f54-8d85-792dd6b8cb69/1442233372?io=transform:fill,width:792,height:900'),
+(394, 'Raphael', 'VARANE', 16, 1, 'https://digitalhub.fifa.com/transform/04752da5-c26f-40e0-b5fc-ba6af9adca95/1442234000?io=transform:fill,width:792,height:900'),
+(395, 'Jules', 'KOUNDE', 16, 1, 'https://digitalhub.fifa.com/transform/0338d400-db7e-401a-ac2d-ff4dfecd6594/1442233625?io=transform:fill,width:792,height:900'),
+(396, 'Matteo', 'GUENDOUZI', 16, 2, 'https://digitalhub.fifa.com/transform/adc04136-bb1a-456d-8820-1c12bca3264c/1442233410?io=transform:fill,width:792,height:900'),
+(397, 'Antoine', 'GRIEZMANN', 16, 4, 'https://digitalhub.fifa.com/transform/9f03ff5a-aad3-433a-8e21-cb96143627ac/1442234382?io=transform:fill,width:792,height:900'),
+(398, 'Aurelien', 'TCHOUAMENI', 16, 2, 'https://digitalhub.fifa.com/transform/a0226b32-d6c2-4d05-86a0-9436f1b8f680/1442233818?io=transform:fill,width:792,height:900'),
+(399, 'Olivier', 'GIROUD', 16, 4, 'https://digitalhub.fifa.com/transform/cefd4ce2-d728-4fdb-b03c-bcfda94cb67a/1442234094?io=transform:fill,width:792,height:900'),
+(400, 'Kylian', 'MBAPPE', 16, 4, 'https://digitalhub.fifa.com/transform/702110ad-db19-4216-a36b-9a2903f3c77d/1442234453?io=transform:fill,width:792,height:900'),
+(401, 'Ousmane', 'DEMBELE', 16, 4, 'https://digitalhub.fifa.com/transform/79f04110-e6f0-46b8-932c-5b2c18ebbb86/1442233954?io=transform:fill,width:792,height:900'),
+(402, 'Randal', 'KOLO MUANI', 16, 4, 'https://digitalhub.fifa.com/transform/fbf401d9-a1c6-4d50-a538-e6af7bf26469/1442233129?io=transform:fill,width:792,height:900'),
+(403, 'Youssouf', 'Fofana', 16, 1, 'https://digitalhub.fifa.com/transform/071fd94c-4233-4483-be24-31832fc7b11c/1442233324?io=transform:fill,width:792,height:900'),
+(404, 'Adrien', 'RABIOT', 16, 2, 'https://digitalhub.fifa.com/transform/c6bd7ccf-a7ab-45d1-9fbd-15d123128fe8/1442233546?io=transform:fill,width:792,height:900'),
+(405, 'Jordan', 'VERETOUT', 16, 2, 'https://digitalhub.fifa.com/transform/e7734a70-a425-400f-add1-df47fe7cec02/1442233735?io=transform:fill,width:792,height:900'),
+(406, 'Steve', 'MANDANDA', 16, 3, 'https://digitalhub.fifa.com/transform/c7c5a9eb-81bc-4d06-aee3-8c6ea3cb0b03/1442233046?io=transform:fill,width:792,height:900'),
+(407, 'William', 'SALIBA', 16, 1, 'https://digitalhub.fifa.com/transform/5f40241a-288d-4ef6-a666-e023f874649d/1442233272?io=transform:fill,width:792,height:900'),
+(408, 'Dayot', 'UPAMECANO', 16, 1, 'https://digitalhub.fifa.com/transform/a660efd2-8a90-436b-a829-b8393cd02a3a/1442233458?io=transform:fill,width:792,height:900'),
+(409, 'Karim', 'BENZEMA', 16, 4, 'https://digitalhub.fifa.com/transform/9da6413d-1292-440f-9990-49a8511e5a94/1442234308?io=transform:fill,width:792,height:900'),
+(410, 'Kingsley', 'COMAN', 16, 4, 'https://digitalhub.fifa.com/transform/2bad9c99-e879-44a6-84b3-4958cc703da6/1442233766?io=transform:fill,width:792,height:900'),
+(411, 'Lucas', 'HERNANDEZ', 16, 1, 'https://digitalhub.fifa.com/transform/494d440f-9d6e-4f2b-b1d0-6366e0aa73bd/1442233076?io=transform:fill,width:792,height:900'),
+(412, 'Theo', 'HERNANDEZ', 16, 1, 'https://digitalhub.fifa.com/transform/664b630b-7453-4444-b65f-c85f32b7bba7/1442233207?io=transform:fill,width:792,height:900'),
+(413, 'Alphonse', 'AREOLA', 16, 3, 'https://digitalhub.fifa.com/transform/8668aa7d-ed24-454e-bda4-5050134a608f/1442232994?io=transform:fill,width:792,height:900'),
+(414, 'Ibrahima', 'KONATE', 16, 1, 'https://digitalhub.fifa.com/transform/5aff5d26-7b00-460a-addf-eef5267398bc/1442233694?io=transform:fill,width:792,height:900'),
+(415, 'Eduardo', 'CAMAVINGA', 16, 2, 'https://digitalhub.fifa.com/transform/03a3a1cb-f2e4-4ddb-9779-13a9632526da/1442233249?io=transform:fill,width:792,height:900'),
+(416, 'Marcus', 'THURAM', 16, 4, 'https://digitalhub.fifa.com/transform/cc1ffb08-99f8-4a04-aa07-918e6707e046/Empty-field?io=transform:fill,width:792,height:900'),
+(417, 'Wayne', 'HENNESSEY', 17, 3, 'https://digitalhub.fifa.com/transform/10cb4328-988a-4eb7-a4ee-3e99739cf024/1441997998?io=transform:fill,width:792,height:900'),
+(418, 'Chris', 'GUNTER', 17, 1, 'https://digitalhub.fifa.com/transform/96145f97-1f1a-412b-8c1f-aa7a6ad25f79/1441998281?io=transform:fill,width:792,height:900'),
+(419, 'Neco', 'WILLIAMS', 17, 1, 'https://digitalhub.fifa.com/transform/b58dc8aa-b98b-4ff9-a5fc-4b3c139610b8/1442000050?io=transform:fill,width:792,height:900'),
+(420, 'Ben', 'DAVIES', 17, 1, 'https://digitalhub.fifa.com/transform/c8d9ec46-b462-4ec4-be8e-db1e3d6de22e/1441999220?io=transform:fill,width:792,height:900'),
+(421, 'Chris', 'MEPHAM', 17, 1, 'https://digitalhub.fifa.com/transform/c8d9ec46-b462-4ec4-be8e-db1e3d6de22e/1441999220?io=transform:fill,width:792,height:900'),
+(422, 'Joe', 'RODON', 17, 1, 'https://digitalhub.fifa.com/transform/360cc2f0-1d54-4d72-a836-16100ecf31a7/1441999316?io=transform:fill,width:792,height:900'),
+(423, 'Joe', 'ALLEN', 17, 2, 'https://digitalhub.fifa.com/transform/8bb91546-f37a-455a-a8d1-baaaf8dbb919/1441998435?io=transform:fill,width:792,height:900'),
+(424, 'Harry', 'WILSON', 17, 2, 'https://digitalhub.fifa.com/transform/68be3cf8-45f8-4983-81d5-2354e20fcd32/1442000584?io=transform:fill,width:792,height:900'),
+(425, 'Brennan', 'JOHNSON', 17, 4, 'https://digitalhub.fifa.com/transform/ab7cf981-2669-4873-a72c-4a0694761574/1442000468?io=transform:fill,width:792,height:900'),
+(426, 'Aaron', 'RAMSEY', 17, 2, 'https://digitalhub.fifa.com/transform/bc4d38db-13a7-49ee-b4f7-c58a75b8ca55/1441998552?io=transform:fill,width:792,height:900'),
+(427, 'Gareth', 'BALE', 17, 4, 'https://digitalhub.fifa.com/transform/2a99b7d0-56ee-4fd5-850c-212952fb2efd/1441998337?io=transform:fill,width:792,height:900'),
+(428, 'Danny', 'WARD', 17, 3, 'https://digitalhub.fifa.com/transform/1299b8d6-d896-46c2-8b98-607f06995836/1441998139?io=transform:fill,width:792,height:900'),
+(429, 'Kieffer', 'MOORE', 17, 4, 'https://digitalhub.fifa.com/transform/66828402-d356-486e-b7d1-b93930422002/1441999104?io=transform:fill,width:792,height:900'),
+(430, 'Connor', 'ROBERTS', 17, 1, 'https://digitalhub.fifa.com/transform/95c72f50-1a41-4645-8994-11e1298ce97a/1441998982?io=transform:fill,width:792,height:900'),
+(431, 'Ethan', 'AMPADU', 17, 1, 'https://digitalhub.fifa.com/transform/e8dacead-8d20-40b1-94b0-a353dffe4fdd/1442000260?io=transform:fill,width:792,height:900'),
+(432, 'Joseff', 'MORRELL', 17, 2, 'https://digitalhub.fifa.com/transform/efa40c36-a997-4b4c-9267-c0ac60042d51/1442000878?io=transform:fill,width:792,height:900'),
+(433, 'Tom', 'LOCKYER', 17, 1, 'https://digitalhub.fifa.com/transform/b506744f-be60-49a2-abaa-bec7897c3aa6/1442000541?io=transform:fill,width:792,height:900'),
+(434, 'Jonathan', 'WILLIAMS', 17, 2, 'https://digitalhub.fifa.com/transform/ce257e2e-068e-44f3-b168-246d7780fffc/1441998615?io=transform:fill,width:792,height:900'),
+(435, 'Mark', 'HARRIS', 17, 4, 'https://digitalhub.fifa.com/transform/8bdee5c7-e0f5-462f-93e4-f236ef75405c/1441998818?io=transform:fill,width:792,height:900'),
+(436, 'Daniel', 'JAMES', 17, 4, 'https://digitalhub.fifa.com/transform/5cba0cb1-2562-4aca-b12b-c522cf8cb038/1442001097?io=transform:fill,width:792,height:900'),
+(437, 'Adam', 'DAVIES', 17, 3, 'https://digitalhub.fifa.com/transform/9b8f1e2b-806f-4c19-bdc2-6f4c9b743a0e/1441998068?io=transform:fill,width:792,height:900'),
+(438, 'Sorba', 'THOMAS', 17, 2, 'https://digitalhub.fifa.com/transform/eeb01849-9d0d-4643-a00a-a8ab18fbe7d5/1441999714?io=transform:fill,width:792,height:900'),
+(439, 'Dylan', 'LEVITT', 17, 2, 'https://digitalhub.fifa.com/transform/55f6e448-e744-49cc-99ee-ee8ef398425c/1442000786?io=transform:fill,width:792,height:900'),
+(440, 'Ben', 'CABANGO', 17, 1, 'https://digitalhub.fifa.com/transform/5801b421-53f3-4c04-ad6d-8f9565b84644/1442000347?io=transform:fill,width:792,height:900'),
+(441, 'Rubin', 'COLWILL', 17, 1, 'https://digitalhub.fifa.com/transform/b8568312-59b0-4b57-8891-b43e71c37d22/1441999347?io=transform:fill,width:792,height:900'),
+(442, 'Matt', 'SMITH', 17, 2, 'https://digitalhub.fifa.com/transform/58aa9783-16ab-4b0f-970f-cd237c5b7e33/1442001005?io=transform:fill,width:792,height:900'),
+(443, 'Lawrence', 'Ati ZIGI', 18, 3, 'https://digitalhub.fifa.com/transform/7c5d60c5-1bb0-461c-b183-e23ace044170/1443094166?io=transform:fill,width:792,height:900'),
+(444, 'Tariq', 'LAMPTEY', 18, 1, 'https://digitalhub.fifa.com/transform/974cb153-9033-4751-8c03-9b733f71e16b/1443098558?io=transform:fill,width:792,height:900'),
+(445, 'Denis', 'ODOI', 18, 1, 'https://digitalhub.fifa.com/transform/9323d84f-b26f-4764-81ce-7fcda605ea9f/1443097732?io=transform:fill,width:792,height:900'),
+(446, 'Mohammed', 'SALISU', 18, 1, 'https://digitalhub.fifa.com/transform/9876a83a-e123-4853-b4ef-45d2eb5adc18/1443098597?io=transform:fill,width:792,height:900'),
+(447, 'Thomas', 'PARTEY', 18, 2, 'https://digitalhub.fifa.com/transform/f941d141-fb07-4b32-87fe-67fb5bed1fc1/1443095587?io=transform:fill,width:792,height:900'),
+(448, 'Elisha', 'OWUSU', 18, 2, 'https://digitalhub.fifa.com/transform/fdc0b003-0d32-472f-b682-a191facdc21b/1443094461?io=transform:fill,width:792,height:900'),
+(449, 'Abdul', 'Fatawu ISSAHAKU', 18, 2, 'https://digitalhub.fifa.com/transform/a1170cda-d5bd-4aed-8431-689b64d2cecc/1443098323?io=transform:fill,width:792,height:900'),
+(450, 'Daniel', '-Kofi KYEREH', 18, 2, 'https://digitalhub.fifa.com/transform/be9d5448-9124-46b2-b70c-42d85ada1c40/1443098453?io=transform:fill,width:792,height:900'),
+(451, 'Jordan', 'AYEW', 18, 4, 'https://digitalhub.fifa.com/transform/6f9daf4e-9808-43d3-9322-61de2bb60527/1443097162?io=transform:fill,width:792,height:900'),
+(452, 'Andre', 'AYEW', 18, 4, 'https://digitalhub.fifa.com/transform/e6e0052a-e490-462d-8856-7c5371c74f38/1443098375?io=transform:fill,width:792,height:900'),
+(453, 'Osman', 'BUKARI', 18, 2, 'https://digitalhub.fifa.com/transform/d5cd5603-1c4b-4669-be8d-d115d8c331ff/1443095027?io=transform:fill,width:792,height:900'),
+(454, 'Danlad', 'IBRAHIM', 18, 3, 'https://digitalhub.fifa.com/transform/40fc1bc0-aaf7-4572-b8ed-c54c45691860/1443094377?io=transform:fill,width:792,height:900'),
+(455, 'Daniel', 'AFRIYIE', 18, 2, 'https://digitalhub.fifa.com/transform/92f711ac-2d41-4329-9aed-5a1310330b5a/1443098435?io=transform:fill,width:792,height:900'),
+(456, 'Gideon', 'MENSAH', 18, 1, 'https://digitalhub.fifa.com/transform/148f8a33-9b3b-4792-881c-11cdcf62e17c/1443098389?io=transform:fill,width:792,height:900'),
+(457, 'Joseph', 'AIDOO', 18, 1, 'https://digitalhub.fifa.com/transform/66c0e713-ee47-4917-8350-b5cdfab05b8b/1443098400?io=transform:fill,width:792,height:900'),
+(458, 'Abdul', 'Manaf NURUDEEN', 18, 3, 'https://digitalhub.fifa.com/transform/bb29eb4c-ea97-4618-a587-484cb0af2469/1443094288?io=transform:fill,width:792,height:900'),
+(459, 'Baba', 'RAHMAN', 18, 1, 'https://digitalhub.fifa.com/transform/3f3abf9f-9d34-4924-af94-443a09893230/1443096640?io=transform:fill,width:792,height:900'),
+(460, 'Daniel', 'AMARTEY', 18, 1, 'https://digitalhub.fifa.com/transform/f9ab79e3-3a40-4b3b-bbdd-041b6026ea3f/1443098255?io=transform:fill,width:792,height:900'),
+(461, 'Inaki', 'WILLIAMS', 18, 4, 'https://digitalhub.fifa.com/transform/439e551b-5dcd-4a90-a1f5-07896caab9f0/1443098509?io=transform:fill,width:792,height:900'),
+(462, 'Kudus', 'MOHAMMED', 18, 2, 'https://digitalhub.fifa.com/transform/673ae6b8-f949-4794-bcf9-d1ffc596de64/1443098494?io=transform:fill,width:792,height:900'),
+(463, 'Salis', 'ABDUL SAMED', 18, 2, 'https://digitalhub.fifa.com/transform/485bd741-7421-494f-81e9-7c4059569b88/1443096120?io=transform:fill,width:792,height:900'),
+(464, 'Kamaldeen', 'SULEMANA', 18, 2, 'https://digitalhub.fifa.com/transform/8f06200b-05a6-44ac-8181-78cfe3b155ff/1443097203?io=transform:fill,width:792,height:900'),
+(465, 'Alexander', 'DJIKU', 18, 1, 'https://digitalhub.fifa.com/transform/ac50b88e-a20c-4d6b-8239-3f49d814eed5/1443098545?io=transform:fill,width:792,height:900'),
+(466, 'Kamal', 'SOWAH', 18, 2, 'https://digitalhub.fifa.com/transform/a50e616e-c099-4672-b2cd-432abda8c150/1443095555?io=transform:fill,width:792,height:900'),
+(467, 'Antoine', 'SEMENYO', 18, 4, 'https://digitalhub.fifa.com/transform/fe8194de-0adf-4a8a-9907-f346f7578d01/1443094505?io=transform:fill,width:792,height:900'),
+(468, 'Seidu', 'ALIDU', 18, 1, 'https://digitalhub.fifa.com/transform/a456c27c-0885-4bdc-9e8b-6f6d1964fb3e/1443098348?io=transform:fill,width:792,height:900'),
+(469, 'Jordan', 'PICKFORD', 19, 3, 'https://digitalhub.fifa.com/transform/ccfc6c04-ef86-4b16-bf62-7d6cec2e6737/1441944281?io=transform:fill,width:792,height:900'),
+(470, 'Kyle', 'WALKER', 19, 1, 'https://digitalhub.fifa.com/transform/1a8e1f12-3a31-42b4-8bd2-96f315861583/1441945119?io=transform:fill,width:792,height:900'),
+(471, 'Luke', 'SHAW', 19, 1, 'https://digitalhub.fifa.com/transform/26b56ac4-3fe4-4e23-b632-92d8c89167cb/1441945575?io=transform:fill,width:792,height:900'),
+(472, 'Declan', 'RICE', 19, 2, 'https://digitalhub.fifa.com/transform/cda257d1-50e4-4ab7-9e88-17c0670abfc2/1441944538?io=transform:fill,width:792,height:900'),
+(473, 'John', 'STONES', 19, 1, 'https://digitalhub.fifa.com/transform/ca3de608-1c2c-489c-a6e0-1a5283372307/1441945288?io=transform:fill,width:792,height:900'),
+(474, 'Harry', 'MAGUIRE', 19, 1, 'https://digitalhub.fifa.com/transform/a47f0cea-7b52-4bbf-98f3-00baa2ba5b76/1441945256?io=transform:fill,width:792,height:900'),
+(475, 'Jack', 'GREALISH', 19, 4, 'https://digitalhub.fifa.com/transform/c5fc5a56-6169-418f-828a-f5482b36a21a/1441945587?io=transform:fill,width:792,height:900'),
+(476, 'Jordan', 'HENDERSON', 19, 2, 'https://digitalhub.fifa.com/transform/cda257d1-50e4-4ab7-9e88-17c0670abfc2/1441944538?io=transform:fill,width:792,height:900'),
+(477, 'Harry', 'KANE', 19, 4, 'https://digitalhub.fifa.com/transform/7d57e471-4f7f-47b2-a4f7-2facbd8ac9ff/1441945685?io=transform:fill,width:792,height:900'),
+(478, 'Raheem', 'STERLING', 19, 4, 'https://digitalhub.fifa.com/transform/e593063f-bff2-49b8-abcb-874e76ecc903/1441945548?io=transform:fill,width:792,height:900'),
+(479, 'Marcus', 'RASHFORD', 19, 4, 'https://digitalhub.fifa.com/transform/49ea24b1-442f-4e87-a803-9eda83257000/1441944517?io=transform:fill,width:792,height:900'),
+(480, 'Kieran', 'TRIPPIER', 19, 1, 'https://digitalhub.fifa.com/transform/cb9f33c7-8779-4060-9040-5244dbc3c981/1441945154?io=transform:fill,width:792,height:900'),
+(481, 'Nick', 'POPE', 19, 3, 'https://digitalhub.fifa.com/transform/ccfc6c04-ef86-4b16-bf62-7d6cec2e6737/1441944281?io=transform:fill,width:792,height:900'),
+(482, 'Kalvin', 'PHILLIPS', 19, 2, 'https://digitalhub.fifa.com/transform/479860c7-e9a3-4292-ad21-70ea1ce655da/1441945358?io=transform:fill,width:792,height:900'),
+(483, 'Eric', 'DIER', 19, 1, 'https://digitalhub.fifa.com/transform/fbe7b081-b55e-44c8-ab9c-3c8410c4762b/1441944369?io=transform:fill,width:792,height:900'),
+(484, 'Conor', 'COADY', 19, 1, 'https://digitalhub.fifa.com/transform/665f2ed3-bad9-4a9b-a43a-f55aa34b0113/1441945220?io=transform:fill,width:792,height:900'),
+(485, 'Bukayo', 'SAKA', 19, 4, 'https://digitalhub.fifa.com/transform/c88c6fcf-5705-4264-9552-938ef7eaa022/1441944591?io=transform:fill,width:792,height:900'),
+(486, 'Trent', 'ALEXANDER-ARNOLD', 19, 1, 'https://digitalhub.fifa.com/transform/a4385ada-6bda-40cd-b8f3-7fe4cdd0ca40/1441945174?io=transform:fill,width:792,height:900'),
+(487, 'Mason', 'MOUNT', 19, 2, 'https://digitalhub.fifa.com/transform/93c9e6d8-8a8c-4300-8a89-6a9a1c4fad88/1441944419?io=transform:fill,width:792,height:900'),
+(488, 'Phil', 'FODEN', 19, 2, 'https://digitalhub.fifa.com/transform/6d4611d7-028f-44ae-b5ed-fbcf05b5186c/1441945638?io=transform:fill,width:792,height:900'),
+(489, 'Ben', 'WHITE', 19, 1, 'https://digitalhub.fifa.com/transform/37282e11-aca8-40eb-b1f8-5955fbfb234a/1441945140?io=transform:fill,width:792,height:900'),
+(490, 'Jude', 'BELLINGHAM', 19, 2, 'https://digitalhub.fifa.com/transform/a3d6d2c6-df50-430e-abb5-53eaaab80b7e/1441945307?io=transform:fill,width:792,height:900'),
+(491, 'Aaron', 'RAMSDALE', 19, 3, 'https://digitalhub.fifa.com/transform/eb7a51d8-8004-45f0-a318-615a6dcbc865/1441944075?io=transform:fill,width:792,height:900'),
+(492, 'Callum', 'WILSON', 19, 4, 'https://digitalhub.fifa.com/transform/0b7044f2-13bd-40cc-b85a-61a4dc5c37d4/1441945638?io=transform:fill,width:792,height:900'),
+(493, 'James', 'MADDISON', 19, 2, 'https://digitalhub.fifa.com/transform/a3d6d2c6-df50-430e-abb5-53eaaab80b7e/1441945307?io=transform:fill,width:792,height:900'),
+(494, 'Conor', 'GALLAGHER', 19, 2, 'https://digitalhub.fifa.com/transform/b6d70ac0-9ce9-45f5-8fe1-5c317a08d52c/1441944466?io=transform:fill,width:792,height:900'),
+(495, 'Ali', 'BEIRANVAND', 20, 3, 'https://digitalhub.fifa.com/transform/071174ff-7a39-483f-bf99-c9096fed1fab/1441895603?io=transform:fill,width:792,height:900'),
+(496, 'Sadegh', 'MOHARRAMI', 20, 1, 'https://digitalhub.fifa.com/transform/c9c01799-0540-466a-b55d-58caf1c5f40e/1441896039?io=transform:fill,width:792,height:900'),
+(497, 'Ehsan', 'HAJI SAFI', 20, 1, 'https://digitalhub.fifa.com/transform/3b9dc2e6-99a7-4b89-8db9-f74b820ae7c4/1441895976?io=transform:fill,width:792,height:900'),
+(498, 'Shojae', 'KHALILZADEH', 20, 1, 'https://digitalhub.fifa.com/transform/5dbf413f-069a-42d6-af68-fc2202fd793a/1441895856?io=transform:fill,width:792,height:900'),
+(499, 'Milad', 'MOHAMMADI', 20, 1, 'https://digitalhub.fifa.com/transform/8f7a051e-5a3b-4acc-bea1-a43b0584fb17/1441897280?io=transform:fill,width:792,height:900'),
+(500, 'Saeid', 'EZATOLAHI', 20, 2, 'https://digitalhub.fifa.com/transform/ce92f83a-69eb-4d84-bf5b-9123cd57b031/1441897098?io=transform:fill,width:792,height:900'),
+(501, 'Alireza', 'JAHANBAKHSH', 20, 2, 'https://digitalhub.fifa.com/transform/979c751d-6d78-444e-8e3e-72dd63a48e73/1441897773?io=transform:fill,width:792,height:900'),
+(502, 'Morteza', 'POURALIGANJI', 20, 1, 'https://digitalhub.fifa.com/transform/b85658d4-6b5c-4b77-a3b4-afe0eab5c72a/1441896101?io=transform:fill,width:792,height:900'),
+(503, 'Mehdi', 'TAREMI', 20, 4, 'https://digitalhub.fifa.com/transform/69a40254-ff99-4324-964b-11a9d1a65d40/1441897703?io=transform:fill,width:792,height:900'),
+(504, 'Karim', 'ANSARIFARD', 20, 4, 'https://digitalhub.fifa.com/transform/d0a1b57b-7304-416a-bcba-e7b2667c9113/1441897828?io=transform:fill,width:792,height:900'),
+(505, 'Vahid', 'AMIRI', 20, 2, 'https://digitalhub.fifa.com/transform/e6770683-521e-4aa8-b69b-1c9a35553a7f/1441897539?io=transform:fill,width:792,height:900'),
+(506, 'Payam', 'NIAZMAND', 20, 3, 'https://digitalhub.fifa.com/transform/527ea966-5385-42da-8dc2-0211862e0c34/1441895551?io=transform:fill,width:792,height:900'),
+(507, 'Mohammad', 'KANAANI', 20, 1, 'https://digitalhub.fifa.com/transform/d7f19aa6-c011-4eed-8fdd-5079b951ce27/1441895762?io=transform:fill,width:792,height:900'),
+(508, 'Saman', 'GHODDOS', 20, 2, 'https://digitalhub.fifa.com/transform/e882a1c0-ade1-4f5b-9cfa-cec72b1abb4e/1441897490?io=transform:fill,width:792,height:900'),
+(509, 'Roozbeh', 'CHESHMI', 20, 1, 'https://digitalhub.fifa.com/transform/06ae5ebf-28b6-4d52-bc71-6af4e6f35533/1441896143?io=transform:fill,width:792,height:900'),
+(510, 'Mahdi', 'TORABI', 20, 2, 'https://digitalhub.fifa.com/transform/204b7327-1027-465c-a037-7f5751ef209a/1441897578?io=transform:fill,width:792,height:900'),
+(511, 'Ali', 'GHOLIZADEH', 20, 2, 'https://digitalhub.fifa.com/transform/1ba9637e-a27c-44fe-8561-f3b8a4eb04ed/1441896073?io=transform:fill,width:792,height:900'),
+(512, 'Ali', 'KARIMI', 20, 2, 'https://digitalhub.fifa.com/transform/8c3720e7-6d09-4943-89c9-5fa1b53fe7c9/1441895939?io=transform:fill,width:792,height:900'),
+(513, 'Majid', 'HOSSEINI', 20, 1, 'https://digitalhub.fifa.com/transform/cadef0d7-cb84-40a7-91ea-50c62b23836d/1441896163?io=transform:fill,width:792,height:900'),
+(514, 'Sardar', 'AZMOUN', 20, 4, 'https://digitalhub.fifa.com/transform/c50245ff-0d7f-47b3-8f94-206a58531506/1441897616?io=transform:fill,width:792,height:900'),
+(515, 'Ahmad', 'NOOROLLAHI', 20, 2, 'https://digitalhub.fifa.com/transform/dfb39565-31e3-4eb5-ba34-31a521d223cd/1441897340?io=transform:fill,width:792,height:900'),
+(516, 'Amir', 'ABEDZADEH', 20, 3, 'https://digitalhub.fifa.com/transform/4152a876-3977-43b7-b2ae-9a860aaf64a0/1441895723?io=transform:fill,width:792,height:900'),
+(517, 'Ramin', 'REZAEIAN', 20, 1, 'https://digitalhub.fifa.com/transform/df23f556-1a50-401d-9c40-79b058df5dc7/1441895813?io=transform:fill,width:792,height:900'),
+(518, 'Hossein', 'HOSSEINI', 20, 3, 'https://digitalhub.fifa.com/transform/8a10f554-4998-4d34-8ec7-c44499c759de/1441895656?io=transform:fill,width:792,height:900'),
+(519, 'Abolfazl', 'JALALI', 20, 1, 'https://digitalhub.fifa.com/transform/ce92f83a-69eb-4d84-bf5b-9123cd57b031/1441897098?io=transform:fill,width:792,height:900'),
+(520, 'Eiji', 'KAWASHIMA', 21, 3, 'https://digitalhub.fifa.com/transform/0f54f710-facd-43e4-ac07-538e9a7b6f1c/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(521, 'Miki', 'YAMANE', 21, 1, 'https://digitalhub.fifa.com/transform/ee9cb8e9-1acf-48bc-b56e-60f018170d0f/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(522, 'Shogo', 'TANIGUCHI', 21, 1, 'https://digitalhub.fifa.com/transform/0999d161-40c0-4a98-98c1-7a64bcb08194/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(523, 'Kou', 'ITAKURA', 21, 1, 'https://digitalhub.fifa.com/transform/07f1377c-c859-4f9a-a68f-45dc86e8f04a/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(524, 'Yuto', 'NAGATOMO', 21, 1, 'https://digitalhub.fifa.com/transform/98ccd92e-f547-439f-844f-54bd3b224ba5/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(525, 'Wataru', 'ENDO', 21, 2, 'https://digitalhub.fifa.com/transform/d1f64b72-4fcf-44b4-8f7a-33abe45f3993/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(526, 'Gaku', 'SHIBASAKI', 21, 2, 'https://digitalhub.fifa.com/transform/ce65649e-a235-4a1b-8ce0-fe29b814d784/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(527, 'Ritsu', 'DOAN', 21, 2, 'https://digitalhub.fifa.com/transform/95ae9c05-4e5b-4e4c-acff-4e267df19edf/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(528, 'Kaoru', 'MITOMA', 21, 2, 'https://digitalhub.fifa.com/transform/c329c2a8-50c7-4460-89a3-2a349c12abe7/1442484179?io=transform:fill,width:792,height:900'),
+(529, 'Takumi', 'MINAMINO', 21, 2, 'https://digitalhub.fifa.com/transform/457d4880-ec1b-4d23-bcdf-049c6b2b8e2f/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(530, 'Takefusa', 'KUBO', 21, 2, 'https://digitalhub.fifa.com/transform/646e662d-8d90-4a68-9381-f8e30d9ab48b/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(531, 'Shuichi', 'GONDA', 21, 3, 'https://digitalhub.fifa.com/transform/ace17449-02b6-4d17-ba80-3091459163af/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(532, 'Hidemasa', 'MORITA', 21, 2, 'https://digitalhub.fifa.com/transform/3098e878-ab1e-4c8e-8322-77fd1a0b4ac0/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(533, 'Junya', 'ITO', 21, 2, 'https://digitalhub.fifa.com/transform/3e6064ca-0641-4a9c-a5c4-913f45d206dc/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(534, 'Daichi', 'KAMADA', 21, 2, 'https://digitalhub.fifa.com/transform/f1989dde-ede4-418e-b07c-b8f66bcf670d/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(535, 'Takehiro', 'TOMIYASU', 21, 1, 'https://digitalhub.fifa.com/transform/0c047928-28c6-4b5f-8167-3b8681d73ed8/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(536, 'Ao', 'TANAKA', 21, 2, 'https://digitalhub.fifa.com/transform/05614eae-7361-440c-aa0b-b2add03275e1/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(537, 'Takuma', 'ASANO', 21, 4, 'https://digitalhub.fifa.com/transform/246130b5-fdfd-4334-b566-2b6097444b6b/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(538, 'Hiroki', 'SAKAI', 21, 1, 'https://digitalhub.fifa.com/transform/60bed649-ebde-426f-9a76-4fb60946d8ec/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(539, 'Shuto', 'MACHINO', 21, 4, 'https://digitalhub.fifa.com/transform/a84ce87a-5c10-41e6-baac-becab1939c7b/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(540, 'Ayase', 'UEDA', 21, 4, 'https://digitalhub.fifa.com/transform/da5db1d0-8c15-41e3-8d1a-ce1717693bb0/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(541, 'Maya', 'YOSHIDA', 21, 1, 'https://digitalhub.fifa.com/transform/683fb85c-f9bf-4b39-9797-9034f922e059/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(542, 'Daniel', 'SCHMIDT', 21, 3, 'https://digitalhub.fifa.com/transform/38eb1006-d7e1-45bd-a68d-e7d18e223aab/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(543, 'Yuki', 'SOMA', 21, 2, 'https://digitalhub.fifa.com/transform/923ad90a-9fbc-48ed-b12c-333b0849e35c/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(544, 'Daizen', 'MAEDA', 21, 4, 'https://digitalhub.fifa.com/transform/77e13f2b-7fdb-49b8-aa2f-d917797829f0/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(545, 'Hiroki', 'ITO', 21, 1, 'https://digitalhub.fifa.com/transform/a607ee3c-ca87-4ebf-b5b6-01f9700f6902/Japan-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(546, 'Yassine', 'BOUNOU', 22, 3, 'https://digitalhub.fifa.com/transform/d46cb9ce-5bb8-49f0-84f0-10d8d65da74d/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(547, 'Achraf', 'HAKIMI', 22, 1, 'https://digitalhub.fifa.com/transform/03f3de69-d5c1-46de-b3ef-ff56a95035af/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(548, 'Noussair', 'MAZRAOUI', 22, 1, 'https://digitalhub.fifa.com/transform/c9591567-7fe7-4199-b558-d8b19df33c09/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(549, 'Sofyan', 'AMRABAT', 22, 2, 'https://digitalhub.fifa.com/transform/4c81738d-c8c2-4296-8db4-5a8549d49896/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(550, 'Nayef', 'AGUERD', 22, 1, 'https://digitalhub.fifa.com/transform/8be99692-04dd-4c92-8a86-70dc8e6901c7/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(551, 'Romain', 'SAISS', 22, 1, 'https://digitalhub.fifa.com/transform/b781e1dc-a7a9-4d08-a65d-48abe85707e0/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(552, 'Hakim', 'ZIYECH', 22, 2, 'https://digitalhub.fifa.com/transform/96ff445c-211f-4bc3-b0d8-cc6bb5777982/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(553, 'Azzedine', 'OUNAHI', 22, 2, 'https://digitalhub.fifa.com/transform/ea14d344-4dc1-460c-9923-d8a485c894eb/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(554, 'Abderrazak', 'HAMDALLAH', 22, 4, 'https://digitalhub.fifa.com/transform/e1ba5410-1b22-4442-a355-a5c482797b20/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(555, 'Anass', 'ZAROURY', 22, 2, 'https://digitalhub.fifa.com/transform/c3f43b99-70ce-4612-a1dc-dcbc02aaed58/1442764041?io=transform:fill,width:792,height:900'),
+(556, 'Abdelhamid', 'SABIRI', 22, 4, 'https://digitalhub.fifa.com/transform/75413604-793b-4439-bd91-eefcc4f4002a/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(557, 'Monir', 'EL KAJOUI', 22, 3, 'https://digitalhub.fifa.com/transform/6cf7f058-8faa-483b-8f66-e12e879393a2/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(558, 'Ilias', 'CHAIR', 22, 2, 'https://digitalhub.fifa.com/transform/02b330d8-ee72-471a-b822-eec280201d93/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(559, 'Zakaria', 'ABOUKHLAL', 22, 2, 'https://digitalhub.fifa.com/transform/2e91ce28-fb39-46ac-94f3-42e8d6f9037c/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(560, 'Selim', 'AMALLAH', 22, 2, 'https://digitalhub.fifa.com/transform/e263eb52-deb4-4631-bb0e-9c8c05d1fb57/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(561, 'Abde', 'EZZALZOULI', 22, 4, 'https://digitalhub.fifa.com/transform/6b36588e-97af-4154-9347-c8ec11c7d5f9/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(562, 'Sofiane', 'BOUFAL', 22, 2, 'https://digitalhub.fifa.com/transform/84676693-2965-42a6-9a82-12ce8c68e8c6/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(563, 'Jawad', 'EL YAMIQ', 22, 1, 'https://digitalhub.fifa.com/transform/42565243-e310-4b9c-996a-fe4195d21926/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(564, 'Youssef', 'EN NESYRI', 22, 4, 'https://digitalhub.fifa.com/transform/2cbd2bc3-0cd6-442e-9877-3cd951e63234/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(565, 'Achraf', 'DARI', 22, 1, 'https://digitalhub.fifa.com/transform/814883ae-a895-4aac-a723-8bb5ab557255/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(566, 'Walid', 'CHEDDIRA', 22, 4, 'https://digitalhub.fifa.com/transform/97604e6b-ca73-48d6-b247-442cdb0c15a8/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(567, 'Ahmed', 'TAGNAOUTI', 22, 3, 'https://digitalhub.fifa.com/transform/fb93ad1a-14a1-41b8-be41-8dbed03eea0d/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(568, 'Bilal', 'EL KHANNOUSS', 22, 2, 'https://digitalhub.fifa.com/transform/73517f96-2f41-408a-b9c8-a2a85fc315bd/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(569, 'Badr', 'BENOUN', 22, 1, 'https://digitalhub.fifa.com/transform/fd26ecc0-f332-4919-b020-90733111c3f2/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(570, 'Yahya', 'ATTIAT-ALLAH', 22, 1, 'https://digitalhub.fifa.com/transform/40df5201-cc2f-4f00-9a96-9c5906656be9/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(571, 'Yahya', 'JABRANE', 22, 2, 'https://digitalhub.fifa.com/transform/fa110b77-6750-47a9-9e47-5a4699477a44/Morocco-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(572, 'Alfredo', 'TALAVERA', 23, 3, 'https://digitalhub.fifa.com/transform/b5ff7388-c2c0-45e1-ba1c-c1a4a13ab634/1442569767?io=transform:fill,width:792,height:900'),
+(573, 'Nestor', 'ARAUJO', 23, 1, 'https://digitalhub.fifa.com/transform/46db0d50-3aa7-4935-bb0b-369960534dd6/1442571186?io=transform:fill,width:792,height:900'),
+(574, 'Cesar', 'MONTES', 23, 1, 'https://digitalhub.fifa.com/transform/996b1bec-eb20-4225-8f1d-a5fa2eeaebab/1442569877?io=transform:fill,width:792,height:900'),
+(575, 'Edson', 'ALVAREZ', 23, 1, 'https://digitalhub.fifa.com/transform/8bea6c6f-05ec-4f00-8307-faf1347e2e3e/1442570749?io=transform:fill,width:792,height:900'),
+(576, 'Johan', 'VASQUEZ', 23, 1, 'https://digitalhub.fifa.com/transform/139ff36e-7958-4f6d-a16f-c616afc51546/1442571172?io=transform:fill,width:792,height:900'),
+(577, 'Gerardo', 'ARTEAGA', 23, 1, 'https://digitalhub.fifa.com/transform/30f75dde-aa1b-45d8-ace8-44007b3aa644/1442571070?io=transform:fill,width:792,height:900'),
+(578, 'Luis', 'ROMO', 23, 2, 'https://digitalhub.fifa.com/transform/d93d9965-a8df-4358-8068-012c556a8743/1442569867?io=transform:fill,width:792,height:900'),
+(579, 'Carlos', 'RODRIGUEZ', 23, 2, 'https://digitalhub.fifa.com/transform/6f06b814-70fa-4563-9752-afd201f8303d/1442569978?io=transform:fill,width:792,height:900'),
+(580, 'Raul', 'JIMENEZ', 23, 4, 'https://digitalhub.fifa.com/transform/38f80ee1-1325-4456-8f3f-b44af2540650/1442570723?io=transform:fill,width:792,height:900'),
+(581, 'Alexis', 'VEGA', 23, 4, 'https://digitalhub.fifa.com/transform/34526e10-28d4-40f1-9e96-0323e84390ef/1442570859?io=transform:fill,width:792,height:900'),
+(582, 'Rogelio', 'FUNES MORI', 23, 4, 'https://digitalhub.fifa.com/transform/d41c450f-98c3-48f0-a10f-528a08dda11a/1442570031?io=transform:fill,width:792,height:900'),
+(583, 'Rodolfo', 'COTA', 23, 3, 'https://digitalhub.fifa.com/transform/36ad6d81-ac44-4ac8-ac45-6629fedde428/1442569779?io=transform:fill,width:792,height:900'),
+(584, 'Guillermo', 'OCHOA', 23, 3, 'https://digitalhub.fifa.com/transform/c334c4ea-5ba3-4c34-ab21-219a5f9a304d/1442569806?io=transform:fill,width:792,height:900'),
+(585, 'Erick', 'GUTIERREZ', 23, 2, 'https://digitalhub.fifa.com/transform/55d090eb-9d0c-402c-9350-ae02f6629552/1442569937?io=transform:fill,width:792,height:900'),
+(586, 'Hector', 'MORENO', 23, 1, 'https://digitalhub.fifa.com/transform/96911b40-3a64-4831-8b29-1db53ce5ee8b/1442570919?io=transform:fill,width:792,height:900'),
+(587, 'Hector', 'HERRERA', 23, 2, 'https://digitalhub.fifa.com/transform/cb8a2537-555d-46af-bc00-4c9a24955a0d/1442571030?io=transform:fill,width:792,height:900'),
+(588, 'Orbelin', 'PINEDA', 23, 4, 'https://digitalhub.fifa.com/transform/13290007-0a3b-4d62-9e7f-efcb923416c5/1442571274?io=transform:fill,width:792,height:900'),
+(589, 'Andres', 'GUARDADO', 23, 2, 'https://digitalhub.fifa.com/transform/9aeabab1-850a-47dd-8750-47165dd3d639/1442571347?io=transform:fill,width:792,height:900'),
+(590, 'Jorge', 'SANCHEZ', 23, 1, 'https://digitalhub.fifa.com/transform/8595731e-ecfb-46c3-8543-8d111bdce8a4/1442571149?io=transform:fill,width:792,height:900'),
+(591, 'Henry', 'MARTIN', 23, 4, 'https://digitalhub.fifa.com/transform/9029f6f8-3d83-4b4d-b122-c909da41c589/1442570950?io=transform:fill,width:792,height:900'),
+(592, 'Uriel', 'ANTUNA', 23, 4, 'https://digitalhub.fifa.com/transform/fd0fef42-8129-4cc0-a958-f44521a742be/1442571310?io=transform:fill,width:792,height:900'),
+(593, 'Hirving', 'LOZANO', 23, 4, 'https://digitalhub.fifa.com/transform/25256872-cd39-4782-862a-45aa19ba5875/1442570768?io=transform:fill,width:792,height:900'),
+(594, 'Jesus', 'GALLARDO', 23, 1, 'https://digitalhub.fifa.com/transform/dc8d4f29-9adb-4cdd-b44f-841b09965003/1442569931?io=transform:fill,width:792,height:900'),
+(595, 'Luis', 'CHAVEZ', 23, 2, 'https://digitalhub.fifa.com/transform/b2bb90ea-b2d0-43e4-b0c0-f0aee5e55eb0/1442571210?io=transform:fill,width:792,height:900'),
+(596, 'Roberto', 'ALVARADO', 23, 4, 'https://digitalhub.fifa.com/transform/854dfff9-1715-4ef0-913e-cf6d8e08a087/1442571123?io=transform:fill,width:792,height:900'),
+(597, 'Kevin', 'ALVAREZ', 23, 1, 'https://digitalhub.fifa.com/transform/ec064316-4789-4ec2-8fa5-348c977e32d3/1442571236?io=transform:fill,width:792,height:900'),
+(598, 'Remko', 'PASVEER', 24, 3, 'https://digitalhub.fifa.com/transform/45be26fd-5b0f-4085-900d-efd86983fd02/1442167764?io=transform:fill,width:792,height:900'),
+(599, 'Jurrien', 'TIMBER', 24, 1, 'https://digitalhub.fifa.com/transform/78a78ce0-0921-44d9-8a62-18c823bc9e72/1442169429?io=transform:fill,width:792,height:900'),
+(600, 'Matthijs', 'DE LIGT', 24, 1, 'https://digitalhub.fifa.com/transform/f978cdf5-fd66-4f3d-82c1-3ea80e332cea/1442168832?io=transform:fill,width:792,height:900'),
+(601, 'Virgil', 'VAN DIJK', 24, 1, 'https://digitalhub.fifa.com/transform/6f9fe4b0-eea8-492f-9405-6c81fdd1710a/1442168748?io=transform:fill,width:792,height:900'),
+(602, 'Nathan', 'AKE', 24, 1, 'https://digitalhub.fifa.com/transform/1060b2b3-6079-49fc-bf41-48a028e08da7/1442167854?io=transform:fill,width:792,height:900');
+INSERT INTO `players` (`id`, `name`, `last_name`, `id_team`, `position_id`, `picture`) VALUES
+(603, 'Stefan', 'DE VRIJ', 24, 1, 'https://digitalhub.fifa.com/transform/44bcf9ea-ebfb-4fba-a1ed-3cd479bfe37f/1442168641?io=transform:fill,width:792,height:900'),
+(604, 'Steven', 'BERGWIJN', 24, 4, 'https://digitalhub.fifa.com/transform/1a275a19-71da-47c5-a582-e03ad1543994/1442169262?io=transform:fill,width:792,height:900'),
+(605, 'Cody', 'GAKPO', 24, 4, 'https://digitalhub.fifa.com/transform/774d8d55-583e-4a5a-9a82-f02191dd35e3/1442169219?io=transform:fill,width:792,height:900'),
+(606, 'Luuk', 'DE JONG', 24, 4, 'https://digitalhub.fifa.com/transform/7740a1ce-b34c-41b4-9f00-4e4025f9b1ca/1442170376?io=transform:fill,width:792,height:900'),
+(607, 'Memphis', 'DEPAY', 24, 4, 'https://digitalhub.fifa.com/transform/73919bf5-ebe2-48d4-bf20-95eb836d44d8/1442170870?io=transform:fill,width:792,height:900'),
+(608, 'Steven', 'BERGHUIS', 24, 2, 'https://digitalhub.fifa.com/transform/fc6d4a5b-96b2-4ac7-be41-b1e98a2d0850/1442168488?io=transform:fill,width:792,height:900'),
+(609, 'Noa', 'LANG', 24, 4, 'https://digitalhub.fifa.com/transform/eff87de3-4666-4d86-bc29-c99d29a7a24f/1442169512?io=transform:fill,width:792,height:900'),
+(610, 'Justin', 'BIJLOW', 24, 3, 'https://digitalhub.fifa.com/transform/6274d944-a04e-4479-945f-00e2c11512b1/1442167741?io=transform:fill,width:792,height:900'),
+(611, 'Davy', 'KLAASSEN', 24, 2, 'https://digitalhub.fifa.com/transform/52c18992-0451-4be0-93e2-19e76f291977/1442169078?io=transform:fill,width:792,height:900'),
+(612, 'Marten', 'DE ROON', 24, 2, 'https://digitalhub.fifa.com/transform/56a2afcc-a4d9-4f69-941f-d9fe3814d123/1442170937?io=transform:fill,width:792,height:900'),
+(613, 'Tyrell', 'MALACIA', 24, 1, 'https://digitalhub.fifa.com/transform/57f65f75-342f-479e-be32-4e6a76315ffd/1442170292?io=transform:fill,width:792,height:900'),
+(614, 'Daley', 'BLIND', 24, 1, 'https://digitalhub.fifa.com/transform/1619ee99-6f9a-4d3f-812e-0a3f3485e968/1442167801?io=transform:fill,width:792,height:900'),
+(615, 'Vincent', 'JANSSEN', 24, 4, 'https://digitalhub.fifa.com/transform/91cf1acf-675b-4bd8-893b-ecec7d558d45/1442171035?io=transform:fill,width:792,height:900'),
+(616, 'Wout', 'WEGHORST', 24, 4, 'https://digitalhub.fifa.com/transform/b4ce5639-88e8-4cee-b21b-cb5b57f59e70/1442168685?io=transform:fill,width:792,height:900'),
+(617, 'Teun', 'KOOPMEINERS', 24, 2, 'https://digitalhub.fifa.com/transform/d18a36e7-630f-4e8e-a8fe-109c7b96f370/1442170434?io=transform:fill,width:792,height:900'),
+(618, 'Frenkie', 'DE JONG', 24, 2, 'https://digitalhub.fifa.com/transform/3de020e7-94dc-4126-b02c-8099154e9d75/1442168774?io=transform:fill,width:792,height:900'),
+(619, 'Denzel', 'DUMFRIES', 24, 1, 'https://digitalhub.fifa.com/transform/b253b3e2-21c6-4778-9d8c-1d2932608b78/1442168943?io=transform:fill,width:792,height:900'),
+(620, 'Andries', 'NOPPERT', 24, 3, 'https://digitalhub.fifa.com/transform/da635e9a-bcf8-4d17-8213-0175293efe7c/1442167721?io=transform:fill,width:792,height:900'),
+(621, 'Kenneth', 'TAYLOR', 24, 2, 'https://digitalhub.fifa.com/transform/1b874c3c-3392-47c0-95f2-b0debbdd791b/1442168535?io=transform:fill,width:792,height:900'),
+(622, 'Xavi', 'SIMONS', 24, 2, 'https://digitalhub.fifa.com/transform/3256af6a-5bc1-4f81-84b7-526c4aa49f2e/1442169724?io=transform:fill,width:792,height:900'),
+(623, 'Jeremie', 'FRIMPONG', 24, 1, 'https://digitalhub.fifa.com/transform/a6d80537-faf4-4bf3-8541-39dda191cba2/1442170689?io=transform:fill,width:792,height:900'),
+(624, 'Wojciech', 'SZCZESNY', 25, 3, 'https://digitalhub.fifa.com/transform/644f5162-40a2-48ba-b2d1-dab9e72cb5df/1442522727?io=transform:fill,width:792,height:900'),
+(625, 'Matty', 'CASH', 25, 1, 'https://digitalhub.fifa.com/transform/e7d3ff0b-4312-4378-9b91-ba541a1727de/1442525370?io=transform:fill,width:792,height:900'),
+(626, 'Artur', 'JEDRZEJCZYK', 25, 1, 'https://digitalhub.fifa.com/transform/742adb9b-9a2d-4664-99e4-2dfd024be847/1442527379?io=transform:fill,width:792,height:900'),
+(627, 'Mateusz', 'WIETESKA', 25, 1, 'https://digitalhub.fifa.com/transform/06111db8-6112-4134-bf95-c9aa3af0fcfc/1442528096?io=transform:fill,width:792,height:900'),
+(628, 'Jan', 'BEDNAREK', 25, 1, 'https://digitalhub.fifa.com/transform/1da68a63-1364-4bcc-b17b-05b3efcfbe8e/1442525075?io=transform:fill,width:792,height:900'),
+(629, 'Krystian', 'BIELIK', 25, 2, 'https://digitalhub.fifa.com/transform/edfd51f6-06e7-45ff-acb7-b40d5d6eb23a/1442525148?io=transform:fill,width:792,height:900'),
+(630, 'Arkadiusz', 'MILIK', 25, 4, 'https://digitalhub.fifa.com/transform/2987aafc-a454-4422-a54e-94e763a4a099/1442525034?io=transform:fill,width:792,height:900'),
+(631, 'Damian', 'SZYMANSKI', 25, 2, 'https://digitalhub.fifa.com/transform/7ac8ba26-25d5-4c8b-9750-3ec7a18497e4/1442527918?io=transform:fill,width:792,height:900'),
+(632, 'Robert', 'LEWANDOWSKI', 25, 4, 'https://digitalhub.fifa.com/transform/001dd30c-b8f4-4533-9b64-5c2fbf10f145/1442524010?io=transform:fill,width:792,height:900'),
+(633, 'Grzegorz', 'KRYCHOWIAK', 25, 2, 'https://digitalhub.fifa.com/transform/2cd38eae-9e40-42b6-975c-ed280ff22b98/1442524550?io=transform:fill,width:792,height:900'),
+(634, 'Kamil', 'GROSICKI', 25, 2, 'https://digitalhub.fifa.com/transform/7a9a377e-372f-49c0-936a-0596b8639f86/1442525536?io=transform:fill,width:792,height:900'),
+(635, 'Lukasz', 'SKORUPSKI', 25, 3, 'https://digitalhub.fifa.com/transform/5a28ba5e-72d1-42e8-8523-86671a2c3fd1/1442523774?io=transform:fill,width:792,height:900'),
+(636, 'Jakub', 'KAMINSKI', 25, 2, 'https://digitalhub.fifa.com/transform/443b6eb7-175b-42b4-bb73-96d2bcd25a47/1442527538?io=transform:fill,width:792,height:900'),
+(637, 'Jakub', 'KIWIOR', 25, 1, 'https://digitalhub.fifa.com/transform/242cb77e-9f11-49b9-85d4-487ad642dc2d/1442527457?io=transform:fill,width:792,height:900'),
+(638, 'Kamil', 'GLIK', 25, 1, 'https://digitalhub.fifa.com/transform/ce5374ee-d31d-4e81-b928-0ba5ee24694d/1442524978?io=transform:fill,width:792,height:900'),
+(639, 'Karol', 'SWIDERSKI', 25, 4, 'https://digitalhub.fifa.com/transform/659290bd-7142-4b25-9a66-47e730b4a57d/1442528259?io=transform:fill,width:792,height:900'),
+(640, 'Szymon', 'ZURKOWSKI', 25, 2, 'https://digitalhub.fifa.com/transform/74f0403d-0647-4870-a65b-33e44dd6c72b/1442528864?io=transform:fill,width:792,height:900'),
+(641, 'Bartosz', 'BERESZYNSKI', 25, 1, 'https://digitalhub.fifa.com/transform/ac0c37ea-dc8f-43d6-81b4-64f2dd7d5563/1442525121?io=transform:fill,width:792,height:900'),
+(642, 'Sebastian', 'SZYMANSKI', 25, 2, 'https://digitalhub.fifa.com/transform/46aa0a38-2fd4-4128-a3cf-07b65c3b1ddd/1442528061?io=transform:fill,width:792,height:900'),
+(643, 'Piotr', 'ZIELINSKI', 25, 2, 'https://digitalhub.fifa.com/transform/83f9cc79-d1f2-4930-8eea-48f806f0ed3f/1442525266?io=transform:fill,width:792,height:900'),
+(644, 'Nicola', 'ZALEWSKI', 25, 2, 'https://digitalhub.fifa.com/transform/c6f25af6-36f2-4240-9a96-551af53addd3/1442528548?io=transform:fill,width:792,height:900'),
+(645, 'Kamil', 'GRABARA', 25, 3, 'https://digitalhub.fifa.com/transform/217bd168-6534-47b3-a1d8-b4247209fe82/1442523938?io=transform:fill,width:792,height:900'),
+(646, 'Krzysztof', 'PIATEK', 25, 4, 'https://digitalhub.fifa.com/transform/70c91a1c-b74b-4f5e-85e1-50d0e62fa9b7/1442527744?io=transform:fill,width:792,height:900'),
+(647, 'Przemyslaw', 'FRANKOWSKI', 25, 2, 'https://digitalhub.fifa.com/transform/ff8c7f1b-60c3-42d3-89f8-3b5c4844545e/1442525453?io=transform:fill,width:792,height:900'),
+(648, 'Robert', 'GUMNY', 25, 1, 'https://digitalhub.fifa.com/transform/47213ff8-d122-4169-9ecb-2aeb3d5f22b2/1442525792?io=transform:fill,width:792,height:900'),
+(649, 'Michal', 'SKORAS', 25, 2, 'https://digitalhub.fifa.com/transform/e902e030-16b7-44da-bc1d-c4c1400be573/1442527857?io=transform:fill,width:792,height:900'),
+(650, 'RUI', 'PATRICIO', 26, 3, 'https://digitalhub.fifa.com/transform/f4e4fea4-17a1-4242-ab3f-b6799e37e11c/1442846670?io=transform:fill,width:792,height:900'),
+(651, 'DIOGO', 'DALOT', 26, 1, 'https://digitalhub.fifa.com/transform/97c144d8-c021-43ae-a796-0ad5e9e1b7e8/1442847847?io=transform:fill,width:792,height:900'),
+(652, 'PEPE', '', 26, 1, 'https://digitalhub.fifa.com/transform/930157af-3408-4d6e-aa2d-33d2fa062d3c/1442847606?io=transform:fill,width:792,height:900'),
+(653, 'RUBEN', 'DIAS', 26, 1, 'https://digitalhub.fifa.com/transform/be68559f-6bda-4cac-8514-39c853ddee1f/1442847980?io=transform:fill,width:792,height:900'),
+(654, 'RAPHAEL', 'GUERREIRO', 26, 1, 'https://digitalhub.fifa.com/transform/119d9c43-4c34-4902-871b-455c7f17fe21/1442847796?io=transform:fill,width:792,height:900'),
+(655, 'JOAO', 'PALHINHA', 26, 2, 'https://digitalhub.fifa.com/transform/11a24783-5723-457b-b3ee-e101d35ec5b8/1442848543?io=transform:fill,width:792,height:900'),
+(656, 'CRISTIANO', 'RONALDO', 26, 4, 'https://digitalhub.fifa.com/transform/8fe3826e-c297-436a-9df9-5db29f5cc92b/1442847713?io=transform:fill,width:792,height:900'),
+(657, 'BRUNO', 'FERNANDES', 26, 2, 'https://digitalhub.fifa.com/transform/3e3b2874-9a85-4e3f-8a80-a82a5868d29a/1442847922?io=transform:fill,width:792,height:900'),
+(658, 'ANDRE', 'SILVA', 26, 4, 'https://digitalhub.fifa.com/transform/e7808c91-d650-47a3-8d5f-1b57136c05e2/1442847901?io=transform:fill,width:792,height:900'),
+(659, 'BERNARDO', 'SILVA', 26, 4, 'https://digitalhub.fifa.com/transform/c63cbee9-0026-453b-a7a6-9dc8d8ffed03/1442847721?io=transform:fill,width:792,height:900'),
+(660, 'JOAO', 'FELIX', 26, 4, 'https://digitalhub.fifa.com/transform/cdec8e15-202c-4960-b00c-cfa8fa5d9cc1/1442848552?io=transform:fill,width:792,height:900'),
+(661, 'JOSE', 'SA', 26, 3, 'https://digitalhub.fifa.com/transform/41d05eb0-ca98-4e83-82b9-3bf67305f78c/1442846737?io=transform:fill,width:792,height:900'),
+(662, 'DANILO', '', 26, 1, 'https://digitalhub.fifa.com/transform/20458725-2feb-41d3-a507-cc205dd4553e/1442847629?io=transform:fill,width:792,height:900'),
+(663, 'WILLIAM', '', 26, 2, 'https://digitalhub.fifa.com/transform/89980cdc-a356-443f-8ca8-38dbd2862f35/1442847659?io=transform:fill,width:792,height:900'),
+(664, 'RAFAEL', 'LEAO', 26, 4, 'https://digitalhub.fifa.com/transform/1fc6f198-1763-4973-860b-fd8e35daee97/1442848571?io=transform:fill,width:792,height:900'),
+(665, 'VITINHA', '', 26, 2, 'https://digitalhub.fifa.com/transform/827510dd-33d7-4ef8-b918-f7a299d12099/1442848694?io=transform:fill,width:792,height:900'),
+(666, 'JOAO', 'MARIO', 26, 2, 'https://digitalhub.fifa.com/transform/5322c6a4-90bd-4776-94bd-a62d174f72a3/1442847835?io=transform:fill,width:792,height:900'),
+(667, 'RUBEN', 'NEVES', 26, 2, 'https://digitalhub.fifa.com/transform/dc3f86c5-7b31-4af9-a562-8139ccb236e5/1442848529?io=transform:fill,width:792,height:900'),
+(668, 'NUNO', 'MENDES', 26, 1, 'https://digitalhub.fifa.com/transform/481d8bde-2a68-4eff-89f5-7891c1863947/1442847954?io=transform:fill,width:792,height:900'),
+(669, 'JOAO', 'CANCELO', 26, 1, 'https://digitalhub.fifa.com/transform/0c50ce7d-9c6c-4787-8416-d145f01d745f/1442847932?io=transform:fill,width:792,height:900'),
+(670, 'Ricardo', 'HORTA', 26, 4, 'https://digitalhub.fifa.com/transform/02bfdfd2-b316-46a9-ac97-96fa30c173f0/1442848733?io=transform:fill,width:792,height:900'),
+(671, 'DIOGO', 'COSTA', 26, 3, 'https://digitalhub.fifa.com/transform/b0e508bd-f26e-469c-9cb7-1bf875b9033e/1442846689?io=transform:fill,width:792,height:900'),
+(672, 'MATHEUS', 'NUNES', 26, 2, 'https://digitalhub.fifa.com/transform/4ac1b566-1a8e-46ca-8421-f2f79875bb14/1442848590?io=transform:fill,width:792,height:900'),
+(673, 'ANTONIO', 'SILVA', 26, 1, 'https://digitalhub.fifa.com/transform/3d3aaab4-6e2f-4d33-aae0-2151418d188a/1442848712?io=transform:fill,width:792,height:900'),
+(674, 'OTAVIO', '', 26, 2, 'https://digitalhub.fifa.com/transform/61199054-6cb0-4e99-b8e6-f179ba40582b/1442848641?io=transform:fill,width:792,height:900'),
+(675, 'GONCALO', 'RAMOS', 26, 4, 'https://digitalhub.fifa.com/transform/44eba325-19a0-437f-9b73-b626db593dba/1442848722?io=transform:fill,width:792,height:900'),
+(676, 'KIM', 'Seunggyu', 27, 3, 'https://digitalhub.fifa.com/transform/03697bc8-05be-454b-b177-fb31863f792e/1442188998?io=transform:fill,width:792,height:900'),
+(677, 'YOON', 'Jonggyu', 27, 1, 'https://digitalhub.fifa.com/transform/4ae8643f-b185-45ec-bfb1-872ce833ef87/1442189951?io=transform:fill,width:792,height:900'),
+(678, 'KIM', 'Jinsu', 27, 1, 'https://digitalhub.fifa.com/transform/356b13a3-35d1-4b8d-84ee-5f0c84abbc2b/1442189371?io=transform:fill,width:792,height:900'),
+(679, 'Kim', 'MINJAE', 27, 1, 'https://digitalhub.fifa.com/transform/7b560b82-697f-4907-8827-685ac73096e7/1442189289?io=transform:fill,width:792,height:900'),
+(680, 'JUNG', 'Wooyoung', 27, 2, 'https://digitalhub.fifa.com/transform/9751c5ad-ef4e-4e34-bdb5-1beb86f846e0/1442189360?io=transform:fill,width:792,height:900'),
+(681, 'HWANG', 'Inbeom', 27, 2, 'https://digitalhub.fifa.com/transform/2454fd5c-2630-4a40-acf5-855fbf209510/1442189240?io=transform:fill,width:792,height:900'),
+(682, 'SON', 'Heungmin', 27, 2, 'https://digitalhub.fifa.com/transform/a24e8ea2-c99a-4c2e-9959-2641ad9b61ef/1442189916?io=transform:fill,width:792,height:900'),
+(683, 'PAIK', 'Seungho', 27, 2, 'https://digitalhub.fifa.com/transform/f08ec454-5e7c-4f0e-8afd-529a2d7715ba/1442190125?io=transform:fill,width:792,height:900'),
+(684, 'CHO', 'Guesung', 27, 4, 'https://digitalhub.fifa.com/transform/7ee7ff73-a720-4339-85f3-ca1acb473117/1442190070?io=transform:fill,width:792,height:900'),
+(685, 'LEE', 'Jaesung', 27, 2, 'https://digitalhub.fifa.com/transform/f08ec454-5e7c-4f0e-8afd-529a2d7715ba/1442190125?io=transform:fill,width:792,height:900'),
+(686, 'HWANG', 'Heechan', 27, 2, 'https://digitalhub.fifa.com/transform/237cb1a7-30f2-4dc2-9ede-f43cfb05af9c/1442189179?io=transform:fill,width:792,height:900'),
+(687, 'SONG', 'Bumkeun', 27, 3, 'https://digitalhub.fifa.com/transform/701cc3ce-1922-4157-b987-e80b99634a37/1442189019?io=transform:fill,width:792,height:900'),
+(688, 'SON', 'Junho', 27, 2, 'https://digitalhub.fifa.com/transform/a0602dbf-b907-48f6-b027-8db04743c279/1442189161?io=transform:fill,width:792,height:900'),
+(689, 'HONG', 'Chul', 27, 1, 'https://digitalhub.fifa.com/transform/4cbab529-9351-4e59-8c09-9bedea6e9d24/1442189214?io=transform:fill,width:792,height:900'),
+(690, 'KIM', 'Moonhwan', 27, 1, 'https://digitalhub.fifa.com/transform/513fcd88-505d-49ae-9c05-22c60a22ed7b/1442190010?io=transform:fill,width:792,height:900'),
+(691, 'HWANG', 'Uijo', 27, 4, 'https://digitalhub.fifa.com/transform/70978891-d4b4-4838-9bb5-0d138d9d401b/1442189927?io=transform:fill,width:792,height:900'),
+(692, 'NA', 'Sangho', 27, 2, 'https://digitalhub.fifa.com/transform/8a7b9445-375c-496a-a7bc-77dbd4d30ec3/1442189981?io=transform:fill,width:792,height:900'),
+(693, 'LEE', 'Kangin', 27, 2, 'https://digitalhub.fifa.com/transform/49dbed16-15fa-47c1-82c1-56308f4776c0/1442190150?io=transform:fill,width:792,height:900'),
+(694, 'KIM', 'Younggwon', 27, 1, 'https://digitalhub.fifa.com/transform/d583d99a-dae6-47b6-9b5c-5cb4b4a5a0bd/1442189100?io=transform:fill,width:792,height:900'),
+(695, 'KWON', 'Kyungwon', 27, 1, 'https://digitalhub.fifa.com/transform/56d68734-765a-494a-b2db-434ff2a9608d/1442190102?io=transform:fill,width:792,height:900'),
+(696, 'JO', 'Hyeonwoo', 27, 3, 'https://digitalhub.fifa.com/transform/b4342918-d2ae-4c43-ac29-f4a042626634/1442189058?io=transform:fill,width:792,height:900'),
+(697, 'KWON', 'Changhoon', 27, 2, 'https://digitalhub.fifa.com/transform/f1705e76-cb28-4c7c-b128-950b8fbf64bd/1442189277?io=transform:fill,width:792,height:900'),
+(698, 'KIM', 'Taehwan', 27, 1, 'https://digitalhub.fifa.com/transform/360cf14c-ce9f-4b1b-a171-c7560ab0040d/1442189201?io=transform:fill,width:792,height:900'),
+(699, 'CHO', 'Yumin', 27, 1, 'https://digitalhub.fifa.com/transform/6e803fa7-cb91-4f35-9263-c78c5ce15ca1/1442189231?io=transform:fill,width:792,height:900'),
+(700, 'JEONG', 'Wooyeong', 27, 2, 'https://digitalhub.fifa.com/transform/ef62dea6-840b-4e8b-b9f1-4338e138871b/1442189392?io=transform:fill,width:792,height:900'),
+(701, 'SONG', 'Minkyu', 27, 2, 'https://digitalhub.fifa.com/transform/5eed115c-4646-4b71-9752-8175db4b364c/1442189384?io=transform:fill,width:792,height:900'),
+(702, 'Seny', 'DIENG', 28, 3, 'https://digitalhub.fifa.com/transform/a2401b48-0c6b-40e9-a873-af9a46e52ee1/1442259959?io=transform:fill,width:792,height:900'),
+(703, 'Formose', 'MENDY', 28, 1, 'https://digitalhub.fifa.com/transform/7587fa9e-a32a-408b-9dc1-ced24570c062/1442262130?io=transform:fill,width:792,height:900'),
+(704, 'Kalidou', 'KOULIBALY', 28, 1, 'https://digitalhub.fifa.com/transform/e2f5f150-38d7-47ea-ada6-812b3daece2f/1442260687?io=transform:fill,width:792,height:900'),
+(705, 'Pape', 'Abou CISSE', 28, 1, 'https://digitalhub.fifa.com/transform/23048d3f-9ced-4cfc-85ca-ca1281ccf1f1/1442261725?io=transform:fill,width:792,height:900'),
+(706, 'Idrissa', 'Gana GUEYE', 28, 2, 'https://digitalhub.fifa.com/transform/eec40484-d0a0-48cb-bd21-3b9fb90a0e00/1442261952?io=transform:fill,width:792,height:900'),
+(707, 'Nampalys', 'MENDY', 28, 2, 'https://digitalhub.fifa.com/transform/bbb684f5-0747-4ff9-9efe-a3bcd007ca9b/1442261400?io=transform:fill,width:792,height:900'),
+(708, 'Nicolas', 'JACKSON', 28, 4, 'https://digitalhub.fifa.com/transform/113d2282-392d-41ed-83cf-9960ea1a4b5e/1442262169?io=transform:fill,width:792,height:900'),
+(709, 'Cheikhou', 'KOUYATE', 28, 1, 'https://digitalhub.fifa.com/transform/48e8feb1-cd32-491f-8e72-2906c28f25f7/1442261124?io=transform:fill,width:792,height:900'),
+(710, 'Boulaye', 'DIA', 28, 4, 'https://digitalhub.fifa.com/transform/921385c7-029c-4d63-a2b1-fb86c96ef34c/1442261921?io=transform:fill,width:792,height:900'),
+(711, 'Moussa', 'NDIAYE', 28, 1, 'https://digitalhub.fifa.com/transform/7adfbd4f-9659-4efb-ba9b-ec564dd73b3c/1443611101?io=transform:fill,width:792,height:900'),
+(712, 'Pathe', 'CISS', 28, 2, 'https://digitalhub.fifa.com/transform/df7eb6fb-c4f3-489a-866f-fca4469ecbb2/1442260621?io=transform:fill,width:792,height:900'),
+(713, 'Fode', 'BALLO', 28, 1, 'https://digitalhub.fifa.com/transform/28ba60a3-8d96-40b8-bade-c38109ff30e3/1442262093?io=transform:fill,width:792,height:900'),
+(714, 'Iliman', 'NDIAYE', 28, 4, 'https://digitalhub.fifa.com/transform/83ca751a-96ea-4406-b85d-1e2371fbc1d7/1442261597?io=transform:fill,width:792,height:900'),
+(715, 'Ismail', 'JAKOBS', 28, 1, 'https://digitalhub.fifa.com/transform/4ed2515e-6c7c-497f-aab3-8b25ae9ccbda/1442260564?io=transform:fill,width:792,height:900'),
+(716, 'Krepin', 'DIATTA', 28, 2, 'https://digitalhub.fifa.com/transform/2be678e9-d2cd-415e-9de1-26d3465d81b8/1442261313?io=transform:fill,width:792,height:900'),
+(717, 'Edouard', 'MENDY', 28, 3, 'https://digitalhub.fifa.com/transform/72aa7abf-78de-470c-b971-89de83eaebfc/1442260422?io=transform:fill,width:792,height:900'),
+(718, 'Pape', 'SARR', 28, 2, 'https://digitalhub.fifa.com/transform/f1561bea-33f9-4417-b713-33f2916c1c2e/1442261956?io=transform:fill,width:792,height:900'),
+(719, 'Ismaila', 'SARR', 28, 4, 'https://digitalhub.fifa.com/transform/83ae78c2-a5e4-4ec5-ad5a-588a127bfdd3/1442261894?io=transform:fill,width:792,height:900'),
+(720, 'Famara', 'DIEDHIOU', 28, 4, 'https://digitalhub.fifa.com/transform/ec5227b0-77b4-42c3-969d-037c55a4a827/1442261639?io=transform:fill,width:792,height:900'),
+(721, 'Cheikh', 'DIENG', 28, 4, 'https://digitalhub.fifa.com/transform/606204b1-5998-40f0-bfb8-f2ac5196b953/1442261832?io=transform:fill,width:792,height:900'),
+(722, 'Youssouf', 'SABALY', 28, 1, 'https://digitalhub.fifa.com/transform/03056a22-19b7-477a-b7ef-cba51fa9cd1a/1442262207?io=transform:fill,width:792,height:900'),
+(723, 'Abdou', 'DIALLO', 28, 1, 'https://digitalhub.fifa.com/transform/7a0bf8db-1494-4769-aa3f-7d131d165eb4/1442262267?io=transform:fill,width:792,height:900'),
+(724, 'Alfred', 'GOMIS', 28, 3, 'https://digitalhub.fifa.com/transform/1135d35a-1a24-414b-84a6-947253aa7c48/1442260322?io=transform:fill,width:792,height:900'),
+(725, 'Moustapha', 'NAME', 28, 1, 'https://digitalhub.fifa.com/transform/f2179a78-aaa0-48c2-a3f2-97e346cc34e4/1442261873?io=transform:fill,width:792,height:900'),
+(726, 'Mamadou', 'NDIAYE', 28, 2, 'https://digitalhub.fifa.com/transform/ccef2525-3632-47ec-9129-c6c0a6b3781a/1442261797?io=transform:fill,width:792,height:900'),
+(727, 'Pape', 'GUEYE', 28, 2, 'https://digitalhub.fifa.com/transform/bcb3d50b-5e35-4fbe-be45-073a10c087a6/1442262151?io=transform:fill,width:792,height:900'),
+(728, 'Marko', 'DMITROVIC', 29, 3, 'https://digitalhub.fifa.com/transform/23f5a61e-9b4b-4665-b32b-0bcd0d1f5bb8/1443089079?io=transform:fill,width:792,height:900'),
+(729, 'Strahinja', 'PAVLOVIC', 29, 1, 'https://digitalhub.fifa.com/transform/201031c9-efcc-4afc-91fb-22b69a54bbec/1443091627?io=transform:fill,width:792,height:900'),
+(730, 'Strahinja', 'ERAKOVIC', 29, 1, 'https://digitalhub.fifa.com/transform/552626f7-4a47-47ab-98df-77ef7ec7de21/1443090789?io=transform:fill,width:792,height:900'),
+(731, 'Nikola', 'MILENKOVIC', 29, 1, 'https://digitalhub.fifa.com/transform/49841bd5-9e80-4150-964f-0d0c459ab6ef/1443090546?io=transform:fill,width:792,height:900'),
+(732, 'Milos', 'VELJKOVIC', 29, 1, 'https://digitalhub.fifa.com/transform/019e0478-b1fc-4759-974a-d73ba4a8fcde/1443090591?io=transform:fill,width:792,height:900'),
+(733, 'Nemanja', 'MAKSIMOVIC', 29, 2, 'https://digitalhub.fifa.com/transform/beaa7004-d0a5-4363-960a-304a61a6bd21/1443090980?io=transform:fill,width:792,height:900'),
+(734, 'Nemanja', 'RADONJIC', 29, 4, 'https://digitalhub.fifa.com/transform/17e2a7fd-7ca9-45c9-91c5-4d81bada2eb4/1443089628?io=transform:fill,width:792,height:900'),
+(735, 'Nemanja', 'GUDELJ', 29, 2, 'https://digitalhub.fifa.com/transform/fc24c255-9d5c-4ae4-9cc8-8ec280a2e30f/1443090692?io=transform:fill,width:792,height:900'),
+(736, 'Aleksandar', 'MITROVIC', 29, 4, 'https://digitalhub.fifa.com/transform/ed0d521c-8d83-45c7-abfc-ae45bf479906/1443091713?io=transform:fill,width:792,height:900'),
+(737, 'Dusan', 'TADIC', 29, 4, 'https://digitalhub.fifa.com/transform/d6f6b0ce-15ab-4388-8787-2a1a99fb6c0e/1443089559?io=transform:fill,width:792,height:900'),
+(738, 'Luka', 'JOVIC', 29, 4, 'https://digitalhub.fifa.com/transform/149f3713-f21a-471b-b822-e0038de1f191/1443091685?io=transform:fill,width:792,height:900'),
+(739, 'Predrag', 'RAJKOVIC', 29, 3, 'https://digitalhub.fifa.com/transform/c46f0e7e-8f03-4666-a8fd-095b0076a7a2/1443089199?io=transform:fill,width:792,height:900'),
+(740, 'Stefan', 'MITROVIC', 29, 1, 'https://digitalhub.fifa.com/transform/f5fd881e-65ef-4d34-a092-74fcdd599ce4/1443090367?io=transform:fill,width:792,height:900'),
+(741, 'Andrija', 'ZIVKOVIC', 29, 2, 'https://digitalhub.fifa.com/transform/213ed245-e8eb-4064-ae8a-1378493054f9/1443091019?io=transform:fill,width:792,height:900'),
+(742, 'Srdan', 'BABIC', 29, 1, 'https://digitalhub.fifa.com/transform/8377f754-13b3-4223-88a1-f4e5f413c58f/1443090888?io=transform:fill,width:792,height:900'),
+(743, 'Sasa', 'LUKIC', 29, 2, 'https://digitalhub.fifa.com/transform/df7a9804-e20f-477c-99fa-976b9e658341/1443091665?io=transform:fill,width:792,height:900'),
+(744, 'Filip', 'KOSTIC', 29, 2, 'https://digitalhub.fifa.com/transform/c3efea69-852f-4ebc-b104-bad587aeb027/1443091702?io=transform:fill,width:792,height:900'),
+(745, 'Dusan', 'VLAHOVIC', 29, 4, 'https://digitalhub.fifa.com/transform/22d80dfd-6d37-48af-b773-1dd9e84bb3a3/1443089493?io=transform:fill,width:792,height:900'),
+(746, 'Uros', 'RACIC', 29, 2, 'https://digitalhub.fifa.com/transform/47dcdeeb-0b2a-4faf-91ae-9c5c7c9cfc6b/1443090941?io=transform:fill,width:792,height:900'),
+(747, 'Sergej', 'MILINKOVIC-SAVIC', 29, 2, 'https://digitalhub.fifa.com/transform/ff807539-e3f5-4324-8841-f422a2c8045a/1443091650?io=transform:fill,width:792,height:900'),
+(748, 'Filip', 'DJURICIC', 29, 4, 'https://digitalhub.fifa.com/transform/0885b6e4-05ca-4c8c-839a-d5b1546e96ec/1443090299?io=transform:fill,width:792,height:900'),
+(749, 'Darko', 'LAZOVIC', 29, 2, 'https://digitalhub.fifa.com/transform/a4217bf7-08c2-44ee-9b4c-ad95bdba443d/1443091601?io=transform:fill,width:792,height:900'),
+(750, 'Vanja', 'MILINKOVIC', 29, 3, 'https://digitalhub.fifa.com/transform/79e45559-a8ed-4c72-a44c-11de382c17e1/1443089355?io=transform:fill,width:792,height:900'),
+(751, 'Ivan', 'ILIC', 29, 2, 'https://digitalhub.fifa.com/transform/3a51e0bd-5025-45e2-b543-9528387e1153/1443091678?io=transform:fill,width:792,height:900'),
+(752, 'Filip', 'MLADENOVIC', 29, 1, 'https://digitalhub.fifa.com/transform/797d46b0-54dd-4a04-b45c-28a7d63a66af/1443090458?io=transform:fill,width:792,height:900'),
+(753, 'Marko', 'GRUJIC', 29, 2, 'https://digitalhub.fifa.com/transform/3a51e0bd-5025-45e2-b543-9528387e1153/1443091678?io=transform:fill,width:792,height:900'),
+(754, 'Yann', 'SOMMER', 30, 3, 'https://digitalhub.fifa.com/transform/4a844004-219f-49ee-8519-9536c658bc1a/1441890376?io=transform:fill,width:792,height:900'),
+(755, 'Edimilson', 'FERNANDES', 30, 1, 'https://digitalhub.fifa.com/transform/afb77418-f911-497c-b2e5-2e9a2db3e8e7/1441891440?io=transform:fill,width:792,height:900'),
+(756, 'Silvan', 'WIDMER', 30, 1, 'https://digitalhub.fifa.com/transform/0fe57dc4-12a8-4940-aab4-676b9f3eec02/1441891348?io=transform:fill,width:792,height:900'),
+(757, 'Nico', 'ELVEDI', 30, 1, 'https://digitalhub.fifa.com/transform/460cdd71-ae5b-4672-8f92-d0243c6866b6/1441890920?io=transform:fill,width:792,height:900'),
+(758, 'Manuel', 'AKANJI', 30, 1, 'https://digitalhub.fifa.com/transform/a3cb401e-0151-44e1-ae43-80d161cc00cf/1441890533?io=transform:fill,width:792,height:900'),
+(759, 'Denis', 'ZAKARIA', 30, 2, 'https://digitalhub.fifa.com/transform/45ed28c6-ec86-4263-a1c4-4eb97b35a306/1441890606?io=transform:fill,width:792,height:900'),
+(760, 'Breel', 'EMBOLO', 30, 4, 'https://digitalhub.fifa.com/transform/fddde1f0-9b46-47d1-8339-ff469f5971d4/1441890674?io=transform:fill,width:792,height:900'),
+(761, 'Remo', 'FREULER', 30, 2, 'https://digitalhub.fifa.com/transform/5bb0c1d1-8e43-48ba-b69b-7c3e2d23c399/1441890500?io=transform:fill,width:792,height:900'),
+(762, 'Haris', 'SEFEROVIC', 30, 4, 'https://digitalhub.fifa.com/transform/e502a8ec-1123-4e4e-a7a0-c158386a1676/1441890438?io=transform:fill,width:792,height:900'),
+(763, 'Granit', 'XHAKA', 30, 2, 'https://digitalhub.fifa.com/transform/6e96ca24-1db5-420a-ae84-2c3fec06e475/1441890746?io=transform:fill,width:792,height:900'),
+(764, 'Renato', 'STEFFEN', 30, 1, 'https://digitalhub.fifa.com/transform/64096447-c826-4d52-8a3b-5091d9e5eb9f/1441891378?io=transform:fill,width:792,height:900'),
+(765, 'Jonas', 'OMLIN', 30, 3, 'https://digitalhub.fifa.com/transform/5158dc8c-edb2-4014-81bd-316ee431bab5/1441891522?io=transform:fill,width:792,height:900'),
+(766, 'Ricardo', 'RODRIGUEZ', 30, 1, 'https://digitalhub.fifa.com/transform/552960e1-f94a-4414-a752-66143bc00743/1441891668?io=transform:fill,width:792,height:900'),
+(767, 'Michel', 'AEBISCHER', 30, 2, 'https://digitalhub.fifa.com/transform/c5bb2ce3-9e57-40dc-aaa9-c1a1cb6a6be5/1441891019?io=transform:fill,width:792,height:900'),
+(768, 'Mohameth', 'SOW', 30, 2, 'https://digitalhub.fifa.com/transform/a1ff59a2-300d-4d9e-b025-db58bf61d756/1441891481?io=transform:fill,width:792,height:900'),
+(769, 'Christian', 'FASSNACHT', 30, 2, 'https://digitalhub.fifa.com/transform/32f29fa8-e810-4ec8-8ca0-bed50fac6138/1441891103?io=transform:fill,width:792,height:900'),
+(770, 'Ruben', 'VARGAS', 30, 4, 'https://digitalhub.fifa.com/transform/a1d34b8d-3d54-4d42-92e4-02135078e64e/1441891203?io=transform:fill,width:792,height:900'),
+(771, 'Eray', 'COMERT', 30, 1, 'https://digitalhub.fifa.com/transform/cc63e46f-00f4-4bd1-8316-6724ec928dbf/1441891300?io=transform:fill,width:792,height:900'),
+(772, 'Noah', 'OKAFOR', 30, 4, 'https://digitalhub.fifa.com/transform/85dce406-409c-4fb0-80b7-4698c364f4a3/1441891254?io=transform:fill,width:792,height:900'),
+(773, 'Fabian', 'FREI', 30, 2, 'https://digitalhub.fifa.com/transform/62090036-08ea-49b8-906b-ec0345b48466/1441891567?io=transform:fill,width:792,height:900'),
+(774, 'Gregor', 'KOBEL', 30, 3, 'https://digitalhub.fifa.com/transform/1b8436f2-6db9-4fb0-877d-e3a908356eb8/1441890332?io=transform:fill,width:792,height:900'),
+(775, 'Fabian', 'SCHAER', 30, 1, 'https://digitalhub.fifa.com/transform/12c8ce4e-a873-49c2-b8a8-dfe16853b3e8/1441891589?io=transform:fill,width:792,height:900'),
+(776, 'Xherdan', 'SHAQIRI', 30, 2, 'https://digitalhub.fifa.com/transform/aafe4a81-10c9-490b-bf36-6109a9d6df76/1441890848?io=transform:fill,width:792,height:900'),
+(777, 'Philipp', 'KOEHN', 30, 3, 'https://digitalhub.fifa.com/transform/d59a479e-9eea-486e-a1e8-3222fbed4895/1441890363?io=transform:fill,width:792,height:900'),
+(778, 'Fabian', 'RIEDER', 30, 2, 'https://digitalhub.fifa.com/transform/c0f5e76f-0072-4e3d-9794-eeee02c823ee/1441891070?io=transform:fill,width:792,height:900'),
+(779, 'Ardon', 'JASHARI', 30, 2, 'https://digitalhub.fifa.com/transform/d4cf5de0-e2ce-4569-801d-4afa34a4bff6/1441891145?io=transform:fill,width:792,height:900'),
+(780, 'Aymen', 'MATHLOUTHI', 31, 3, 'https://digitalhub.fifa.com/transform/67f34b8e-416b-4848-bc15-65830e6e9c3d/1442513465?io=transform:fill,width:792,height:900'),
+(781, 'Bilel', 'IFA', 31, 1, 'https://digitalhub.fifa.com/transform/6ad1a857-46f0-4f0d-aad3-ea88ec01abd0/1442513910?io=transform:fill,width:792,height:900'),
+(782, 'Montassar', 'TALBI', 31, 1, 'https://digitalhub.fifa.com/transform/204e3865-8f50-410a-8326-ccb1928751dc/1442515148?io=transform:fill,width:792,height:900'),
+(783, 'Yassine', 'MERIAH', 31, 1, 'https://digitalhub.fifa.com/transform/79908820-ab07-43f7-acac-4566f1e6db6c/1442515239?io=transform:fill,width:792,height:900'),
+(784, 'Nader', 'GHANDRI', 31, 2, 'https://digitalhub.fifa.com/transform/ddfe7e2e-2ff6-450a-ae16-c5ab1627b9fe/1442513985?io=transform:fill,width:792,height:900'),
+(785, 'Dylan', 'BRONN', 31, 1, 'https://digitalhub.fifa.com/transform/21a658fa-09b6-43f9-874c-3da6530da0bc/1442513827?io=transform:fill,width:792,height:900'),
+(786, 'Youssef', 'MSAKNI', 31, 4, 'https://digitalhub.fifa.com/transform/dda4d665-f092-461b-b243-aac373166807/1442515172?io=transform:fill,width:792,height:900'),
+(787, 'Hannibal', 'MEJBRI', 31, 2, 'https://digitalhub.fifa.com/transform/946fdd8f-e514-4762-a414-4db377ab2f9e/1442513963?io=transform:fill,width:792,height:900'),
+(788, 'Issam', 'JEBALI', 31, 4, 'https://digitalhub.fifa.com/transform/86d02f79-e1bb-42e7-bcaa-f4c0449d8a53/1442514856?io=transform:fill,width:792,height:900'),
+(789, 'Wahbi', 'KHAZRI', 31, 4, 'https://digitalhub.fifa.com/transform/ac013426-94cc-480d-8232-b98c9d22bbd4/1442513861?io=transform:fill,width:792,height:900'),
+(790, 'Taha', 'KHENISSI', 31, 4, 'https://digitalhub.fifa.com/transform/00b9b11c-a625-4ca3-abee-0542a58670dd/1442514885?io=transform:fill,width:792,height:900'),
+(791, 'Ali', 'MAALOUL', 31, 1, 'https://digitalhub.fifa.com/transform/9524a20b-d88e-4ebe-b993-428db9d99b3f/1442514969?io=transform:fill,width:792,height:900'),
+(792, 'Ferjani', 'SASSI', 31, 2, 'https://digitalhub.fifa.com/transform/08ce6907-1050-460f-8c4e-919242845f9e/1442515055?io=transform:fill,width:792,height:900'),
+(793, 'Aissa', 'LAIDOUNI', 31, 2, 'https://digitalhub.fifa.com/transform/680502d6-145d-4bbb-a055-c182661ce9be/1442514798?io=transform:fill,width:792,height:900'),
+(794, 'BEN', 'ROMDHANE Ali', 31, 2, 'https://digitalhub.fifa.com/transform/dc4574dd-3cda-4c46-b0e0-19724343bf83/1442514774?io=transform:fill,width:792,height:900'),
+(795, 'Aymen', 'DAHMEN', 31, 3, 'https://digitalhub.fifa.com/transform/dc72a294-b62a-4d73-aa3a-a7ea904c06c1/1442513531?io=transform:fill,width:792,height:900'),
+(796, 'Ellyes', 'SKHIRI', 31, 2, 'https://digitalhub.fifa.com/transform/07cab2df-63e6-4a12-8576-c01c12503cb1/1442513770?io=transform:fill,width:792,height:900'),
+(797, 'Ghaylen', 'CHAALELI', 31, 2, 'https://digitalhub.fifa.com/transform/518118f0-cdac-4a54-b39e-10f6d547c3fe/1442514225?io=transform:fill,width:792,height:900'),
+(798, 'Seifeddine', 'JAZIRI', 31, 4, 'https://digitalhub.fifa.com/transform/b82cb142-2ff4-4999-9f7f-deabb6617823/1442514129?io=transform:fill,width:792,height:900'),
+(799, 'Mohamed', 'DRAGER', 31, 1, 'https://digitalhub.fifa.com/transform/a6f8e781-c336-403d-8e6b-69b2501b767a/1442514989?io=transform:fill,width:792,height:900'),
+(800, 'Wajdi', 'KECHRIDA', 31, 1, 'https://digitalhub.fifa.com/transform/2372798c-d8af-4cf1-9b41-dcd3be0b0960/1442514045?io=transform:fill,width:792,height:900'),
+(801, 'Bechir', 'BEN SAID', 31, 3, 'https://digitalhub.fifa.com/transform/22e2ba30-a074-4270-96d4-83d6515d9055/1442513690?io=transform:fill,width:792,height:900'),
+(802, 'Naim', 'SLITI', 31, 4, 'https://digitalhub.fifa.com/transform/a8f06fa0-a66b-45de-90a2-89c2da177002/1442515031?io=transform:fill,width:792,height:900'),
+(803, 'Ali', 'ABDI', 31, 1, 'https://digitalhub.fifa.com/transform/aca4bfac-4e2d-4d27-8f40-7ed4dc751325/1442514025?io=transform:fill,width:792,height:900'),
+(804, 'Anis', 'SLIMANE', 31, 4, 'https://digitalhub.fifa.com/transform/da7caf52-70ca-4417-a2e0-8c67ca174c8d/1442514104?io=transform:fill,width:792,height:900'),
+(805, 'Mouez', 'HASSEN', 31, 3, 'https://digitalhub.fifa.com/transform/191b2178-bb51-402f-b769-6d2f33a45cc8/1442513745?io=transform:fill,width:792,height:900'),
+(806, 'Fernando', 'MUSLERA', 32, 3, 'https://digitalhub.fifa.com/transform/fddf457a-f33a-4fbd-ac9c-f7e69ce8aecd/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(807, 'Jose', 'GIMENEZ', 32, 1, 'https://digitalhub.fifa.com/transform/5cf7c4fe-32aa-46ca-bcd1-399e34f19600/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(808, 'Diego', 'GODIN', 32, 1, 'https://digitalhub.fifa.com/transform/42f06674-737f-4da3-9563-7115f66d47f9/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(809, 'Ronald', 'ARAUJO', 32, 1, 'https://digitalhub.fifa.com/transform/e2a7c687-1f12-47f7-8602-e3fb57682fe1/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(810, 'Matias', 'VECINO', 32, 2, 'https://digitalhub.fifa.com/transform/3ee556f2-9a5e-45ce-bc8d-f640da9e5776/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(811, 'Rodrigo', 'BENTANCUR', 32, 2, 'https://digitalhub.fifa.com/transform/b9b57415-58e6-4b91-9717-d9eaa1df3867/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(812, 'Nicolas', 'DE LA CRUZ', 32, 2, 'https://digitalhub.fifa.com/transform/22dc251a-784c-44b7-acd7-336efcb50ac9/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(813, 'Facundo', 'PELLISTRI', 32, 4, 'https://digitalhub.fifa.com/transform/32356582-9555-43ae-919b-d33f3a8a1e37/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(814, 'Luis', 'SUAREZ', 32, 4, 'https://digitalhub.fifa.com/transform/58017e56-34d2-4a8b-96f5-4b04ee926aab/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(815, 'Giorgian', 'DE ARRASCAETA', 32, 2, 'https://digitalhub.fifa.com/transform/29d16cfe-87de-4565-a8fc-6b67898ea5c2/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(816, 'Darwin', 'NUNEZ', 32, 4, 'https://digitalhub.fifa.com/transform/5e5e87fe-d98f-40ae-b866-0f7c79a3b497/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(817, 'Sebastian', 'SOSA', 32, 3, 'https://digitalhub.fifa.com/transform/733a5466-d608-42be-b2d6-f2c9d6cd8cd3/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(818, 'Guillermo', 'VARELA', 32, 1, 'https://digitalhub.fifa.com/transform/eb452350-a1ef-4bfa-a590-c2fb57005784/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(819, 'Lucas', 'TORREIRA', 32, 2, 'https://digitalhub.fifa.com/transform/b17ffac2-6a95-421f-adee-45ec690fa365/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(820, 'Federico', 'VALVERDE', 32, 2, 'https://digitalhub.fifa.com/transform/8981ad23-7f91-42a7-a1ae-81659ab80e81/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(821, 'Mathias', 'OLIVERA', 32, 1, 'https://digitalhub.fifa.com/transform/e2fe8ed0-d78f-4706-9054-3833ccac319a/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(822, 'Matias', 'VINA', 32, 1, 'https://digitalhub.fifa.com/transform/9e3849d6-af10-4d8c-af1f-fdb42bb443e0/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(823, 'Maximiliano', 'GOMEZ', 32, 4, 'https://digitalhub.fifa.com/transform/f857d691-1652-42bb-bc41-4d8a55d831d1/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(824, 'Sebastian', 'COATES', 32, 1, 'https://digitalhub.fifa.com/transform/3c2ff7ba-7636-4d80-854a-e9e2e766fe45/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(825, 'Facundo', 'TORRES', 32, 4, 'https://digitalhub.fifa.com/transform/f857d691-1652-42bb-bc41-4d8a55d831d1/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(826, 'Edinson', 'CAVANI', 32, 4, 'https://digitalhub.fifa.com/transform/4ec8a736-ad71-44eb-8f55-8f51b33dc3d0/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(827, 'Martin', 'CACERES', 32, 1, 'https://digitalhub.fifa.com/transform/7264d53d-261e-4a6b-8982-d4ee6fd128d0/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(828, 'Sergio', 'ROCHET', 32, 3, 'https://digitalhub.fifa.com/transform/898d3b60-29b9-4139-b40d-f5e77b633be9/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(829, 'Agustin', 'CANOBBIO', 32, 2, 'https://digitalhub.fifa.com/transform/3fee1e25-3645-4b26-8656-9f1b10966b4e/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(830, 'Manuel', 'UGARTE', 32, 2, 'https://digitalhub.fifa.com/transform/32356582-9555-43ae-919b-d33f3a8a1e37/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900'),
+(831, 'Jose', 'Luis RODRIGUEZ', 32, 1, 'https://digitalhub.fifa.com/transform/3ee556f2-9a5e-45ce-bc8d-f640da9e5776/Uruguay-Portraits-FIFA-World-Cup-Qatar-2022?io=transform:fill,width:792,height:900');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `team`
+-- Estructura de tabla para la tabla `positions`
 --
 
-CREATE TABLE `team` (
-  `id` int(255) NOT NULL,
+DROP TABLE IF EXISTS `positions`;
+CREATE TABLE IF NOT EXISTS `positions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Truncar tablas antes de insertar `positions`
+--
+
+TRUNCATE TABLE `positions`;
+--
+-- Volcado de datos para la tabla `positions`
+--
+
+INSERT INTO `positions` (`id`, `name`) VALUES
+(1, 'Defensor'),
+(2, 'Mediocampista'),
+(3, 'Portero'),
+(4, 'Delantero');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `teams`
+--
+
+DROP TABLE IF EXISTS `teams`;
+CREATE TABLE IF NOT EXISTS `teams` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `description` varchar(500) NOT NULL,
   `gw` int(11) NOT NULL DEFAULT 0,
   `gd` int(11) NOT NULL DEFAULT 0,
   `gl` int(11) NOT NULL DEFAULT 0,
   `logo` varchar(200) NOT NULL,
-  `id_group` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_group` int(11) NOT NULL,
+  `img_team` varchar(500) DEFAULT NULL,
+  `gf` int(11) DEFAULT 0,
+  `gc` int(11) DEFAULT 0,
+  `dg` int(11) DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `team_group` (`id_group`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Truncar tablas antes de insertar `teams`
+--
+
+TRUNCATE TABLE `teams`;
+--
+-- Volcado de datos para la tabla `teams`
+--
+
+INSERT INTO `teams` (`id`, `name`, `description`, `gw`, `gd`, `gl`, `logo`, `id_group`, `img_team`, `gf`, `gc`, `dg`) VALUES
+(1, 'Alemania', 'La selección masculina de fútbol de Alemania es el equipo formado por jugadores de nacionalidad alemana que representa desde 1908 a la Federación Alemana de Fútbol en las competiciones oficiales organizadas por la Unión Europea de Asociaciones de Fútbol y la Federación Internacional de Asociaciones de Fútbol. ', 0, 1, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/GER?tx=c_fill,g_auto,q_auto', 5, 'https://cdn2.mediotiempo.com/uploads/media/2022/06/07/germanos-portaron-camiseta-usara-alemania.jpg', 2, 3, -1),
+(2, 'Arabia Saudí', 'La selección de fútbol de Arabia Saudita es el equipo representativo del país en las competiciones oficiales. Su organización está a cargo de la Federación de Fútbol de Arabia Saudita, perteneciente a la AFC.', 1, 0, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/KSA?tx=c_fill,g_auto,q_auto', 3, 'https://ep01.epimg.net/estaticos/arc/2022/11/mundial_qatar/genericos/images/media/equipos/ksa.jpg', 2, 3, -1),
+(3, 'Argentina', 'La selección masculina de fútbol de Argentina es el equipo formado por jugadores con dicha nacionalidad que representa desde 1902 a la Asociación del Fútbol Argentino (AFA) en las competiciones oficiales organizadas por la Confederación Sudamericana de Fútbol (CONMEBOL), ente rector de ese deporte en América del Sur, y por la Federación Internacional de Fútbol Asociación (FIFA).', 1, 0, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/ARG?tx=c_fill,g_auto,q_auto', 3, 'https://a.espncdn.com/photo/2022/0624/r1028668_1296x729_16-9.jpg', 3, 2, 1),
+(4, 'Australia', 'La selección de fútbol de Australia, también conocida como Socceroos, es el equipo masculino representativo de ese país para la práctica de este deporte. La selección está dirigida por Football Australia, su asociación rectora, y se encuentra afiliada a la Confederación Asiática de Fútbol.', 1, 0, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/AUS?tx=c_fill,g_auto,q_auto', 4, 'https://elcomercio.pe/resizer/FO4XutzGQSRIwaHeWLQlG7Hng_I=/980x528/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/273JQW6RDBDEVJACT3AYBCUJYA.jpg', 2, 4, -2),
+(5, 'Bélgica', 'La selección de fútbol de Bélgica es el equipo representativo del país en las competiciones oficiales. Su organización está a cargo de la Unión Real Belga de Sociedades de Fútbol Asociación, ​ perteneciente a la UEFA.', 1, 0, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/BEL?tx=c_fill,g_auto,q_auto', 6, 'https://media.primicias.ec/2022/08/04132219/belgica-paredon-1024x574.jpg', 1, 2, -1),
+(6, 'Brasil', 'La selección de fútbol de Brasil es el equipo que representa a dicho país en las competiciones oficiales de fútbol masculino. Su organización está a cargo de la Confederación Brasileña de Fútbol, perteneciente a la Confederación Sudamericana de Fútbol.', 2, 0, 0, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/BRA?tx=c_fill,g_auto,q_auto', 7, 'https://phantom-marca.unidadeditorial.es/5f41ddc43d0cdee8ed9154d830bbd107/resize/1320/f/jpg/assets/multimedia/imagenes/2022/11/13/16683149838308.jpg', 3, 0, 3),
+(7, 'Camerún', 'La selección de fútbol de Camerún es el equipo representativo de dicho país en la competencia, el cual está dirigido por la Federación Camerunesa de Fútbol.', 0, 1, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/CMR?tx=c_fill,g_auto,q_auto', 7, 'https://ep01.epimg.net/estaticos/arc/2022/11/mundial_qatar/genericos/images/media/equipos/cmr.jpg', 3, 4, -1),
+(8, 'Cánada', 'La selección de fútbol de Canadá es el equipo representativo del país en las competiciones oficiales masculinas. Está organizada por la Asociación Canadiense de Fútbol, la cual está afiliada a la Concacaf y a la FIFA. ', 0, 0, 2, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/CAN?tx=c_fill,g_auto,q_auto', 6, 'https://phantom-marca.unidadeditorial.es/cfc4cfacd03aef774db4e82576ce0f8c/resize/1320/f/jpg/assets/multimedia/imagenes/2022/11/14/16684379909953.jpg', 1, 5, -4),
+(9, 'Catar', 'La selección de fútbol de Catar (en árabe, منتخب قطر لكرة القدم‎) representa a ese país en las competiciones oficiales del deporte, y está coordinada por la Asociación de Fútbol de Catar, perteneciente a la Confederación Asiática de Fútbol.', 0, 0, 3, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/QAT?tx=c_fill,g_auto,q_auto', 1, 'https://img2.rtve.es/v/6739950?w=1600&preview=1668869555321.jpg', 1, 7, -6),
+(10, 'Costa Rica', 'La selección de fútbol de Costa Rica es el equipo representativo de dicho país en las competiciones oficiales. Su organización está a cargo de la Federación Costarricense de Fútbol, y compite en la Concacaf. Es la selección más laureada de Centroamérica por tener la mayor cantidad de títulos centroamericanos ganados.​', 0, 1, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/CRC?tx=c_fill,g_auto,q_auto', 5, 'https://ep01.epimg.net/estaticos/arc/2022/11/mundial_qatar/genericos/images/media/equipos/crc.jpg', 2, 3, -1),
+(11, 'Croacia', 'La selección de fútbol de Croacia es el equipo representativo de ese país. Desde 1940 es controlado por la Federación Croata de Fútbol en las competiciones oficiales organizadas por la UEFA y la FIFA. La selección se formó de manera definitiva en 1990 tras su independencia por el desmembramiento de Yugoslavia.', 1, 0, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/CRO?tx=c_fill,g_auto,q_auto', 6, 'https://ep01.epimg.net/estaticos/arc/2022/11/mundial_qatar/genericos/images/media/equipos/cro.jpg', 1, 7, -6),
+(12, 'Dinamarca', 'La selección de fútbol de Dinamarca es el equipo representativo de ese país y que controla la Unión Danesa de Fútbol desde 1906 en las competiciones oficiales organizadas por la Unión Europea de Asociaciones de Fútbol y la Federación Internacional de Asociaciones de Fútbol.', 1, 1, 0, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/DEN?tx=c_fill,g_auto,q_auto', 4, 'https://as01.epimg.net/futbol/imagenes/2017/11/20/reportajes/1511206879_785188_1511370566_noticiareportajes_grande.jpg', 4, 1, 3),
+(13, 'Ecuador', 'La selección de fútbol de Ecuador es el equipo representativo de ese país en las competiciones oficiales de fútbol. Está controlada por la Federación Ecuatoriana de Fútbol, perteneciente a la Conmebol. Fue fundada en 1925 y se incorporó a la FIFA en 1926.', 0, 1, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/ECU?tx=c_fill,g_auto,q_auto', 1, 'https://media.primicias.ec/2020/06/30085514/ecuadormundial.jpg', 1, 2, -1),
+(14, 'España', 'La selección de fútbol de España es, desde su creación en el año 1920, el equipo de balompié formado por jugadores de nacionalidad española que representa a la Real Federación Española de Fútbol (RFEF) en las competiciones oficiales organizadas por la Unión de Federaciones Europeas de Fútbol (UEFA) y la Federación Internacional de Fútbol Asociación (FIFA).', 1, 1, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/ESP?tx=c_fill,g_auto,q_auto', 5, 'https://ep01.epimg.net/estaticos/arc/2022/11/mundial_qatar/genericos/images/media/equipos/esp.jpg', 4, 3, 1),
+(15, 'Estados Unidos', 'La selección de fútbol masculina de los Estados Unidos es el equipo representativo del país en las competiciones oficiales masculinas. Su organización está a cargo de la Federación de Fútbol de los Estados Unidos, perteneciente a la Concacaf y a la FIFA. ', 1, 1, 0, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/USA?tx=c_fill,g_auto,q_auto', 2, 'https://img.asmedia.epimg.net/resizer/rMx-y4-QibQStiw8pDZv20MVefg=/1952x1098/filters:focal(2808x1183:2818x1193)/cloudfront-eu-central-1.images.arcpublishing.com/diarioas/NNSCXYEXT6K26YSMGO2QCV7LXQ.jpg', 8, 1, 7),
+(16, 'Francía', 'La selección de fútbol de Francia (en francés, Équipe de France de Football) también conocido como Les Bleus, es el equipo representativo del país en las competiciones oficiales de fútbol masculino. Su organización está a cargo de la Federación Francesa de Fútbol (FFF) fundada en 1919 y miembro de la UEFA por lo cual participan en las competencias organizadas por la UEFA y la FIFA. Su debut se produjo el 1 de mayo de 1904 ante la selección de Bélgica en un encuentro amistoso.', 1, 2, 0, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/FRA?tx=c_fill,g_auto,q_auto', 4, 'https://ep01.epimg.net/estaticos/arc/2022/11/mundial_qatar/genericos/images/media/equipos/fra.jpg', 2, 1, 1),
+(17, 'Gales', 'La selección de fútbol de Gales es el equipo representativo de ese país en las competiciones oficiales. Su organización está a cargo de la Asociación de Fútbol de Gales, perteneciente a la UEFA.', 2, 0, 0, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/WAL?tx=c_fill,g_auto,q_auto', 2, 'https://www.panenka.org/wp-content/uploads/2016/05/LISTA23GRANDE-8.jpg', 6, 2, 4),
+(18, 'Ghana', 'La selección de fútbol de Ghana es el equipo formado por jugadores de nacionalidad ghanesa que representa desde 1957 a la Asociación de Fútbol de Ghana en las competiciones oficiales organizadas por la CAF y la FIFA. ', 0, 1, 2, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/GHA?tx=c_fill,g_auto,q_auto', 8, 'https://media.tycsports.com/files/2022/11/14/504709/seleccion-de-ghana_1440x810_wmk.webp', 1, 6, -5),
+(19, 'Inglaterra', 'La selección de fútbol de Inglaterra (en inglés, England national football team) es el equipo representativo del país desde 1863 y es controlado por la Asociación Inglesa de Fútbol (The Football Association) en las competiciones oficiales organizadas por la Unión Europea de Asociaciones de Fútbol y la Federación Internacional de Asociaciones de Fútbol.', 1, 0, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/ENG?tx=c_fill,g_auto,q_auto', 2, 'https://ep01.epimg.net/estaticos/arc/2022/11/mundial_qatar/genericos/images/media/equipos/ing.jpg', 5, 5, 0),
+(20, 'Irán', 'La selección de fútbol de Irán, oficialmente reconocido por la FIFA como República Islámica de Irán1​, es el equipo representativo del país en las competiciones oficiales. Su organización está a cargo de la Federación de Fútbol de la República Islámica de Irán, perteneciente a la AFC.', 2, 1, 0, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/IRN?tx=c_fill,g_auto,q_auto', 2, 'https://ep01.epimg.net/estaticos/arc/2022/11/mundial_qatar/genericos/images/media/equipos/iri.jpg', 9, 2, 7),
+(21, 'Japón', 'La selección de fútbol de Japón es el equipo representativo del país y está afiliado desde 1920 a la Asociación de Fútbol de Japón en las competiciones oficiales organizadas por la Confederación Asiática de Fútbol y la Federación Internacional de Asociaciones de Fútbol.', 1, 0, 2, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/JPN?tx=c_fill,g_auto,q_auto', 5, 'https://s1.eestatic.com/2018/06/04/actualidad/actualidad_312482347_80567022_1024x576.jpg', 4, 7, -3),
+(22, 'Marruecos', 'La selección de fútbol de Marruecos es el equipo representativo del país en las competiciones oficiales, pertenece a la FIFA y a la CAF. Ganó una Copa Africana de Naciones en el año 1976. La selección ha participado en 6 mundiales de fútbol.', 1, 0, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/MAR?tx=c_fill,g_auto,q_auto', 6, 'https://ep01.epimg.net/estaticos/arc/2022/11/mundial_qatar/genericos/images/media/equipos/mar.jpg', 2, 2, 0),
+(23, 'México', 'La selección de fútbol ​de México es el equipo masculino representativo en las competiciones oficiales. Su organización está a cargo de la Federación Mexicana de Fútbol, la cual está afiliada a la FIFA desde 1929 y es asociación fundadora de la Concacaf, creada en 1961.​', 1, 1, 0, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/MEX?tx=c_fill,g_auto,q_auto', 3, 'https://library.sportingnews.com/styles/twitter_card_120x120/s3/2022-10/GettyImages-1243563206%20%281%29.jpg?itok=qMaipIRQ', 2, 0, 2),
+(24, 'Países Bajos', 'La selección de fútbol de los Países Bajos (en neerlandés Nederlands voetbalelftal) es el equipo representativo de este país en las competiciones oficiales desde 1905. Su organización está a cargo de la Real Asociación Neerlandesa de Fútbol (en neerlandés Koninklijke Nederlandse Voetbalbond), que es una de las asociaciones más antiguas del mundo y pertenece a la UEFA y esta afiliada a la FIFA. A menudo se la cita también, erróneamente, como la selección de fútbol de Holanda, siendo incluso su us', 0, 1, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/NED?tx=c_fill,g_auto,q_auto', 1, 'https://ep01.epimg.net/especiales/2021/eurocopa-futbol/holanda-trata-de-olvidar-a-van-dijk-y-koeman/img/paises-bajos.jpg', 0, 2, -2),
+(25, 'Polonia', 'La selección de fútbol de Polonia es el equipo representativo del país en las competiciones oficiales. Su organización está a cargo de la Asociación Polaca de Fútbol, perteneciente a la UEFA.', 2, 1, 0, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/POL?tx=c_fill,g_auto,q_auto', 3, 'https://estaticos-cdn.sport.es/clip/715b2249-7dd1-4736-bdcd-78e2c4369df1_alta-libre-aspect-ratio_default_0.jpg', 5, 1, 4),
+(26, 'Portugal', 'La selección de fútbol de Portugal. Está dirigida por la Federación Portuguesa de Fútbol, la cual está afiliada a la Unión de Asociaciones Europeas de Fútbol y a la Federación Internacional de Fútbol Asociado, por lo que la selección participa en las competencias que dichas entidades organizan.', 1, 1, 0, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/POR?tx=c_fill,g_auto,q_auto', 8, 'https://ep01.epimg.net/estaticos/arc/2022/11/mundial_qatar/genericos/images/media/equipos/por.jpg', 2, 0, 2),
+(27, 'República de Corea', 'La selección de fútbol de Corea del Sur (대한민국 축구 국가대표팀?, Daehanmin-guk Chukgu GukgadaepyotimRR), reconocido oficialmente por la FIFA como selección de fútbol de la República de Corea,2​ es el equipo representativo del país y que representa a la Asociación de Fútbol de Corea desde 1948 en las competiciones oficiales organizadas por la Confederación Asiática de Fútbol (AFC) y la Federación Internacional de Asociaciones de Fútbol (FIFA).', 2, 0, 0, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/KOR?tx=c_fill,g_auto,q_auto', 8, 'https://ep01.epimg.net/estaticos/arc/2022/11/mundial_qatar/genericos/images/media/equipos/kor.jpg', 5, 2, 3),
+(28, 'Senegal', 'La selección de fútbol de Senegal (en francés: équipe de football du Senegal) es el equipo representativo del país en las competiciones oficiales. A pesar de haber sido una selección con muy pocos triunfos históricamente en África, Senegal sorprendió al mundo por su participación en la Copa Mundial de Fútbol de 2002, al derrotar en el partido inaugural al entonces campeón, Francia, y luego avanzar hasta cuartos de final de la competición en donde sería eliminada por Turquía. Actualmente, es la s', 2, 0, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/SEN?tx=c_fill,g_auto,q_auto', 1, 'https://ep01.epimg.net/estaticos/arc/2022/11/mundial_qatar/genericos/images/media/equipos/sen.jpg', 5, 4, 1),
+(29, 'Serbia', 'La selección de fútbol de Serbia es el equipo representativo del país en las competiciones oficiales. Su federación está a cargo de la UEFA. La selección se fundó tras la desaparición de Serbia y Montenegro.', 0, 1, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/SRB?tx=c_fill,g_auto,q_auto', 7, 'https://media.primicias.ec/2022/08/15113819/serbia-2022-1024x574.jpg', 3, 5, -2),
+(30, 'Suiza', 'La selección de fútbol de Suiza (en alemán, Schweizer Fußballnationalmannschaft, en italiano, Nazionale di calcio della Svizzera) es el equipo representativo del país en las competiciones oficiales. Su organización está a cargo de la Asociación Suiza de Fútbol, perteneciente a la UEFA.', 1, 0, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/SUI?tx=c_fill,g_auto,q_auto', 7, 'https://img2.rtve.es/v/6724620?w=1600&preview=1667048561731.jpg', 1, 1, 0),
+(31, 'Túnez', 'La selección de fútbol de Túnez es el equipo formado por jugadores de nacionalidad tunecina que representa a la Federación Tunecina de Fútbol en las competiciones oficiales organizadas por la Confederación Africana de Fútbol y la Federación Internacional de Fútbol Asociación.', 0, 1, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/TUN?tx=c_fill,g_auto,q_auto', 4, 'https://s1.eestatic.com/2018/06/04/actualidad/actualidad_312482346_80566995_1024x576.jpg', 0, 1, -1),
+(32, 'Uruguay', 'La selección de fútbol de Uruguay es el equipo representativo del país en las competiciones oficiales. Su organización está a cargo de la Asociación Uruguaya de Fútbol, perteneciente a la Confederación Sudamericana de Fútbol (Conmebol). Conocida como «La Celeste», o «Los Charrúas», disputó su primer partido internacional en la ciudad de Montevideo el 20 de julio de 1901 contra la selección de fútbol de Argentina.', 0, 1, 1, 'https://cloudinary.fifa.com/api/v3/picture/flags-sq-4/URU?tx=c_fill,g_auto,q_auto', 8, 'https://ep01.epimg.net/estaticos/arc/2022/11/mundial_qatar/genericos/images/media/equipos/uru.jpg', 0, 2, -2);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Estructura de tabla para la tabla `users`
 --
 
-CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `last_name` varchar(200) NOT NULL,
   `username` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL,
-  `type` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `type` int(11) DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 --
--- Índices para tablas volcadas
+-- Truncar tablas antes de insertar `users`
 --
 
+TRUNCATE TABLE `users`;
 --
--- Indices de la tabla `favorite`
---
-ALTER TABLE `favorite`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `favorite_team` (`id_team`),
-  ADD KEY `favorite_user` (`id_user`);
-
---
--- Indices de la tabla `groups`
---
-ALTER TABLE `groups`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `players`
---
-ALTER TABLE `players`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `players_team` (`id_team`);
-
---
--- Indices de la tabla `team`
---
-ALTER TABLE `team`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `team_group` (`id_group`);
-
---
--- Indices de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
+-- Volcado de datos para la tabla `users`
 --
 
---
--- AUTO_INCREMENT de la tabla `favorite`
---
-ALTER TABLE `favorite`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `groups`
---
-ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `players`
---
-ALTER TABLE `players`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `team`
---
-ALTER TABLE `team`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+INSERT INTO `users` (`id`, `name`, `last_name`, `username`, `password`, `type`) VALUES
+(1, 'Susana', 'Castillo', 'susane', '123456', 1),
+(3, 'Susana', 'Castillo', 'susanc', '123456', 0),
+(4, 'Carlos', 'Campbell', 'carlosc', '123456', 0);
 
 --
 -- Restricciones para tablas volcadas
@@ -169,19 +1171,27 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `favorite`
 --
 ALTER TABLE `favorite`
-  ADD CONSTRAINT `favorite_team` FOREIGN KEY (`id_team`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `favorite_user` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `favorite_team` FOREIGN KEY (`id_team`) REFERENCES `teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `favorite_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `games`
+--
+ALTER TABLE `games`
+  ADD CONSTRAINT `game_team_a` FOREIGN KEY (`id_team_a`) REFERENCES `teams` (`id`),
+  ADD CONSTRAINT `game_team_b` FOREIGN KEY (`id_team_b`) REFERENCES `teams` (`id`);
 
 --
 -- Filtros para la tabla `players`
 --
 ALTER TABLE `players`
-  ADD CONSTRAINT `players_team` FOREIGN KEY (`id_team`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `players_positions` FOREIGN KEY (`position_id`) REFERENCES `positions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `players_team` FOREIGN KEY (`id_team`) REFERENCES `teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `team`
+-- Filtros para la tabla `teams`
 --
-ALTER TABLE `team`
+ALTER TABLE `teams`
   ADD CONSTRAINT `team_group` FOREIGN KEY (`id_group`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 

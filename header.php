@@ -60,8 +60,8 @@ if (!isset($_SESSION['user'])) {
             Resultados
           </a>
 
-          <a href="/contact" class="block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-red-700">
-            Contact
+          <a href="api.php" class="block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-red-700 <?= ($activePage == 'api') ? 'border-current text-red-700' : ''; ?>">
+            Api
           </a>
         </nav>
 

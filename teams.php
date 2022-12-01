@@ -41,7 +41,7 @@ require_once "header.php";
       <h2 class="text-xl font-semibold font-mono mb-4">Favoritos</h2>
       <div class="flex gap-5">
         <?php
-        $sql = "SELECT teams.name, teams.id,teams.logo,favorite.id as 'favorite_id' FROM `teams` INNER JOIN favorite ON teams.id = favorite.id_team WHERE favorite.id_user = '" . $_SESSION['id'] . "' ORDER BY name ASC LIMIT 6;";
+        $sql = "SELECT teams.name, teams.id,teams.logo,favorite.id as 'favorite_id' FROM `teams` INNER JOIN favorite ON teams.id = favorite.id_team WHERE favorite.id_user = '" . $_SESSION['id'] . "' ORDER BY name ASC";
 
         $result = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_array($result)) {
@@ -66,7 +66,7 @@ require_once "header.php";
       <div class="flex flex-wrap gap-2 justify-center">
         <?php
 
-        $sql = "SELECT * FROM `teams` WHERE id NOT IN (select f.id_team from favorite as f WHERE f.id_user = '" . $_SESSION['id'] . "');";
+        $sql = "SELECT * FROM `teams` WHERE id NOT IN (select f.id_team from favorite as f WHERE f.id_user = '" . $_SESSION['id'] . "')";
 
         $result = mysqli_query($conn, $sql);
 

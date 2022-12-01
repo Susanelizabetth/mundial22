@@ -77,7 +77,7 @@
             <div class="flex items-center justify-between">
               <p class="text-sm text-gray-500">
                 No tienes una cuenta?
-                <a href="#" class="underline">Crear Cuenta</a>
+                <a href="create_account.php" class="underline">Crear Cuenta</a>
               </p>
 
               <button type="submit" name="init_dash" class="ml-3 inline-block rounded-lg bg-violet-700 hover:bg-violet-800 px-5 py-3 text-sm font-medium text-white">
