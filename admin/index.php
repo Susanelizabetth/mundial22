@@ -78,11 +78,12 @@
             </div>
           </div>
 
-          <div class="flex items-center justify-center">
+          <div class="flex flex-col gap-10 items-center justify-center">
 
             <button type="submit" value="Submit" name="but_submit" id="but_submit" class="ml-3 inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white">
               Log In
             </button>
+            <a class="text-xs underline" href="../index.php">Ir al portal principal</a>
           </div>
           <?php
           if ($show_invalid == 1) {

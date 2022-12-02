@@ -46,7 +46,7 @@
             </li>
 
             <li>
-              <a class="text-gray-500 transition hover:text-gray-500/75" href="/">
+              <a class="text-gray-500 transition hover:text-gray-500/75 <?= ($activePage == 'users') ? 'font-bold text-black' : ''; ?>" href="users.php">
                 Usuarios
               </a>
             </li>

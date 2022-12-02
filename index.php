@@ -63,8 +63,8 @@ require_once "header.php";
 <div class="p-10">
   <div class="flex justify-between mb-4">
     <h2 class="text-xl font-semibold font-mono"><?php
-                                                if ($_SESSION != '') : echo 'Equipos Favoritos';
-                                                else : echo 'Equipos';
+                                                if ($_SESSION != '') : echo 'Equipos';
+                                                else : echo 'Equipos Favoritos';
                                                 endif;  ?></h2>
     <a class="btn btn-ghost btn-sm" href="teams.php">ver todos</a>
   </div>

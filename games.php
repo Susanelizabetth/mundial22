@@ -36,15 +36,15 @@ require_once "header.php";
                 </div>
 
                 <div class="flex flex-col gap-2">
-                  <div class="flex gap-5">
+                  <div class="flex gap-5 items-center">
                     <img src="<?php echo $row2['team_logo_a'] ?>" class="w-10 h-10 rounded-full" />
                     <p class=""><?php echo $row2['team_name_a'] ?></p>
-                    <p><?php echo $row2['gol_team_a'] ?></p>
+                    <p class="font-mono font-bold text-xl text-end"><?php echo $row2['gol_team_a'] ?></p>
                   </div>
-                  <div class="flex gap-5">
+                  <div class="flex gap-5 items-center">
                     <img src="<?php echo $row2['team_logo_b'] ?>" class="w-10 h-10 rounded-full" />
                     <p class=""><?php echo $row2['team_name_b'] ?></p>
-                    <p><?php echo $row2['gol_team_b'] ?></p>
+                    <p class="font-mono font-bold text-xl text-end"><?php echo $row2['gol_team_b'] ?></p>
 
                   </div>
 

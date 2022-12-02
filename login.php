@@ -2,15 +2,15 @@
     session_start();
     require_once "connection.php";
     $show_invalid = 0;
-    if (isset($_POST['init_dash'])) {
 
+    if (isset($_POST['init_dash'])) {
       $uname =  $_POST['username'];
       $password =  $_POST['password'];
 
-      $sql_query = "select count(*) as cntUser,id from users where username='$uname' and password='$password'";
+      $sql_query = "SELECT id FROM users where username='$uname' and password='$password'";
+      $succ = mysqli_query($conn, $sql_query);
 
-
-      if ($succ = mysqli_query($conn, $sql_query)) {
+      if (mysqli_num_rows($succ) > 0) {
         $user_data = mysqli_fetch_array($succ);
         $_SESSION['user'] = $uname;
         $_SESSION['id'] = $user_data['id'];
@@ -92,7 +92,7 @@
               <strong class="block font-medium text-red-700"> Algo salió mal </strong>
 
               <p class="mt-2 text-sm text-red-700">
-                Revisa que tu usuario y contraseña son los correctos. De ser correctos, puede que tu cuenta no este autorizada para entrar al portal admin
+                Revisa que tu usuario y contraseña son los correctos. O crea una cuenta
               </p>
             </div>
           <?php

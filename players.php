@@ -16,7 +16,7 @@ $row = mysqli_fetch_array($query);
     <div class="flex flex-col h-96 gap-2 w-2/5">
       <div class="flex gap-5 h-full items-center">
         <img class="h-10" src="<?php echo $row['logo'] ?>" alt="<?php echo $row['name'] ?>">
-        <h1 class="text-xl font-bold text-gray-900 sm:text-3xl"><?php echo $row['name'] ?></h1>
+        <h1 class="text-xl font-bold text-gray-900 sm:text-3xl">Equipo de <?php echo $row['name'] ?></h1>
       </div>
       <div class="h-full">
         <img src="<?php echo $row['img_team'] ?>" class=" object-cover object-top h-full" />

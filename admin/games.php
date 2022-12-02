@@ -7,7 +7,7 @@ require_once "header.php";
 <div class="flex justify-between mb-2">
   <h1 class=" font-bold text-xl self-center">Tabla de Juegos</h1>
   <a name="insert" id='insert' class="inline-block rounded border border-emerald-700 bg-emerald-700 px-5 py-2 text-sm font-medium text-white hover:bg-transparent hover:text-emerald-700 focus:outline-none focus:ring active:text-emerald-700" href="game_insert.php">
-    Ingresar grupo
+    Ingresar juego
   </a>
 
 </div>
