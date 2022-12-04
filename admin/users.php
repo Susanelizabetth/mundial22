@@ -62,9 +62,9 @@ require_once "header.php";
             <td class='whitespace-nowrap px-4 py-2 text-gray-700'><?php echo $username ?></td>
             <td class='whitespace-nowrap px-4 py-2 text-gray-700'><?php echo $password ?></td>
             <?php if ($type == 1) { ?>
-              <td class='whitespace-nowrap px-4 py-2 text-gray-700'>Cliente</td>
-            <?php } else { ?>
               <td class='whitespace-nowrap px-4 py-2 text-gray-700'>Administrador</td>
+            <?php } else { ?>
+              <td class='whitespace-nowrap px-4 py-2 text-gray-700'>Cliente</td>
             <?php } ?>
 
             <td class='whitespace-nowrap px-4 py-2 text-gray-700'><a href='user_update.php?id=<?php echo $row["id"] ?>' class='inline-block rounded border border-indigo-600 bg-indigo-600 px-2 py-2 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">

@@ -84,11 +84,11 @@ if (isset($_POST['update_user'])) {
         <select id="type" name="type" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm">
           <option value="" selected disabled hidden>Elige un grupo</option>
           <?php if ($row['type'] == '0') { ?>
-            <option value="0" selected>Administrador</option>
-            <option value="1">Usuario</option>
+            <option value="1" selected>Administrador</option>
+            <option value="0">Usuario</option>
           <?php } else { ?>
-            <option value="0">Administrador</option>
-            <option value="1" selected>Usuario</option>
+            <option value="1">Administrador</option>
+            <option value="0" selected>Usuario</option>
           <?php } ?>
         </select>
       </label>
