@@ -35,7 +35,7 @@ require_once "header.php";
     <tbody class="divide-y divide-gray-200">
       <?php
 
-      $sql = "SELECT t.name as 'team_name_a',t.logo as 'team_logo_a',t2.name as 'team_name_b',t2.logo as 'team_logo_b',g.gol_team_a,g.gol_team_b,g.datetime,g.id FROM `games` as g INNER JOIN teams as t on g.id_team_a=t.id INNER JOIN teams as t2 on g.id_team_b=t2.id;";
+      $sql = "SELECT t.name as 'team_name_a',t.logo as 'team_logo_a',t2.name as 'team_name_b',t2.logo as 'team_logo_b',g.gol_team_a,g.gol_team_b,g.datetime,g.id FROM `games` as g INNER JOIN teams as t on g.id_team_a=t.id INNER JOIN teams as t2 on g.id_team_b=t2.id ORDER BY datetime";
       $result = mysqli_query($conn, $sql);
       if (!$result) {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);

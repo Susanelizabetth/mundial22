@@ -57,7 +57,7 @@ if (!isset($_SESSION['user'])) {
           </a>
 
           <a href="results.php" class="block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-red-700  <?= ($activePage == 'results') ? 'border-current text-red-700' : ''; ?>">
-            Resultados
+            Tabla de posiciones
           </a>
 
           <a href="api.php" class="block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-red-700 <?= ($activePage == 'api') ? 'border-current text-red-700' : ''; ?>">

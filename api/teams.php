@@ -1,5 +1,6 @@
 <?php
 require_once "../connection.php";
+header('Content-Type: application/json; charset=utf-8');
 $sql = "SELECT g.name as 'group_name',t.id,t.name,t.gw,t.gd,t.gl,t.gf,t.gc,t.dg FROM `teams` as t INNER JOIN groups as g ON t.id_group = g.id ORDER BY group_name;";
 $result = mysqli_query($conn, $sql);
 $response = array();

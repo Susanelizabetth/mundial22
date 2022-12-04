@@ -1,5 +1,6 @@
 <?php
 require_once "../connection.php";
+header('Content-Type: application/json; charset=utf-8');
 $id = $_GET['id'];
 $sql = "SELECT t.name as 'team_name',p.id,t.logo,p.name,p.last_name,p.picture,pos.name as 'position' FROM `players` as p INNER JOIN teams as t ON p.id_team = t.id INNER JOIN positions as pos on p.position_id=pos.id WHERE p.id='$id'";
 $result = mysqli_query($conn, $sql);

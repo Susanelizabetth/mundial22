@@ -4,7 +4,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 require_once "header.php";
 ?>
 <div class="bg-red-700 py-5 px-10">
-  <h1 class="text-base-100 font-semibold font-mono text-xl uppercase">Resultados</h1>
+  <h1 class="text-base-100 font-semibold font-mono text-xl uppercase">Tabla de posiciones</h1>
 </div>
 <div class="p-10">
 
