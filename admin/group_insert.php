@@ -2,16 +2,21 @@
 require_once "../connection.php";
 $activePage = 'groups';
 require_once "header.php";
+require_once "../classes/classes.php";
 
+$group = new Groups;
 
 if (isset($_POST['insert_group'])) {
   $name = $_POST['name'];
-  $sql = "INSERT INTO `groups` (`name`) VALUES ('$name');";
-  if (mysqli_query($conn, $sql)) {
-    header("Location: groups.php");
-  } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+  if ($group->ifName($name)) {
+    $sql = "INSERT INTO `groups` (`name`) VALUES ('$name');";
+    if (mysqli_query($conn, $sql)) {
+      header("Location: groups.php");
+    } else {
+      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
   }
+ 
 }
 ?>
 <div class="flex gap-10 mb-3">
@@ -37,9 +42,6 @@ if (isset($_POST['insert_group'])) {
       <input type="text" id="name" placeholder="Nombre del grupo" name="name" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" required />
     </label>
   </div>
-
-
-
 
 
   <div class="mt-4 flex justify-between">

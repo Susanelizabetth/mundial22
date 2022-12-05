@@ -2,21 +2,33 @@
 require_once "../connection.php";
 $activePage = 'groups';
 require_once "header.php";
+require_once "../classes/classes.php";
 
 $id = $_GET['id'];
-$sql = "SELECT * FROM `groups` WHERE id = $id";
+$group = new Groups;
+
+
+if($group->ifId($id)){
+  $sql = "SELECT * FROM `groups` WHERE id = $id";
 $query = mysqli_query($conn, $sql);
 $row = mysqli_fetch_array($query);
+}else{
+    header("Location: groups.php");
+}
 
 
 if (isset($_POST['update_group'])) {
   $name = $_POST['name'];
-  $sql = "UPDATE `groups` SET name = '$name' WHERE id = '$id';";
-  if (mysqli_query($conn, $sql)) {
-    header("Location: groups.php");
-  } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+  if ($group->updateGroup($name, $id)) {
+    $sql = "UPDATE `groups` SET name = '$name' WHERE id = '$id';";
+    if (mysqli_query($conn, $sql)) {
+      header("Location: groups.php");
+    } else {
+      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
   }
+
+ 
 }
 ?>
 <div class="flex gap-10 mb-3">

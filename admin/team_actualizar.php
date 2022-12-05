@@ -2,12 +2,16 @@
 require_once "../connection.php";
 $activePage = 'teams';
 require_once "header.php";
+require_once "../classes/classes.php";
+$teams =  new Teams;
 $id = $_GET['id'];
 
-$sql = "SELECT * FROM teams WHERE id = $id";
+if ($teams->ifId($id)) {
 
-$query = mysqli_query($conn, $sql);
-$row = mysqli_fetch_array($query);
+  $sql = "SELECT * FROM teams WHERE id = $id";
+  $query = mysqli_query($conn, $sql);
+  $row = mysqli_fetch_array($query);
+}
 
 if (isset($_POST['save_update'])) {
   $name = $_POST['team_name'];
@@ -22,11 +26,13 @@ if (isset($_POST['save_update'])) {
   $gc = $_POST['gc'];
   $dg = $_POST['dg'];
 
-  $sql = "UPDATE teams SET name = '$name',description = '$description', gw = '$gw', gd = '$gd', gl = '$gl',logo='$logo',img_team='$img_photo',id_group='$grupo', gf='$gf', gc='$gc', dg='$dg' WHERE id = $id;";
-  if (mysqli_query($conn, $sql)) {
-    header("Location: teams.php");
-  } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+  if ($teams->checkBefore($name, $description, $logo,$grupo)) {
+    $sql = "UPDATE teams SET name = '$name',description = '$description', gw = '$gw', gd = '$gd', gl = '$gl',logo='$logo',img_team='$img_photo',id_group='$grupo', gf='$gf', gc='$gc', dg='$dg' WHERE id = $id;";
+    if (mysqli_query($conn, $sql)) {
+      header("Location: teams.php");
+    } else {
+      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
   }
 }
 ?>
@@ -46,14 +52,14 @@ if (isset($_POST['save_update'])) {
     <label for="teamName" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
       <span class="text-xs font-medium text-gray-700"> Nombre del equipo </span>
 
-      <input type="text" id="teamName" placeholder="Nombre del equipo" value="<?php echo $row['name']  ?>" name="team_name" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
+      <input type="text" id="teamName" placeholder="Nombre del equipo" value="<?php echo $row['name']  ?>" name="team_name" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" required />
     </label>
   </div>
   <div>
     <label for="descripcion" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
       <span class="text-xs font-medium text-gray-700"> Descripción del equipo</span>
 
-      <textarea class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" placeholder="Descripción" rows="8" id="descripcion" name="description"><?php echo $row['description']  ?></textarea>
+      <textarea class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" placeholder="Descripción" rows="8" id="descripcion" name="description" required><?php echo $row['description']  ?></textarea>
     </label>
   </div>
 
@@ -115,7 +121,7 @@ if (isset($_POST['save_update'])) {
       <label for="logo" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
         <span class="text-xs font-medium text-gray-700"> Link del logo del país </span>
 
-        <input type="text" id="logo" placeholder="Link del logo del país" name="logo" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" value="<?php echo $row['logo']  ?>" />
+        <input type="text" id="logo" placeholder="Link del logo del país" name="logo" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" value="<?php echo $row['logo']  ?>" required />
       </label>
     </div>
 
@@ -131,7 +137,7 @@ if (isset($_POST['save_update'])) {
     <label for="groupId" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
       <span class="text-xs font-medium text-gray-700"> Grupo al que pertenece </span>
 
-      <select id="groupId" name="group_id" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm">
+      <select id="groupId" name="group_id" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" required>
         <?php
         $sql = "SELECT * FROM groups";
         $result = mysqli_query($conn, $sql);

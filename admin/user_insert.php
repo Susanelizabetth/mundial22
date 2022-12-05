@@ -2,7 +2,8 @@
 require_once "../connection.php";
 $activePage = 'users';
 require_once "header.php";
-
+require_once "../classes/classes.php";
+$users =  new Users;
 
 if (isset($_POST['insert_user'])) {
   $name = $_POST['name'];
@@ -11,15 +12,16 @@ if (isset($_POST['insert_user'])) {
   $password = $_POST['password'];
   $type = $_POST['type'];
 
-
-  $query = "INSERT INTO users (name,last_name,username,password,type)
+  if ($users->checkBefore($name, $last_name, $username, $password, $type)) {
+    $query = "INSERT INTO users (name,last_name,username,password,type)
   VALUES ('$name','$last_name','$username','$password','$type')";
 
-  if (mysqli_query($conn, $query)) {
+    if (mysqli_query($conn, $query)) {
 
-    header("Location: users.php");
-  } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+      header("Location: users.php");
+    } else {
+      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
   }
 }
 ?>
@@ -43,7 +45,7 @@ if (isset($_POST['insert_user'])) {
       <label for="name" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
         <span class="text-xs font-medium text-gray-700"> Nombre </span>
 
-        <input type="text" id="name" placeholder="Nombre" name="name" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
+        <input type="text" id="name" placeholder="Nombre" name="name" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" required />
       </label>
     </div>
 
@@ -61,7 +63,7 @@ if (isset($_POST['insert_user'])) {
       <label for="username" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
         <span class="text-xs font-medium text-gray-700"> Nombre de usuario </span>
 
-        <input type="text" id="username" placeholder=" Nombre de usuario" name="username" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
+        <input type="text" id="username" placeholder=" Nombre de usuario" name="username" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" required />
       </label>
     </div>
 
@@ -69,7 +71,7 @@ if (isset($_POST['insert_user'])) {
       <label for="password" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
         <span class="text-xs font-medium text-gray-700"> Contraseña </span>
 
-        <input type="text" id="password" placeholder="Contraseña" name="password" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
+        <input type="text" id="password" placeholder="Contraseña" name="password" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" required />
       </label>
     </div>
 
@@ -77,7 +79,7 @@ if (isset($_POST['insert_user'])) {
       <label for="type" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
         <span class="text-xs font-medium text-gray-700"> Tipo de usuario </span>
 
-        <select id="type" name="type" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm">
+        <select id="type" name="type" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" required>
           <option value="" selected disabled hidden>Elige un grupo</option>
           <option value="0">Cliente</option>
           <option value="1">Administrador</option>

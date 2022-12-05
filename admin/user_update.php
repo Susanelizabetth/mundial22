@@ -2,12 +2,15 @@
 require_once "../connection.php";
 $activePage = 'users';
 require_once "header.php";
+require_once "../classes/classes.php";
+$users =  new Users;
 
 $id = $_GET['id'];
-$sql = "SELECT * FROM `users` WHERE id = $id";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_array($result);
-
+if ($users->ifId($id)) {
+  $sql = "SELECT * FROM `users` WHERE id = $id";
+  $result = mysqli_query($conn, $sql);
+  $row = mysqli_fetch_array($result);
+}
 
 if (isset($_POST['update_user'])) {
   $name = $_POST['name'];
@@ -16,14 +19,16 @@ if (isset($_POST['update_user'])) {
   $password = $_POST['password'];
   $type = $_POST['type'];
 
+  if ($users->checkBefore($name, $last_name, $username, $password, $type)) {
 
-  $query = "UPDATE users SET name='$name', last_name='$last_name',username='$username',password='$password',type='$type' WHERE id = '$id'";
+    $query = "UPDATE users SET name='$name', last_name='$last_name',username='$username',password='$password',type='$type' WHERE id = '$id'";
 
-  if (mysqli_query($conn, $query)) {
+    if (mysqli_query($conn, $query)) {
 
-    header("Location: users.php");
-  } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+      header("Location: users.php");
+    } else {
+      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
   }
 }
 ?>
@@ -47,7 +52,7 @@ if (isset($_POST['update_user'])) {
       <label for="name" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
         <span class="text-xs font-medium text-gray-700"> Nombre </span>
 
-        <input type="text" id="name" placeholder="Nombre" name="name" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" value="<?php echo $row['name'] ?>" />
+        <input type="text" id="name" placeholder="Nombre" name="name" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" value="<?php echo $row['name'] ?>" required />
       </label>
     </div>
 
@@ -65,7 +70,7 @@ if (isset($_POST['update_user'])) {
       <label for="username" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
         <span class="text-xs font-medium text-gray-700"> Nombre de usuario </span>
 
-        <input type="text" id="username" placeholder=" Nombre de usuario" name="username" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" value="<?php echo $row['username'] ?>" />
+        <input type="text" id="username" placeholder=" Nombre de usuario" name="username" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" value="<?php echo $row['username'] ?>" required/>
       </label>
     </div>
 
@@ -73,7 +78,7 @@ if (isset($_POST['update_user'])) {
       <label for="password" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
         <span class="text-xs font-medium text-gray-700"> Contraseña </span>
 
-        <input type="text" id="password" placeholder="Contraseña" name="password" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" value="<?php echo $row['password'] ?>" />
+        <input type="text" id="password" placeholder="Contraseña" name="password" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" value="<?php echo $row['password'] ?>" required />
       </label>
     </div>
 
@@ -81,9 +86,9 @@ if (isset($_POST['update_user'])) {
       <label for="type" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
         <span class="text-xs font-medium text-gray-700"> Tipo de usuario </span>
 
-        <select id="type" name="type" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm">
+        <select id="type" name="type" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" required>
           <option value="" selected disabled hidden>Elige un grupo</option>
-          <?php if ($row['type'] == '0') { ?>
+          <?php if ($row['type'] == 1) { ?>
             <option value="1" selected>Administrador</option>
             <option value="0">Usuario</option>
           <?php } else { ?>

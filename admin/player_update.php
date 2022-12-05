@@ -2,12 +2,15 @@
 require_once "../connection.php";
 $activePage = 'players';
 require_once "header.php";
+require_once "../classes/classes.php";
+$players =  new Players;
 $id = $_GET['id'];
 
-$sql = "SELECT * FROM players WHERE id = $id";
-
-$query = mysqli_query($conn, $sql);
-$row = mysqli_fetch_array($query);
+if ($players->ifId($id)) {
+  $sql = "SELECT * FROM `players` WHERE id = $id";
+  $query = mysqli_query($conn, $sql);
+  $row = mysqli_fetch_array($query);
+}
 
 if (isset($_POST['update_player'])) {
   $name = $_POST['name'];
@@ -16,12 +19,15 @@ if (isset($_POST['update_player'])) {
   $position = $_POST['position'];
   $picture = $_POST['picture'];
 
-  $sql = "UPDATE players SET name = '$name', last_name = '$last_name', id_team = '$team', position_id = '$position', picture = '$picture' WHERE id = $id";
 
-  if (mysqli_query($conn, $sql)) {
-    header("Location: players.php");
-  } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+  if ($players->checkBefore($name, $last_name, $team, $position, $picture)) {
+
+    $sql = "UPDATE players SET name = '$name', last_name = '$last_name', id_team = '$team', position_id = '$position', picture = '$picture' WHERE id = $id";
+    if (mysqli_query($conn, $sql)) {
+      header("Location: players.php");
+    } else {
+      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
   }
 }
 ?>

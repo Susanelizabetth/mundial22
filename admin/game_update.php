@@ -2,13 +2,21 @@
 require_once "../connection.php";
 $activePage = 'games';
 require_once "header.php";
+require_once "../classes/classes.php";
 
 $id = $_GET['id'];
+$games = new Games();
 
-$sql = "SELECT * FROM games WHERE id = $id";
 
-$query = mysqli_query($conn, $sql);
-$row = mysqli_fetch_array($query);
+if($games->ifId($id)){
+  $sql = "SELECT * FROM games WHERE id = $id";
+  $query = mysqli_query($conn, $sql);
+  $row = mysqli_fetch_array($query);
+}else{
+  header("Location: games.php");
+}
+
+
 
 if (isset($_POST['insert_group'])) {
   $datetime = $_POST['datetime'];
@@ -17,11 +25,14 @@ if (isset($_POST['insert_group'])) {
   $gol_team_a = $_POST['gol_team_a'];
   $gol_team_b = $_POST['gol_team_b'];
 
-  $sql = "UPDATE games SET datetime='$datetime', id_team_a='$team_a', id_team_b='$team_b', gol_team_a='$gol_team_a', gol_team_b='$gol_team_b' WHERE id=$id;";
-  if (mysqli_query($conn, $sql)) {
-    header("Location: games.php");
-  } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+  if($games->checkBeforeUpdate($datetime,$team_a,$team_b,$gol_team_a,$gol_team_b)){
+    $sql = "UPDATE games SET datetime = '$datetime', id_team_a = $team_a, id_team_b = $team_b, gol_team_a = $gol_team_a, gol_team_b = $gol_team_b WHERE id = $id";
+    $query = mysqli_query($conn, $sql);
+    if (!$query) {
+      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    } else {
+      header("Location: games.php");
+    }
   }
 }
 ?>

@@ -2,6 +2,8 @@
 require_once "../connection.php";
 $activePage = 'teams';
 require_once "header.php";
+require_once "../classes/classes.php";
+$teams =  new Teams;
 
 
 if (isset($_POST['save'])) {
@@ -17,14 +19,17 @@ if (isset($_POST['save'])) {
   $gc = $_POST['gc'];
   $dg = $_POST['dg'];
 
-  $query = "INSERT INTO teams (name,description,gw,gd,gl,logo,id_group,img_team,gf,gc,dg)
+  if ($teams->checkBefore($name, $description, $logo,$grupo)) {
+
+    $query = "INSERT INTO teams (name,description,gw,gd,gl,logo,id_group,img_team,gf,gc,dg)
   VALUES ('$name','$description','$gw','$gd','$gl','$logo','$grupo','$img_photo','$gf','$gc','$dg')";
 
-  if (mysqli_query($conn, $query)) {
+    if (mysqli_query($conn, $query)) {
 
-    header("Location: teams.php");
-  } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+      header("Location: teams.php");
+    } else {
+      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
   }
 }
 ?>
@@ -48,14 +53,14 @@ if (isset($_POST['save'])) {
     <label for="teamName" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
       <span class="text-xs font-medium text-gray-700"> Nombre del equipo </span>
 
-      <input type="text" id="teamName" placeholder="Nombre del equipo" name="team_name" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
+      <input type="text" id="teamName" placeholder="Nombre del equipo" name="team_name" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" required />
     </label>
   </div>
   <div>
     <label for="descripcion" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
       <span class="text-xs font-medium text-gray-700"> Descripción del equipo</span>
 
-      <textarea class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" placeholder="Descripción" rows="8" id="descripcion" name="description"></textarea>
+      <textarea class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" placeholder="Descripción" rows="8" id="descripcion" name="description" required></textarea>
     </label>
   </div>
 
@@ -118,7 +123,7 @@ if (isset($_POST['save'])) {
       <label for="logo" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
         <span class="text-xs font-medium text-gray-700"> Link del logo del país </span>
 
-        <input type="text" id="logo" placeholder="Link del logo del país" name="logo" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
+        <input type="text" id="logo" placeholder="Link del logo del país" name="logo" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" required />
       </label>
     </div>
 
@@ -134,7 +139,7 @@ if (isset($_POST['save'])) {
     <label for="groupId" class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
       <span class="text-xs font-medium text-gray-700"> Grupo al que pertenece </span>
 
-      <select id="groupId" name="group_id" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm">
+      <select id="groupId" name="group_id" class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" required>
         <option value="" selected disabled hidden>Elige un grupo</option>
         <?php
         $sql = "SELECT * FROM groups";

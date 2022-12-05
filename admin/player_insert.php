@@ -2,7 +2,8 @@
 require_once "../connection.php";
 $activePage = 'players';
 require_once "header.php";
-
+require_once "../classes/classes.php";
+$players =  new Players;
 
 if (isset($_POST['insert_player'])) {
   $name = $_POST['name'];
@@ -10,11 +11,15 @@ if (isset($_POST['insert_player'])) {
   $team = $_POST['team'];
   $position = $_POST['position'];
   $picture = $_POST['picture'];
-  $sql = "INSERT INTO players (name,last_name,id_team,position_id,picture) VALUES ('$name','$last_name','$team','$position','$picture')";
-  if (mysqli_query($conn, $sql)) {
-    header("Location: players.php");
-  } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+  
+  if ($players->checkBefore($name, $last_name, $team, $position, $picture)) {
+
+    $sql = "INSERT INTO players (name,last_name,id_team,position_id,picture) VALUES ('$name','$last_name','$team','$position','$picture')";
+    if (mysqli_query($conn, $sql)) {
+      header("Location: players.php");
+    } else {
+      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
   }
 }
 ?>
