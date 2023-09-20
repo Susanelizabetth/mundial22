@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$database = "mundial2022";
-$username = "root";
-$password = "";
+$database = "u344831085_sc";
+$username = "u344831085_admin";
+$password = "8681SuKu*";
 
 $conn = mysqli_connect($servername, $username, $password, $database);
 
